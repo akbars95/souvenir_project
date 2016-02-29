@@ -1,0 +1,120 @@
+@CHARSET "UTF-8";
+
+.activeLanguage {
+	color: green;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.activeLanguage:hover {
+	text-decoration: none;
+	color: blue;
+}
+
+.languageBar ul li {
+	display: inline;
+	border-left: 10px solid yellowgreen;
+	border-bottom: 2px solid yellowgreen;
+}
+
+img.contact_img {
+	width: 100%;
+}
+
+span.numbers {
+	display: block;
+	border: 5px solid green;
+	border-radius: 55px;
+	width: 25%;
+	background-color: yellow;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 19px;
+	font-weight: bold;
+	margin-bottom: 9px;
+	cursor: pointer;
+}
+
+#googleMap {
+	width: 75%;
+	height: 250px;
+	margin: 0 auto;
+}
+
+#person_сaptcha {
+	width: 50%;
+	display: inline;
+}
+
+#refreshCaptchaBtn {
+	cursor: pointer;
+}
+
+label.contact_us_form_item::after {
+	content: '*';
+	color: red;
+	font-size: 19px;
+	font-weight: bold;
+}
+
+textarea {
+	resize: none;
+}
+
+.form-horizontal .control-label {
+	text-align: left;
+}
+
+#footer {
+	background-color: ghostwhite;
+}
+
+.footer {
+	padding: 15px;
+}
+
+input[type="text"].ng-invalid, textarea.ng-invalid, input[type="email"].ng-invalid {
+	background-color: lightpink;
+}
+
+input[type="text"].ng-valid, textarea.ng-valid, input[type="email"].ng-valid {
+	background-color: lightgreen;
+}
+
+span.error {
+	color: red;
+	font-weight: bold;
+}
+
+/*refresh captcha */
+@-webkit-keyframes refresh-captcha {
+  0%   { transform: rotate(0deg); }
+  /* 50%   { transform: rotate(180deg); } */
+  100% { transform: rotate(360deg); }
+}
+@-moz-keyframes refresh-captcha {
+  0%   { transform: rotate(0deg); }
+  /* 50%   { transform: rotate(180deg); } */
+  100% { transform: rotate(360deg); }
+}
+@-o-keyframes refresh-captcha {
+  0%   { transform: rotate(0deg); }
+  /* 50%   { transform: rotate(180deg); } */
+  100% { transform: rotate(360deg); }
+}
+@keyframes refresh-captcha {
+  0%   { transform: rotate(0deg); }
+  /* 50%   { transform: rotate(180deg); } */
+  100% { transform: rotate(360deg); }
+}
+
+.refreshCaptcha {
+  -webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
+  -moz-animation:    refresh-captcha 1s infinite; /* Fx 5+ */
+  -o-animation:      refresh-captcha 1s infinite; /* Opera 12+ */
+  animation:         refresh-captcha 1s infinite; /* IE 10+, Fx 29+ */
+}
+
+.catalogPageBody{
+	padding: 10px 20px;
+}

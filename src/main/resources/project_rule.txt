@@ -1,0 +1,104 @@
+JAVA CODE SOUVENIR PROJECT CONVENTION
+
+Model class:(in parentheses Example)
+	package: model(com.mtsmda.souvenir.model)
+	class name - CamelCase(Captcha)
+	properties name - Java standard convention
+	implementations - Serializable
+	constructors - empty(is required) and etc...
+	Object methods - hashCode, equals, toString
+	get-, set- ters
+	class annotation - com.mtsmda.souvenir.annotation.ModelClassInfo
+	
+Stored procedure:
+	package: com.mtsmda.souvenir.model.sp
+	class name - CamelCase class name + SP (CaptchaSP)
+	stored procedure name: stored procedure name (upper came delimiter - underscore) + SP_NAME
+	function name: function name (upper came delimiter - underscore) + FN_NAME
+	column name: column name (upper came delimiter - underscore)
+	stored procedure parameter name: column name (upper came delimiter - underscore) + SP_PARAM_NAME
+	
+Repository Interface:
+	package: com.mtsmda.souvenir.repository
+	interface name - CamelCase class name + Repository (CaptchaRepository)
+	
+Repository Class:
+	package: com.mtsmda.souvenir.repository.impl.java_standard
+	class name - CamelCase class name + RepositoryImplSPJavaStandard (CaptchaRepositoryImplSPJavaStandard)
+	class annotation: @Repository - name should be class name only first letter lower case(captchaRepositoryImplSPJavaStandard)
+	
+Service Interface:
+	package: com.mtsmda.souvenir.service
+	interface name - CamelCase class name + Service (CaptchaService)
+	extends - repository interface
+	
+Service Class:
+	package: com.mtsmda.souvenir.service.impl
+	class name - CamelCase class name + ServiceImpl (CaptchaServiceImpl)
+	class annotation: @Service - name should be implementation interface name only first letter lower case(captchaService)
+	implements: Service Interface(CaptchaService)
+
+Controller Class:
+	package: com.mtsmda.souvenir.controller
+	class name - CamelCase class name or other + Controller (AdminController)
+	annotation: @Controller
+	url: @RequestMapping value field take from controller constants(package: com.mtsmda.souvenir.controller.constants)
+	return value: take from controller constants
+	
+RestController Class:
+	package: com.mtsmda.souvenir.restController
+	class name - CamelCase class name or other + RestController (CaptchaRestController)
+	annotation: @RestController
+	url: @RequestMapping value field take from controller constants(com.mtsmda.souvenir.restController.constants)
+	return value: take from controller constants
+	
+Controller and RestController Constants:
+	common url: name + _PIECE(ADMIN_PIECE_PIECE)
+	internal project url: name + _INTERNAL_FOLDER or _INTERNAL_FILE(SOUVENIR_PIECE_INTERNAL_FOLDER)
+	http url: name + _URL or _INTERNAL_URL(SOUVENIR_PIECE_OP_INSERT_URL or SOUVENIR_PIECE_INSERT_INTERNAL_URL)
+
+Project exception:
+	package: com.mtsmda.souvenir.exception
+	checked: SouvenirException
+	unchecked: SouvenirRuntimeException
+
+Helper classes:
+	package: com.mtsmda.souvenir.helper
+	class name: class name(CamelCase) + Helper
+
+Project annotation:
+	package: com.mtsmda.souvenir.annotation
+
+
+
+
+
+DATABASE SIDE SOUVENIR PROJECT CONVENTION
+
+Table:
+	location in project: src/main/resources/db/table
+	table name: upper case name, every word need divide - sign underscore(SOUVENIR_CATEGORIES)
+	table column: lower case name, every word need divide - sign underscore(souvenir_category_id)
+	
+View:
+	location in project: src/main/resources/db/view
+	view name: upper case name, every word need divide - sign underscore(FULL_SELECT_SOUVENIRS)
+	file name: upper case name, every word need divide - sign underscore(full_select_souvenirs.sql)
+
+Trigger:
+	location in project: src/main/resources/db/trigger
+	trigger name: table name + underscore + (AFTER or BEFORE) + (operation: INSERT, UPDATE, DELETE) (SOUVENIRS_AFTER_INSERT)
+	file name: table name(lower case) + underscore + (AFTER or BEFORE) + (operation: INSERT, UPDATE, DELETE) (souvenirs_AFTER_INSERT.sql)
+	
+Function:
+	location in project: src/main/resources/db/function
+	function name: CamelCase(getMaxIdCaptcha)
+	file name: file name: same as function name(getMaxIdCaptcha.sql)
+	function parameter: table column name + upper case(operation - IN, OUT, INOUT)
+
+Stored Procedure:
+	location in project: src/main/resources/db/stored_procedure
+	stored procedure name: (operation: get-, getAll-, insert-, update-, delete-, check-, select-) + table name(first work Upper case)(checkCaptcha)
+	file name: file name: same as stored procedure name(checkCaptcha.sql)
+	stored procedure parameter: table column name + upper case(operation - IN, OUT, INOUT)(captcha_idIN)
+	

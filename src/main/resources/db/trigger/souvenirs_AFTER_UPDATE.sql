@@ -1,0 +1,11 @@
+USE `souvenir`;
+
+DELIMITER $$
+
+DROP TRIGGER IF EXISTS souvenir.SOUVENIRS_AFTER_UPDATE$$
+USE `souvenir`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `souvenir`.`SOUVENIRS_AFTER_UPDATE` AFTER UPDATE ON `SOUVENIRS` FOR EACH ROW
+BEGIN
+	update SOUVENIRS_AUDIT set last_update_datetime = now() where souvenir_id = OLD.souvenir_id;
+END$$
+DELIMITER ;

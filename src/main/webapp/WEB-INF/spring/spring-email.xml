@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="emailProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/spring/email.properties" />
+	</bean>
+
+	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
+		<property name="host" value="${mail.host}" /> <property name="port" value="${mail.port}" 
+		/> <property name="username" value="${mail.username}" /> <property name="password" 
+		value="${mail.password}" /> <property name="javaMailProperties"> <props> 
+		<prop key="mail.transport.protocol">${mail.javaMailProperties.mail.transport.protocol}</prop> 
+		<prop key="mail.smtp.auth">${mail.javaMailProperties.mail.smtp.auth}</prop> 
+		<prop key="mail.smtp.starttls.enable">${mail.javaMailProperties.mail.smtp.starttls.enable}</prop> 
+		<prop key="mail.mime.charset">${mail.javaMailProperties.mail.mime.charset}</prop> 
+		</props> </property> </bean> -->
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="souvenir.buy.site" />
+		<property name="password" value="souvenir.buy.site9" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.mime.charset">UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- max upload size in bytes -->
+		<property name="maxUploadSize" value="20971520" />
+		<!-- 20MB -->
+		<!-- max size of file in memory (in bytes) -->
+		<property name="maxInMemorySize" value="1048576" />
+		<!-- 1MB -->
+	</bean>
+
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<props>
+				<prop key="resource.loader">class</prop>
+				<prop key="class.resource.loader.class">
+					org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

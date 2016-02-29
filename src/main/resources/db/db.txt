@@ -1,0 +1,20 @@
+
+
+souvenirs
+    souvenir_id
+    souvenir_category_id
+    souvenir_name
+    souvenir_description
+    souvenir_show
+    souvenir_path
+    souvenir_price
+    souvenir_count_of_days_for_order
+
+souvenir_categories
+    souvenir_category_id
+    souvenir_category
+
+souvenirs_audit
+    souvenir_id
+    created_datetime
+    last_update_datetime
