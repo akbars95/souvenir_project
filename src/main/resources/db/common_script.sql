@@ -63,7 +63,7 @@ CREATE TABLE `MESSAGE` (
 
 
 		/*views*/
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `FULL_SELECT_SOUVENIRS` AS
+CREATE ALGORITHM=UNDEFINED DEFINER=`souvenir`@`localhost` SQL SECURITY DEFINER VIEW `FULL_SELECT_SOUVENIRS` AS
 select `s`.`souvenir_id` AS `souvenir_id`,`s`.`souvenir_name` AS `souvenir_name`,`s`.`souvenir_description` AS `souvenir_description`,`s`.`souvenir_show` AS `souvenir_show`,`s`.`souvenir_path` AS `souvenir_path`,`s`.`souvenir_category_id` AS `souvenir_category_id`,`s`.`souvenir_price` AS `souvenir_price`,`s`.`souvenir_count_of_days_for_order` AS `souvenir_count_of_days_for_order`,`sc`.`souvenir_category` AS `souvenir_category`
 from (`SOUVENIRS` `s` join `SOUVENIR_CATEGORIES` `sc` on((`s`.`souvenir_category_id` = `sc`.`souvenir_category_id`)));
 
@@ -100,7 +100,7 @@ DELIMITER ;
 
 		/*stored_procedures*/
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `checkCaptcha`(IN captcha_idIN INT(11), IN captcha_valueIN VARCHAR(10))
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `checkCaptcha`(IN captcha_idIN INT(11), IN captcha_valueIN VARCHAR(10))
 BEGIN
 	SELECT * FROM CAPTCHA c where c.captcha_id = captcha_idIN AND c.captcha_value = captcha_valueIN;
 END$$
@@ -135,7 +135,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllSouvenirs`()
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getAllSouvenirs`()
 BEGIN
 	SELECT * FROM SOUVENIRS;
 END$$
@@ -184,7 +184,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRandomCaptcha`(IN captcha_idIN INT(11))
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getRandomCaptcha`(IN captcha_idIN INT(11))
 BEGIN
 	DECLARE maxIdCaptcha int;
     DECLARE captcha_idNew int;
@@ -218,7 +218,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMessage`(IN message_nameIN VARCHAR(50), IN message_emailIN VARCHAR(50), IN message_text_mIN TEXT, IN message_captcha_idIN INT(11))
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertMessage`(IN message_nameIN VARCHAR(50), IN message_emailIN VARCHAR(50), IN message_text_mIN TEXT, IN message_captcha_idIN INT(11))
 BEGIN
 	INSERT INTO MESSAGE(message_name, message_email, message_text_m, message_captcha_id) 
     VALUES(message_nameIN, message_emailIN, message_text_mIN, message_captcha_idIN);
@@ -308,7 +308,7 @@ call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, 'so
 
 		/*functions*/
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `getMaxIdCaptcha`() RETURNS int(11)
+CREATE DEFINER=`souvenir`@`localhost` FUNCTION `getMaxIdCaptcha`() RETURNS int(11)
 BEGIN
 	DECLARE maxIdCaptcha int;
 	Select Max(c.captcha_id) into maxIdCaptcha from CAPTCHA c;
@@ -318,7 +318,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS souvenir.souvenirIsUpdated;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `souvenirIsUpdated`(souvenir_idIN int(11)) RETURNS varchar(5) CHARSET utf8
+CREATE DEFINER=`souvenir`@`localhost` FUNCTION `souvenirIsUpdated`(souvenir_idIN int(11)) RETURNS varchar(5) CHARSET utf8
 BEGIN
 
 DECLARE isUpdated VARCHAR(5);
@@ -342,7 +342,7 @@ DELIMITER ;
 
 DROP FUNCTION IF EXISTS souvenir.souvenirIsUpdatedV2;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION souvenir.`souvenirIsUpdatedV2`(souvenir_idIN int(11)) RETURNS VARCHAR(5) CHARSET utf8
+CREATE DEFINER=`souvenir`@`localhost` FUNCTION souvenir.`souvenirIsUpdatedV2`(souvenir_idIN int(11)) RETURNS VARCHAR(5) CHARSET utf8
 BEGIN
   DECLARE isUpdated VARCHAR(5);
   DECLARE created_datetimeL datetime;
