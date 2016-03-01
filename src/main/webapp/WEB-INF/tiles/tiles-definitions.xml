@@ -18,6 +18,8 @@
 				value="/resources/js/angularJS/angularjslib/angular-resource.js" />
 			<add-attribute
 				value="/resources/js/angularJS/angularjslib/angular-route.js" />
+			<add-attribute
+				value="/resources/js/angularJS/angularjslib/angular-animate.js" />
 		</put-list-attribute>
 		<put-list-attribute name="stylesheets" cascade="true">
 			<add-attribute

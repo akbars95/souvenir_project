@@ -73,11 +73,13 @@ textarea {
 	padding: 15px;
 }
 
-input[type="text"].ng-invalid, textarea.ng-invalid, input[type="email"].ng-invalid {
+input[type="text"].ng-invalid, textarea.ng-invalid, input[type="email"].ng-invalid
+	{
 	background-color: lightpink;
 }
 
-input[type="text"].ng-valid, textarea.ng-valid, input[type="email"].ng-valid {
+input[type="text"].ng-valid, textarea.ng-valid, input[type="email"].ng-valid
+	{
 	background-color: lightgreen;
 }
 
@@ -87,34 +89,628 @@ span.error {
 }
 
 /*refresh captcha */
-@-webkit-keyframes refresh-captcha {
-  0%   { transform: rotate(0deg); }
-  /* 50%   { transform: rotate(180deg); } */
-  100% { transform: rotate(360deg); }
+@
+-webkit-keyframes refresh-captcha { 0% {
+	transform: rotate(0deg);
 }
-@-moz-keyframes refresh-captcha {
-  0%   { transform: rotate(0deg); }
-  /* 50%   { transform: rotate(180deg); } */
-  100% { transform: rotate(360deg); }
-}
-@-o-keyframes refresh-captcha {
-  0%   { transform: rotate(0deg); }
-  /* 50%   { transform: rotate(180deg); } */
-  100% { transform: rotate(360deg); }
-}
-@keyframes refresh-captcha {
-  0%   { transform: rotate(0deg); }
-  /* 50%   { transform: rotate(180deg); } */
-  100% { transform: rotate(360deg); }
-}
+/* 50%   { transform: rotate(180deg); } */
+100%
+{
+transform
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rotate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(360
+deg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+);
+}
+}
+@
+-moz-keyframes refresh-captcha { 0% {
+	transform: rotate(0deg);
+}
+/* 50%   { transform: rotate(180deg); } */
+100%
+{
+transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rotate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(360
+deg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+);
+}
+}
+@
+-o-keyframes refresh-captcha { 0% {
+	transform: rotate(0deg);
+}
+/* 50%   { transform: rotate(180deg); } */
+100%
+{
+transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rotate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(360
+deg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+);
+}
+}
+@
+keyframes refresh-captcha { 0% {
+	transform: rotate(0deg);
+}
+/* 50%   { transform: rotate(180deg); } */
+100%
+{
+transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+rotate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(360
+deg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+);
+}
+}
 .refreshCaptcha {
-  -webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
-  -moz-animation:    refresh-captcha 1s infinite; /* Fx 5+ */
-  -o-animation:      refresh-captcha 1s infinite; /* Opera 12+ */
-  animation:         refresh-captcha 1s infinite; /* IE 10+, Fx 29+ */
+	-webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
+	-moz-animation: refresh-captcha 1s infinite; /* Fx 5+ */
+	-o-animation: refresh-captcha 1s infinite; /* Opera 12+ */
+	animation: refresh-captcha 1s infinite; /* IE 10+, Fx 29+ */
 }
 
-.catalogPageBody{
+.catalogPageBody {
 	padding: 10px 20px;
+}
+
+.fixedPiece {
+	position: fixed;
+	top: 25%;
+	left: 0;
+}
+
+.infoBtn {
+	-ms-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg);
+	cursor: pointer;
+	color: blue;
+	font-size: 17px;
+	margin-left: -85%;
+	margin-top: 85%;
+	margin-bottom: -78%;
+}
+
+.infoBtn:hover {
+	-ms-transform: rotate(360deg);
+	-webkit-transform: rotate(360deg);
+	transform: rotate(360deg);
+	margin: 0;
+	padding: 0;
+	font-size: 25px;
+	color: green;
+	margin-right: 75%;
+	margin-bottom: 15%;
+}
+
+/* .rotateInfoBtn {
+	-webkit-transition: all 0.75s ease-in-out;
+	-moz-transition: all 0.75s ease-in-out;
+	-o-transition: all 0.75s ease-in-out;
+	transition: all 0.75s ease-in-out;
+}
+
+.rotateInfoBtn:hover {
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+	font-size: 25px;
+	font-weight: bold;
+} */
+.skypePhoneEmailCommon, .skypeLinkBtnClass, .phoneLinkBtnClass,
+	.emailLinkBtnClass {
+	margin-left: -100%;
+	margin-top: -100%;
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+	-webkit-transition: all 1s ease-in-out;
+}
+
+.skypePhoneEmailCommonClick, .skypeLinkBtnClass, .phoneLinkBtnClass,
+	.emailLinkBtnClass {
+	-webkit-transition: all 1s ease-in-out;
+	-moz-transition: all 1s ease-in-out;
+	-o-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+}
+
+.skypeLinkBtnClass {
+	margin-left: 55%;
+	margin-top: 50%;
+}
+
+.phoneLinkBtnClass {
+	margin-left: 75%;
+	margin-top: 0px;
+}
+
+.emailLinkBtnClass {
+	margin-left: 95%;
+	margin-top: 0px;
 }

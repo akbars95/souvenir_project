@@ -3,12 +3,39 @@
  */
 
 /* app */
-var souvenirApp = angular.module('souvenirApp', [ 'ngRoute' ]);
+var souvenirApp = angular.module('souvenirApp', [ 'ngRoute', 'ngAnimate' ]);
 
 /* constants */
-souvenirApp.constant("hostConst", "/souvenir");
+souvenirApp.constant("hostConst", "/souvenir");/* http://souvenir-mtsmda999.rhcloud.com */
 
 /* Ctrl */
+
+/* fixed piece */
+souvenirApp
+		.controller(
+				'fixedPieceCtrl',
+				function($scope, $http) {
+					$scope.skypeLinkClass = "skypePhoneEmailCommon";
+					$scope.phoneLinkClass = "skypePhoneEmailCommon";
+					$scope.emailLinkClass = "skypePhoneEmailCommon";
+					
+					$scope.infoBtnToggle = false;
+
+					$scope.infoBtnClick = function() {
+						$scope.infoBtnToggle = !$scope.infoBtnToggle;
+						if ($scope.infoBtnToggle == true) {
+							$scope.skypeLinkClass = "skypeLinkBtnClass skypePhoneEmailCommonClick";
+							$scope.phoneLinkClass = "phoneLinkBtnClass skypePhoneEmailCommonClick";
+							$scope.emailLinkClass = "emailLinkBtnClass skypePhoneEmailCommonClick";
+						} else {
+							$scope.skypeLinkClass = "skypePhoneEmailCommon";
+							$scope.phoneLinkClass = "skypePhoneEmailCommon";
+							$scope.emailLinkClass = "skypePhoneEmailCommon";
+						}
+					};
+
+				});
+
 /* index page */
 souvenirApp.controller('indexCtrl',
 		function($scope, $http, $timeout, hostConst) {
@@ -19,16 +46,16 @@ souvenirApp.controller('indexCtrl',
 souvenirApp
 		.controller(
 				'catalogCtrl',
-				function($scope, $http, $timeout, hostConst) {
+				function($scope, $http, $timeout, hostConst, $location) {
 					var get_all_souvenirsURL = "/get_all_souvenirs";
 
 					$scope.souvenirs = [];
-
 					$http.get(hostConst + get_all_souvenirsURL).success(
 							function(data, status, headers, config) {
 								$scope.souvenirs = data;
 								$scope.changeCountPerPage();
 							}).error(function(data, status, headers, config) {
+						console.log(data);
 						// log error
 					});
 
@@ -91,11 +118,12 @@ souvenirApp
 
 					$scope.showPagination = function() {
 						if ($scope.souvenirs.length > $scope.currentCountValue.name) {
-							/*var tempCountPages = $scope.souvenirs.length
-									/ $scope.currentCountValue.value;
-							for (i = 0; i < Math.round(tempCountPages); i++) {
-								$scope.countOfPage.push(i);
-							}*/
+							/*
+							 * var tempCountPages = $scope.souvenirs.length /
+							 * $scope.currentCountValue.value; for (i = 0; i <
+							 * Math.round(tempCountPages); i++) {
+							 * $scope.countOfPage.push(i); }
+							 */
 							return true;
 						}
 						return false;

@@ -25,10 +25,8 @@
 						<a href="#/{{souvenirCurrent.souvenirId}}"><h1
 								class="text-center">{{souvenirCurrent.souvenirName}}</h1></a>
 					</div>
-					<div class="text-center" ng-class="addNewSouvenirBootstrapClass">
-
-
-
+					<div class="text-center" ng-class="addNewSouvenirBootstrapClass"
+						ng-show="souvenirs.length > 0">
 						<!-- Button trigger modal -->
 						<button type="button" class="btn btn-primary btn-lg"
 							data-toggle="modal" data-target="#newSouvenirModalView"
@@ -52,38 +50,85 @@
 												code="page.admin.souvenir.add.new.modal_view.title" />
 										</h4>
 									</div>
+									<!-- body -->
 									<div class="modal-body">
-										<div class="row">
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-											<label for="souvenirName">
-												<spring:message
-												code="page.admin.souvenir.add.new.modal_view.form.souvenirName.title" />
-											</label>
-											</div>
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												<input type="text" name="souvenirName" id="souvenirName">
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-												
-											</div>
-											<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">.col-md-2
-												.col-md-offset-4</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 col-md-offset-3">.col-md-6
-												.col-md-offset-3</div>
-										</div>
-										<div class="row">
-											<div class="col-sm-9">
-												Level 1: .col-sm-9
-												<div class="row">
-													<div class="col-xs-8 col-sm-6">Level 2: .col-xs-8
-														.col-sm-6</div>
-													<div class="col-xs-4 col-sm-6">Level 2: .col-xs-4
-														.col-sm-6</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirName" class="control-label"> <spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirName.title" />
+													</label>
 												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<input class="form-control" type="text" name="souvenirName"
+														id="souvenirName">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirDescription" class="control-label">
+														<spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirDescription.title" />
+													</label>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<textarea class="form-control" rows="5" cols="25"
+														id="souvenirDescription" name="souvenirDescription"></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirShow" class="control-label"> <spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirShow.title" />
+													</label>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<input type="checkbox"
+														name="souvenirShow" id="souvenirShow">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirPrice" class="control-label"> <spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirPrice.title" />
+													</label>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<input class="form-control" type="number"
+														name="souvenirPrice" id="souvenirPrice">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirCountOfDaysForOrder"
+														class="control-label"> <spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirCountOfDaysForOrder.title" />
+													</label>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<input class="form-control" type="number"
+														name="souvenirCountOfDaysForOrder"
+														id="souvenirCountOfDaysForOrder">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="row">
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+													<label for="souvenirCategory" class="control-label">
+														<spring:message
+															code="page.admin.souvenir.add.new.modal_view.form.souvenirCategory.souvenirCategory.title" />
+													</label>
+												</div>
+												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6"></div>
 											</div>
 										</div>
 									</div>
