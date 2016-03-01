@@ -1,716 +1,218 @@
 @CHARSET "UTF-8";
 
 .activeLanguage {
-	color: green;
-	font-weight: bold;
-	text-decoration: none;
+    color: green;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 .activeLanguage:hover {
-	text-decoration: none;
-	color: blue;
+    text-decoration: none;
+    color: blue;
 }
 
 .languageBar ul li {
-	display: inline;
-	border-left: 10px solid yellowgreen;
-	border-bottom: 2px solid yellowgreen;
+    display: inline;
+    border-left: 10px solid yellowgreen;
+    border-bottom: 2px solid yellowgreen;
 }
 
 img.contact_img {
-	width: 100%;
+    width: 100%;
 }
 
 span.numbers {
-	display: block;
-	border: 5px solid green;
-	border-radius: 55px;
-	width: 25%;
-	background-color: yellow;
-	margin: 0 auto;
-	text-align: center;
-	font-size: 19px;
-	font-weight: bold;
-	margin-bottom: 9px;
-	cursor: pointer;
+    display: block;
+    border: 5px solid green;
+    border-radius: 55px;
+    width: 25%;
+    background-color: yellow;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 19px;
+    font-weight: bold;
+    margin-bottom: 9px;
+    cursor: pointer;
 }
 
 #googleMap {
-	width: 75%;
-	height: 250px;
-	margin: 0 auto;
+    width: 75%;
+    height: 250px;
+    margin: 0 auto;
 }
 
 #person_сaptcha {
-	width: 50%;
-	display: inline;
+    width: 50%;
+    display: inline;
 }
 
 #refreshCaptchaBtn {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 label.contact_us_form_item::after {
-	content: '*';
-	color: red;
-	font-size: 19px;
-	font-weight: bold;
+    content: '*';
+    color: red;
+    font-size: 19px;
+    font-weight: bold;
 }
 
 textarea {
-	resize: none;
+    resize: none;
 }
 
 .form-horizontal .control-label {
-	text-align: left;
+    text-align: left;
 }
 
 #footer {
-	background-color: ghostwhite;
+    background-color: ghostwhite;
 }
 
 .footer {
-	padding: 15px;
+    padding: 15px;
 }
 
-input[type="text"].ng-invalid, textarea.ng-invalid, input[type="email"].ng-invalid
-	{
-	background-color: lightpink;
+input[type="text"].ng-invalid, textarea.ng-invalid, input[type="email"].ng-invalid {
+    background-color: lightpink;
 }
 
-input[type="text"].ng-valid, textarea.ng-valid, input[type="email"].ng-valid
-	{
-	background-color: lightgreen;
+input[type="text"].ng-valid, textarea.ng-valid, input[type="email"].ng-valid {
+    background-color: lightgreen;
 }
 
 span.error {
-	color: red;
-	font-weight: bold;
+    color: red;
+    font-weight: bold;
 }
 
 /*refresh captcha */
-@
--webkit-keyframes refresh-captcha { 0% {
-	transform: rotate(0deg);
+@-webkit-keyframes refresh-captcha {
+0%
+{
+    transform: rotate(0deg)
+;
 }
 /* 50%   { transform: rotate(180deg); } */
 100%
 {
-transform
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-rotate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(360
-deg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-);
+    transform: rotate(360deg
+    )
+;
 }
 }
-@
--moz-keyframes refresh-captcha { 0% {
-	transform: rotate(0deg);
+@-moz-keyframes refresh-captcha {
+0%
+{
+    transform: rotate(0deg)
+;
+}
+/* 50%   { transform: rotate(180deg); } */
+100
+%
+{
+    transform: rotate(360deg
+    )
+;
+}
+}
+@-o-keyframes refresh-captcha {
+0%
+{
+    transform: rotate(0deg)
+;
 }
 /* 50%   { transform: rotate(180deg); } */
 100%
 {
-transform
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-rotate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(360
-deg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-);
+    transform: rotate(360deg
+    )
+;
 }
 }
-@
--o-keyframes refresh-captcha { 0% {
-	transform: rotate(0deg);
+
+@keyframes refresh-captcha {
+0%{
+    transform: rotate(0deg);
 }
 /* 50%   { transform: rotate(180deg); } */
-100%
-{
-transform
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-rotate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(360
-deg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-);
-}
-}
-@
-keyframes refresh-captcha { 0% {
-	transform: rotate(0deg);
-}
-/* 50%   { transform: rotate(180deg); } */
-100%
-{
-transform
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-:
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-rotate
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-(360
-deg
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-);
+100%{
+    transform: rotate(360deg
+    )
+;
 }
 }
 .refreshCaptcha {
-	-webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
-	-moz-animation: refresh-captcha 1s infinite; /* Fx 5+ */
-	-o-animation: refresh-captcha 1s infinite; /* Opera 12+ */
-	animation: refresh-captcha 1s infinite; /* IE 10+, Fx 29+ */
+    -webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
+    -moz-animation: refresh-captcha 1s infinite; /* Fx 5+ */
+    -o-animation: refresh-captcha 1s infinite; /* Opera 12+ */
+    animation: refresh-captcha 1s infinite; /* IE 10+, Fx 29+ */
 }
 
 .catalogPageBody {
-	padding: 10px 20px;
+    padding: 10px 20px;
 }
 
 .fixedPiece {
-	position: fixed;
-	top: 25%;
-	left: 0;
+    position: fixed;
+    top: 25%;
+    left: 0;
 }
 
 .infoBtn {
-	-ms-transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
-	transform: rotate(90deg);
-	cursor: pointer;
-	color: blue;
-	font-size: 17px;
-	margin-left: -85%;
-	margin-top: 85%;
-	margin-bottom: -78%;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    cursor: pointer;
+    color: blue;
+    font-size: 17px;
+    margin-left: -85%;
+    margin-top: 85%;
+    margin-bottom: -78%;
 }
 
 .infoBtn:hover {
-	-ms-transform: rotate(360deg);
-	-webkit-transform: rotate(360deg);
-	transform: rotate(360deg);
-	margin: 0;
-	padding: 0;
-	font-size: 25px;
-	color: green;
-	margin-right: 75%;
-	margin-bottom: 15%;
+    -ms-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+    margin: 0;
+    padding: 0;
+    font-size: 25px;
+    color: green;
+    margin-right: 75%;
+    margin-bottom: 15%;
 }
 
-/* .rotateInfoBtn {
-	-webkit-transition: all 0.75s ease-in-out;
-	-moz-transition: all 0.75s ease-in-out;
-	-o-transition: all 0.75s ease-in-out;
-	transition: all 0.75s ease-in-out;
-}
-
-.rotateInfoBtn:hover {
-	-webkit-transition: all 1s ease-in-out;
-	-moz-transition: all 1s ease-in-out;
-	-o-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
-	font-size: 25px;
-	font-weight: bold;
-} */
 .skypePhoneEmailCommon, .skypeLinkBtnClass, .phoneLinkBtnClass,
-	.emailLinkBtnClass {
-	margin-left: -100%;
-	margin-top: -100%;
-	-webkit-transition: all 1s ease-in-out;
-	-moz-transition: all 1s ease-in-out;
-	-o-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
-	-webkit-transition: all 1s ease-in-out;
+.emailLinkBtnClass {
+    margin-left: -100%;
+    margin-top: -100%;
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    -webkit-transition: all 1s ease-in-out;
 }
 
 .skypePhoneEmailCommonClick, .skypeLinkBtnClass, .phoneLinkBtnClass,
-	.emailLinkBtnClass {
-	-webkit-transition: all 1s ease-in-out;
-	-moz-transition: all 1s ease-in-out;
-	-o-transition: all 1s ease-in-out;
-	transition: all 1s ease-in-out;
+.emailLinkBtnClass {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
 .skypeLinkBtnClass {
-	margin-left: 55%;
-	margin-top: 50%;
+    margin-left: 55%;
+    margin-top: 50%;
 }
 
 .phoneLinkBtnClass {
-	margin-left: 75%;
-	margin-top: 0px;
+    margin-left: 75%;
+    margin-top: 0px;
 }
 
 .emailLinkBtnClass {
-	margin-left: 95%;
-	margin-top: 0px;
+    margin-left: 95%;
+    margin-top: 0px;
 }
