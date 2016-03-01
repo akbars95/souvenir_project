@@ -30,7 +30,7 @@ CREATE TABLE `SOUVENIRS` (
   `souvenir_count_of_days_for_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`souvenir_id`),
   KEY `souvenir_category_id_souvenir_id_idx` (`souvenir_category_id`),
-  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `souvenir_categories` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `SOUVENIR_CATEGORIES` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -56,8 +56,8 @@ CREATE TABLE `MESSAGE` (
   PRIMARY KEY (`message_id`),
   UNIQUE KEY `message_id_UNIQUE` (`message_id`),
   KEY `message_ci_captcha_id_idx` (`message_captcha_id`),
-  CONSTRAINT `message_ci_captcha_id` FOREIGN KEY (`message_captcha_id`) REFERENCES `captcha` (`captcha_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  CONSTRAINT `message_ci_captcha_id` FOREIGN KEY (`message_captcha_id`) REFERENCES `CAPTCHA` (`captcha_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 
@@ -242,6 +242,17 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `selectFullSouvenirWithCategoryAndAudit`()
+BEGIN
+
+select s.*, sa.created_datetime, sa.last_update_datetime, sc.souvenir_category
+from souvenirs s inner join souvenirs_audit sa on s.souvenir_id = sa.souvenir_id
+inner join souvenir_categories sc on s.souvenir_category_id =  sc.souvenir_category_id;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `selectSouvenir`(IN souvenir_idIN int(11))
 BEGIN
 	SELECT * FROM FULL_SELECT_SOUVENIRS WHERE souvenir_id = souvenir_idIN;
@@ -304,6 +315,19 @@ call insertSouvenirs('Souvenir #2', 'This is souvenir #2 is description', 0, 'so
 call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 8);
 call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 9);
 call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 8);
+
+
+call insertSouvenirs('Korona #1', 'This is korona is description', 1, 'souvenir path for korona', 1, 20, 2);
+call insertSouvenirs('Seriga#2', 'This is souvenir #2 is description', 0, 'souvenir path', 5, 360.6, 6);
+call insertSouvenirs('Cepi#3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 12);
+call insertSouvenirs('Souvenir #20', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 14);
+call insertSouvenirs('Bezdelushka', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 5);
+
+call insertSouvenirs('Zolotaya Korona #1', 'This is korona is description', 1, 'souvenir path for korona', 1, 20, 2);
+call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is description', 0, 'souvenir path', 5, 360.6, 6);
+call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 12);
+call insertSouvenirs('Bronzovyi Souvenir #19', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 14);
+call insertSouvenirs('Bezdelushka iz alyuminiya', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 5);
 
 
 		/*functions*/

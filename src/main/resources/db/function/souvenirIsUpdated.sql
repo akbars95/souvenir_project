@@ -1,6 +1,6 @@
 DROP FUNCTION IF EXISTS souvenir.souvenirIsUpdated;
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` FUNCTION `souvenirIsUpdated`(souvenir_idIN int(11)) RETURNS varchar(5) CHARSET utf8
+CREATE DEFINER=`souvenir`@`localhost` FUNCTION `souvenirIsUpdated`(souvenir_idIN int(11)) RETURNS varchar(5) CHARSET utf8
 BEGIN
 
 DECLARE isUpdated VARCHAR(5);

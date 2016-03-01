@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getRandomCaptcha`(IN captcha_idIN INT(11))
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getRandomCaptcha`(IN captcha_idIN INT(11))
 BEGIN
 	DECLARE maxIdCaptcha int;
     DECLARE captcha_idNew int;

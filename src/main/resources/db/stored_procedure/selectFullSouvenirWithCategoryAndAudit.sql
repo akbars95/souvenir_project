@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `selectFullSouvenirWithCategoryAndAudit`()
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `selectFullSouvenirWithCategoryAndAudit`()
 BEGIN
 
 select s.*, sa.created_datetime, sa.last_update_datetime, sc.souvenir_category

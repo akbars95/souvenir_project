@@ -1,5 +1,5 @@
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `getAllSouvenirs`()
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getAllSouvenirs`()
 BEGIN
 	SELECT * FROM SOUVENIRS;
 END$$
