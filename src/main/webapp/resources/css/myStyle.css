@@ -153,10 +153,10 @@ span.error {
     padding: 10px 20px;
 }
 
-.fixedPiece {
+.fixedPieceInfoButton {
     position: fixed;
-    top: 25%;
-    left: 0;
+    top: 45%;
+    left: -20px;
 }
 
 .infoBtn {
@@ -166,53 +166,58 @@ span.error {
     cursor: pointer;
     color: blue;
     font-size: 17px;
-    margin-left: -85%;
-    margin-top: 85%;
-    margin-bottom: -78%;
+	padding: 15px;
+	text-align: center;
+	-webkit-transition: color 2s, background-color 2s, border-radius 1s, font-weight 1s, font-size 2s, margin-left 2s, text-shadow 2s; /* Safari */
+    transition: color 2s, background-color 2s, border-radius 1s, font-weight 1s, font-size 2s, margin-left 2s, text-shadow 2s;
 }
 
-.infoBtn:hover {
-    -ms-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-    margin: 0;
-    padding: 0;
-    font-size: 25px;
-    color: green;
-    margin-right: 75%;
-    margin-bottom: 15%;
+.infoBtn:hover{
+	background-color: blue;
+	color: yellow;
+	border-radius: 75%;
+	font-weight: bold;
+	font-size: 25px;
+	margin-left: 25px;
+    text-shadow: 2px 2px 4px red;
 }
 
-.skypePhoneEmailCommon, .skypeLinkBtnClass, .phoneLinkBtnClass,
-.emailLinkBtnClass {
-    margin-left: -100%;
-    margin-top: -100%;
-    -webkit-transition: all 1s ease-in-out;
-    -moz-transition: all 1s ease-in-out;
-    -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out;
-    -webkit-transition: all 1s ease-in-out;
-}
-
-.skypePhoneEmailCommonClick, .skypeLinkBtnClass, .phoneLinkBtnClass,
-.emailLinkBtnClass {
-    -webkit-transition: all 1s ease-in-out;
+.infoOpen{
+	margin-left: 50px;
+	-webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;
     -o-transition: all 1s ease-in-out;
     transition: all 1s ease-in-out;
 }
 
-.skypeLinkBtnClass {
-    margin-left: 55%;
-    margin-top: 50%;
+.infoClose{
+	margin-left: -200px;
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
 }
 
-.phoneLinkBtnClass {
-    margin-left: 75%;
-    margin-top: 0px;
+.fixedPieceOtherButtons{
+	position: absolute;
+    top: 61%;
 }
 
-.emailLinkBtnClass {
-    margin-left: 95%;
-    margin-top: 0px;
+.skypeClose, .phoneClose, .emailClose{
+	margin-left: -200px;
+	visibility: hidden;
+	-webkit-transition: all 1.5s ease-in-out;
+    -moz-transition: all 1.5s ease-in-out;
+    -o-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
+}
+
+.skypeOpen, .phoneOpen, .emailOpen{
+	margin-left: 100px;
+	font-size: 25px;
+	visibility: visible;
+	-webkit-transition: all 1.5s ease-in-out;
+    -moz-transition: all 1.5s ease-in-out;
+    -o-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
 }
