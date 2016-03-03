@@ -2,6 +2,7 @@ package com.mtsmda.souvenir.restController;
 
 import java.util.List;
 
+import static com.mtsmda.souvenir.restController.constants.SouvenirCategoryRestConstants.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ public class SouvenirCategoryRestController {
 	@Qualifier("souvenirCategoryService")
 	private SouvenirCategoryService souvenirCategoryService;
 
-	@RequestMapping(value = "")
+	@RequestMapping(value = GET_ALL_SOUVENIR_CATEGORIES_PIECE)
 	public List<SouvenirCategory> getAllSouvenirCategory() {
 		List<SouvenirCategory> categories = null;
 		categories = souvenirCategoryService.getAllSouvenirCategories();
