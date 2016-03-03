@@ -35,23 +35,23 @@
 		</div>
 		<div class="fixedPieceOtherButtons">
 			<div ng-class="openInfoBtn">
-				<div>
+				<div class="otherBtnWrapperDiv">
 					<button class="btn btn-default" ng-click="otherBtnClick('0')">
 						<spring:message code="fixed.piece.skype.btn_title" />
 					</button>
-					<span ng-class="skypeLinkClass">mySkype</span>
+					<span class="infoView" ng-class="skypeLinkClass">mySkype</span>
 				</div>
-				<div>
+				<div class="otherBtnWrapperDiv">
 					<button class="btn btn-default" ng-click="otherBtnClick('1')">
 						<spring:message code="fixed.piece.phone.btn_title" />
 					</button>
-					<span ng-class="phoneLinkClass">068 - 258- 963</span>
+					<span class="infoView" ng-class="phoneLinkClass">068 - 258- 963</span>
 				</div>
-				<div>
+				<div class="otherBtnWrapperDiv">
 					<button class="btn btn-default" ng-click="otherBtnClick('2')">
 						<spring:message code="fixed.piece.email.btn_title" />
 					</button>
-					<span ng-class="emailLinkClass">ivan.ivanov@mail.md</span>
+					<span class="infoView" ng-class="emailLinkClass">ivan.ivanov@mail.md</span>
 				</div>
 			</div>
 		</div>

@@ -159,6 +159,10 @@ span.error {
     left: -20px;
 }
 
+.otherBtnWrapperDiv{
+	width: 500px;
+}
+
 .infoBtn {
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
@@ -205,19 +209,92 @@ span.error {
 
 .skypeClose, .phoneClose, .emailClose{
 	margin-left: -200px;
-	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: all 2.5s ease-in-out;
+    -moz-transition: all 2.5s ease-in-out;
+    -o-transition: all 2.5s ease-in-out;
+    transition: all 2.5s ease-in-out;
+}
+
+.skypeOpen, .phoneOpen, .emailOpen{
+	margin-left: 100px;
+	font-size: 25px;
+	opacity: 1;
 	-webkit-transition: all 1.5s ease-in-out;
     -moz-transition: all 1.5s ease-in-out;
     -o-transition: all 1.5s ease-in-out;
     transition: all 1.5s ease-in-out;
 }
 
-.skypeOpen, .phoneOpen, .emailOpen{
-	margin-left: 100px;
-	font-size: 25px;
-	visibility: visible;
-	-webkit-transition: all 1.5s ease-in-out;
-    -moz-transition: all 1.5s ease-in-out;
-    -o-transition: all 1.5s ease-in-out;
-    transition: all 1.5s ease-in-out;
+.infoView{
+    background-color: gold;
+    padding: 5px;
+    font-weight: bold;
+    border: 5px green solid;
+    text-shadow: 2px 2px white,-2px -2px red;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes brandLink {
+    0%   {
+    	background-color: red;
+   		color: yellow;
+    }
+    25%  {
+	    background-color: yellow;
+	    color: blue;
+    }
+    50%  {
+    	background-color: blue;
+    	color: green;
+    }
+    100% {
+	    background-color: green;
+	   	color: red;
+    	}
+}
+
+/* Standard syntax */
+@keyframes brandLink {
+    0%   {
+    	background-color: red;
+   		color: yellow;
+    }
+    25%  {
+	    background-color: yellow;
+	    color: blue;
+    }
+    50%  {
+    	background-color: blue;
+    	color: green;
+    }
+    100% {
+	    background-color: green;
+	   	color: red;
+    	}
+}
+
+.navbar-brand:hover{
+	-webkit-animation-name: brandLink; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 9s; /* Chrome, Safari, Opera */
+    -webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+    animation-name: brandLink;
+    animation-duration: 9s;
+    animation-iteration-count: infinite;
+}
+
+ul.nav li{
+	
+}
+
+ul.nav li:hover{
+	outline: 1px solid green;
+	-webkit-transform: rotateX(360deg); /* Safari */
+    transform: rotateX(360deg); /* Standard syntax */
+	-webkit-transition: all 5s ease-in-out;
+    -moz-transition: all 5s ease-in-out;
+    -o-transition: all 5s ease-in-out;
+    transition: all 5s ease-in-out;
+    -webkit-animation-iteration-count: infinite; 
+	animation-iteration-count: infinite; 
 }

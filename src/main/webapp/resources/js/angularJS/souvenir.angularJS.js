@@ -27,15 +27,30 @@ souvenirApp.controller('fixedPieceCtrl', function($scope, $http) {
 			$scope.openInfoBtn = "infoOpen";
 		} else {
 			$scope.openInfoBtn = "infoClose";
+			$scope.skypeLinkClass = "skypeClose";
+			$scope.phoneLinkClass = "phoneClose";
+			$scope.emailLinkClass = "emailClose";
 		}
 	};
 
 	$scope.otherBtnClick = function(param) {
 		if (param == 0) {
 			if ($scope.skypeLinkClass == "skypeClose") {
-				$scope.skypeLinkClass = "skypeOpen"
+				$scope.skypeLinkClass = "skypeOpen";
 			} else {
-				$scope.skypeLinkClass = "skypeClose"
+				$scope.skypeLinkClass = "skypeClose";
+			}
+		}else if(param == 1){
+			if ($scope.phoneLinkClass == "phoneClose") {
+				$scope.phoneLinkClass = "phoneOpen";
+			} else {
+				$scope.phoneLinkClass = "phoneClose";
+			}
+		}else if(param == 2){
+			if ($scope.emailLinkClass == "emailClose") {
+				$scope.emailLinkClass = "emailOpen";
+			} else {
+				$scope.emailLinkClass = "emailClose";
 			}
 		}
 	}

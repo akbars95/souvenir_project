@@ -6,7 +6,7 @@
 var souvenirAdminPieceApp = angular.module('souvenirAdminPieceApp', []);
 
 /* constants */
-souvenirAdminPieceApp.constant("hostConst", "/souvenir");
+souvenirAdminPieceApp.constant("hostConst", "/souvenirs");
 
 /* controllers */
 souvenirAdminPieceApp.controller('insertSouvenirCtrl', function($scope, $http,
