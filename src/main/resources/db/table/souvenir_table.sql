@@ -12,13 +12,23 @@ CREATE TABLE `SOUVENIRS` (
   `souvenir_name` varchar(50) NOT NULL,
   `souvenir_description` varchar(255) DEFAULT NULL,
   `souvenir_show` tinyint(1) NOT NULL DEFAULT '1',
-  `souvenir_path` varchar(300) NOT NULL,
+  `souvenir_main_photo_id` int(11) NULL,
   `souvenir_category_id` int(11) DEFAULT NULL,
   `souvenir_price` decimal(8,2) DEFAULT NULL,
   `souvenir_count_of_days_for_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`souvenir_id`),
   KEY `souvenir_category_id_souvenir_id_idx` (`souvenir_category_id`),
   CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `SOUVENIR_CATEGORIES` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `SOUVENIR_PHOTOS` (
+  `souvenir_photo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `souvenir_photo_path` varchar(255) NOT NULL,
+  `souvenir_photo_souvenir_id` int(11) NOT NULL,
+  PRIMARY KEY (`souvenir_photo_id`),
+  KEY `souvenir_photo_id_souvenir_id_idx` (`souvenir_photo_souvenir_id`),
+  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `SOUVENIRS` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

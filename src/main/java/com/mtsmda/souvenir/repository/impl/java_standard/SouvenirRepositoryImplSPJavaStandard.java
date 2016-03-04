@@ -40,6 +40,15 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
 
     @Override
     public boolean insertSouvenir(Souvenir souvenir) {
+        try {
+            MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_ALL_SOUVENIRS_SP_NAME,
+                    null, false);
+            ResultSet rs = callableStatement.executeQuery();
+            
+        } catch (SQLException e) {
+            throw new SouvenirRuntimeException("insertSouvenir - " + e.getMessage());
+        }
         return false;
     }
 

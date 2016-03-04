@@ -1,6 +1,7 @@
 package com.mtsmda.souvenir.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 
@@ -14,12 +15,14 @@ public class Souvenir implements Serializable {
 	private String souvenirName;
 	private String souvenirDescription;
 	private Boolean souvenirShow;
-	private String souvenirPath;
+	private SouvenirPhoto souvenirMainPhotoId;
 	private SouvenirCategory souvenirCategory;
 	private Double souvenirPrice;
 	private Integer souvenirCountOfDaysForOrder;
 
 	private SouvenirAudit souvenirAudit;
+
+	private List<SouvenirPhoto> souvenirPhotos;
 
 	public Souvenir() {
 
@@ -57,12 +60,12 @@ public class Souvenir implements Serializable {
 		this.souvenirShow = souvenirShow;
 	}
 
-	public String getSouvenirPath() {
-		return souvenirPath;
+	public SouvenirPhoto getSouvenirMainPhotoId() {
+		return souvenirMainPhotoId;
 	}
 
-	public void setSouvenirPath(String souvenirPath) {
-		this.souvenirPath = souvenirPath;
+	public void setSouvenirMainPhotoId(SouvenirPhoto souvenirMainPhotoId) {
+		this.souvenirMainPhotoId = souvenirMainPhotoId;
 	}
 
 	public SouvenirCategory getSouvenirCategory() {
@@ -97,6 +100,14 @@ public class Souvenir implements Serializable {
 		this.souvenirAudit = souvenirAudit;
 	}
 
+	public List<SouvenirPhoto> getSouvenirPhotos() {
+		return souvenirPhotos;
+	}
+
+	public void setSouvenirPhotos(List<SouvenirPhoto> souvenirPhotos) {
+		this.souvenirPhotos = souvenirPhotos;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -114,8 +125,6 @@ public class Souvenir implements Serializable {
 			return false;
 		if (!souvenirShow.equals(souvenir.souvenirShow))
 			return false;
-		if (!souvenirPath.equals(souvenir.souvenirPath))
-			return false;
 		if (souvenirCategory != null ? !souvenirCategory.equals(souvenir.souvenirCategory)
 				: souvenir.souvenirCategory != null)
 			return false;
@@ -131,7 +140,6 @@ public class Souvenir implements Serializable {
 		result = 31 * result + souvenirName.hashCode();
 		result = 31 * result + souvenirDescription.hashCode();
 		result = 31 * result + souvenirShow.hashCode();
-		result = 31 * result + souvenirPath.hashCode();
 		result = 31 * result + (souvenirCategory != null ? souvenirCategory.hashCode() : 0);
 		result = 31 * result + souvenirPrice.hashCode();
 		result = 31 * result + souvenirCountOfDaysForOrder.hashCode();
@@ -141,9 +149,8 @@ public class Souvenir implements Serializable {
 	@Override
 	public String toString() {
 		return "Souvenir{" + "souvenirId=" + souvenirId + ", souvenirName='" + souvenirName + '\''
-				+ ", souvenirDescription='" + souvenirDescription + '\'' + ", souvenirShow=" + souvenirShow
-				+ ", souvenirPath='" + souvenirPath + '\'' + ", souvenirCategory=" + souvenirCategory
-				+ ", souvenirPrice=" + souvenirPrice + ", souvenirCountOfDaysForOrder=" + souvenirCountOfDaysForOrder
-				+ '}';
+				+ ", souvenirDescription='" + souvenirDescription + '\'' + ", souvenirShow=" + souvenirShow + '\''
+				+ ", souvenirCategory=" + souvenirCategory + ", souvenirPrice=" + souvenirPrice
+				+ ", souvenirCountOfDaysForOrder=" + souvenirCountOfDaysForOrder + '}';
 	}
 }

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirCategory;
+import com.mtsmda.souvenir.model.SouvenirPhoto;
 
 public class SouvenirMapper implements MapperI<Souvenir> {
 
@@ -33,9 +34,9 @@ public class SouvenirMapper implements MapperI<Souvenir> {
 			souvenir.setSouvenirShow(null);
 		}
 		try {
-			souvenir.setSouvenirPath(rs.getString(SOUVENIR_PATH));
+			souvenir.setSouvenirMainPhotoId(new SouvenirPhoto(rs.getInt(SOUVENIR_MAIN_PHOTO_ID)));
 		} catch (SQLException e) {
-			souvenir.setSouvenirPath(null);
+			souvenir.setSouvenirMainPhotoId(null);
 		}
 		try {
 			SouvenirCategory souvenirCategory = new SouvenirCategory();

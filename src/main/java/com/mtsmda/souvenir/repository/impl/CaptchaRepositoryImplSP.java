@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.SocketUtils;
 
+import com.mtsmda.souvenir.annotation.SouvenirDepricated;
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.ListHelper;
 import com.mtsmda.souvenir.helper.MapHelper;
@@ -25,6 +26,7 @@ import com.mtsmda.souvenir.model.sp.CaptchaSP;
 import com.mtsmda.souvenir.repository.CaptchaRepository;
 import com.mtsmda.souvenir.sp.SouvenirStoredProcedure;
 
+@SouvenirDepricated("will be used standard java SP")
 @Repository("captchaRepository")
 public class CaptchaRepositoryImplSP implements CaptchaRepository {
 

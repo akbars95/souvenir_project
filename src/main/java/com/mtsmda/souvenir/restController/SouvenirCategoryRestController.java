@@ -13,7 +13,7 @@ import com.mtsmda.souvenir.service.SouvenirCategoryService;
 
 @RestController
 public class SouvenirCategoryRestController {
-
+	
 	@Autowired
 	@Qualifier("souvenirCategoryService")
 	private SouvenirCategoryService souvenirCategoryService;

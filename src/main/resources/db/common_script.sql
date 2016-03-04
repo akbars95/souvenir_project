@@ -34,6 +34,16 @@ CREATE TABLE `SOUVENIRS` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+CREATE TABLE `SOUVENIR_PHOTOS` (
+  `souvenir_photo_id` int(11) NOT NULL AUTO_INCREMENT,
+  `souvenir_photo_path` varchar(255) NOT NULL,
+  `souvenir_photo_souvenir_id` int(11) NOT NULL,
+  PRIMARY KEY (`souvenir_photo_id`),
+  KEY `souvenir_photo_id_souvenir_id_idx` (`souvenir_photo_souvenir_id`),
+  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `SOUVENIRS` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `SOUVENIRS_AUDIT` (
   `souvenir_id` int(11) NOT NULL,
   `created_datetime` datetime DEFAULT NULL,
@@ -130,7 +140,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `getAllCategories`()
 BEGIN
-select * from SOUVENIR_CATEGORIES;
+	SELECT * from SOUVENIR_CATEGORIES;
 END$$
 DELIMITER ;
 
@@ -151,8 +161,8 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `getCategoryById` (IN souvenir_category_idIN INT(11))
 BEGIN
-SELECT * from SOUVENIR_CATEGORIES sc
-where sc.souvenir_category_id = souvenir_category_idIN;
+	SELECT * FROM SOUVENIR_CATEGORIES sc
+	WHERE sc.souvenir_category_id = souvenir_category_idIN;
 END$$
 
 DELIMITER ;
@@ -161,17 +171,17 @@ DELIMITER ;
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getCategoryByNameLike`(IN souvenir_categoryIN VARCHAR(50))
 BEGIN
-select *
-from SOUVENIR_CATEGORIES sc
-where sc.souvenir_category like souvenir_categoryIN;
+	SELECT *
+	FROM SOUVENIR_CATEGORIES sc
+	WHERE sc.souvenir_category like souvenir_categoryIN;
 END$$
 DELIMITER ;
 
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getLastAddedCategoryIdgetLastAddedCategoryId`()
 BEGIN
-select MAX(souvenir_category_id)
-    from SOUVENIR_CATEGORIES;
+	SELECT MAX(souvenir_category_id)
+    FROM SOUVENIR_CATEGORIES;
 END$$
 DELIMITER ;
 

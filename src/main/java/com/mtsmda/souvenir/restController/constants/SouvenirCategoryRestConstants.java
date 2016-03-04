@@ -8,6 +8,7 @@ import static com.mtsmda.souvenir.controller.constants.StaticPageConstants.ROOT;
 public class SouvenirCategoryRestConstants {
 
     public static final String GET_ALL_SOUVENIR_CATEGORIES_PIECE = "getAllSouvenirCategories";
+    
 
     public static final String GET_ALL_SOUVENIR_CATEGORIES_PIECE_URL = ROOT + GET_ALL_SOUVENIR_CATEGORIES_PIECE;
 

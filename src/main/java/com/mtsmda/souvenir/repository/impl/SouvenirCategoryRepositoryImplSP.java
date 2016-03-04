@@ -1,6 +1,7 @@
 package com.mtsmda.souvenir.repository.impl;
 
 import com.mtsmda.souvenir.repository.SouvenirCategoryRepository;
+import com.mtsmda.souvenir.annotation.SouvenirDepricated;
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.ListHelper;
 import com.mtsmda.souvenir.helper.MapHelper;
@@ -23,6 +24,7 @@ import static com.mtsmda.souvenir.model.sp.SouvenirCategorySP.*;
 /**
  * Created by c-DMITMINZ on 29.01.2016.
  */
+@SouvenirDepricated("will be used standard java SP")
 @Repository("souvenirCategoryRepository")
 public class SouvenirCategoryRepositoryImplSP implements SouvenirCategoryRepository {
 

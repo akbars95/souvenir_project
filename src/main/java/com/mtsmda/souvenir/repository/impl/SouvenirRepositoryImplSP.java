@@ -1,6 +1,7 @@
 package com.mtsmda.souvenir.repository.impl;
 
 import com.mtsmda.souvenir.repository.SouvenirRepository;
+import com.mtsmda.souvenir.annotation.SouvenirDepricated;
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.sp.SouvenirStoredProcedure;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import static com.mtsmda.souvenir.model.sp.SouvenirSP.*;
 /**
  * Created by MTSMDA on 19.11.2015.
  */
+@SouvenirDepricated("will be used standard java SP")
 @Repository("souvenirRepository")
 public class SouvenirRepositoryImplSP implements SouvenirRepository {
 

@@ -44,7 +44,7 @@ souvenirAdminPieceApp
     .controller(
     'adminSouvenirCtrl',
     function ($scope, $http, hostConst) {
-        $scope.getAllSOuvenirs = function () {
+        $scope.getAllSouvenirs = function () {
             $scope.souvenirs = [];
             $scope.souvenirCategories = [];
 
@@ -84,20 +84,63 @@ souvenirAdminPieceApp
                 });
         };
 
-        $scope.getAllSOuvenirs();
+        $scope.saveSouvenir = function(){
+        	var fd = new FormData();
+        	if($scope.souvenirFiles && $scope.souvenirFiles.length > 0){
+        		for(i = 0; i < $scope.souvenirFiles.length; i++){
+        			fd.append("souvenirFiles", $scope.souvenirFiles[i]);
+        		}
+        	}
+
+        	fd.append("souvenirName", $scope.souvenirName);
+        	fd.append("souvenirDescription", $scope.souvenirDescription);
+        	fd.append("souvenirShow", $scope.souvenirShow);
+        	fd.append("souvenirPrice", $scope.souvenirPrice);
+        	fd.append("souvenirCountOfDaysForOrder", $scope.souvenirCountOfDaysForOrder);
+        	fd.append("souvenirCategoryId", $scope.currentSouvenirCategoryId);
+        	var c = angular.isNumber($scope.currentSouvenirCategoryId);
+        	var g = angular.isNumber($scope.souvenirPrice);
+            $http.post(hostConst + "/insert_souvenir", fd, {
+                transformRequest: angular.identity,
+                headers: {'Content-Type': undefined}
+            })
+            .success(function(data, status, headers, config){
+            	console.log(data);
+            })
+            .error(function(data, status, headers, config){
+            	console.log(data);
+            });
+        };
+        
+        $scope.resetForm = function(){
+        	$scope.souvenirName = "";
+        	$scope.souvenirDescription = "";
+        	$scope.souvenirShow = false;
+        	$scope.souvenirPrice = "";
+        	$scope.souvenirCountOfDaysForOrder = "";
+        	$scope.currentSouvenirCategoryId = "";
+        	$scope.souvenirFiles = null;
+        	angular.element("input[type='file']").val(null);
+        };
+        
+        $scope.getAllSouvenirs();
         $scope.getAllSouvenirCategories();
 
     });
 
 /* directives */
-souvenirAdminPieceApp.directive('fileInput', ['$parse', function ($parse) {
+souvenirAdminPieceApp.directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
-        link: function (scope, elm, attrs) {
-            elm.bind('change', function () {
-                $parse(attrs.fileInput).assign(scope, elm[0].files);
-                scope.$apply();
-            })
+        link: function(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+            
+            element.bind('change', function(){
+                scope.$apply(function(){
+                    modelSetter(scope, element[0].files);
+                });
+            });
         }
     };
 }]);
