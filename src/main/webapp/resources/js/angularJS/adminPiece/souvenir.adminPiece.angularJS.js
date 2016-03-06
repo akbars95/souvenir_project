@@ -116,8 +116,8 @@ souvenirAdminPieceApp
         	$scope.souvenirName = "";
         	$scope.souvenirDescription = "";
         	$scope.souvenirShow = false;
-        	$scope.souvenirPrice = "";
-        	$scope.souvenirCountOfDaysForOrder = "";
+        	$scope.souvenirPrice = 0.0;
+        	$scope.souvenirCountOfDaysForOrder = 0;
         	$scope.currentSouvenirCategoryId = "";
         	$scope.souvenirFiles = null;
         	angular.element("input[type='file']").val(null);
@@ -125,6 +125,7 @@ souvenirAdminPieceApp
         
         $scope.getAllSouvenirs();
         $scope.getAllSouvenirCategories();
+        $scope.resetForm();
 
     });
 

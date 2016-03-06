@@ -12,6 +12,7 @@
 
 <tiles:insertDefinition name="defaultAdminTemplate">
 	<tiles:putAttribute name="title">
+		//TODO
 		<spring:message code="page.about_us.title" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="content">
@@ -132,14 +133,6 @@
 													</label>
 												</div>
 												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-													<!-- <select id="souvenirCategory" ng-model="souvenirCategoryId">
-														<option value="currentSouvenirCategory.souvenirCategoryId"
-															ng-repeat="currentSouvenirCategory in souvenirCategories">
-															{{currentSouvenirCategory.souvenirCategory}}</option>
-													</select>  -->
-													<!-- <select id="souvenirCategory"
-														ng-options="currentSouvenirCategory.souvenirCategory for (currentSouvenirCategory.souvenirCategory , currentSouvenirCategory.souvenirCategoryId) in souvenirCategories"
-														ng-model="currentSouvenirCategoryId"></select>  -->
 													<select ng-model="currentSouvenirCategoryId">
 														<option
 															ng-repeat="currentSouvenirCategory in souvenirCategories"

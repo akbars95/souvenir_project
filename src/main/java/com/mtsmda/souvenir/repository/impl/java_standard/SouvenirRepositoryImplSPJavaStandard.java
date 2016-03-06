@@ -32,7 +32,7 @@ import static com.mtsmda.souvenir.model.sp.SouvenirSP.*;
  * Created by MTSMDA on 21.02.2016.
  */
 @Repository("souvenirRepositoryImplSPJavaStandard")
-public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
+public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
@@ -45,8 +45,13 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_ALL_SOUVENIRS_SP_NAME,
                     null, false);
             ResultSet rs = callableStatement.executeQuery();
-            
+            dataSource.getConnection().commit();
         } catch (SQLException e) {
+            try {
+                dataSource.getConnection().rollback();
+            } catch (Exception e1) {
+                throw new SouvenirRuntimeException("insertSouvenir - " + e1.getMessage());
+            }
             throw new SouvenirRuntimeException("insertSouvenir - " + e.getMessage());
         }
         return false;
@@ -110,9 +115,9 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
         return false;
     }
 
-	@Override
-	public List<Souvenir> getAllSouvenirWithCategoryAndAudit() {
-		List<Souvenir> souvenirs = null;
+    @Override
+    public List<Souvenir> getAllSouvenirWithCategoryAndAudit() {
+        List<Souvenir> souvenirs = null;
         try {
             MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
             MapperI<SouvenirCategory> souvenirCategoryMapper = new SouvenirCategoryMapper();
@@ -123,11 +128,11 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
             if (rs != null) {
                 souvenirs = new ArrayList<>();
                 while (rs.next()) {
-                	Souvenir souvenir = souvenirMapper.mapRow(rs);
-                	SouvenirCategory souvenirCategory = souvenirCategoryMapper.mapRow(rs);
-                	souvenir.setSouvenirCategory(souvenirCategory);
-                	SouvenirAudit souvenirAudit = souvenirAuditMapper.mapRow(rs);
-                	souvenir.setSouvenirAudit(souvenirAudit);
+                    Souvenir souvenir = souvenirMapper.mapRow(rs);
+                    SouvenirCategory souvenirCategory = souvenirCategoryMapper.mapRow(rs);
+                    souvenir.setSouvenirCategory(souvenirCategory);
+                    SouvenirAudit souvenirAudit = souvenirAuditMapper.mapRow(rs);
+                    souvenir.setSouvenirAudit(souvenirAudit);
                     souvenirs.add(souvenir);
                 }
             }
@@ -135,5 +140,5 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository{
             throw new SouvenirRuntimeException("getAllSouvenir - " + e.getMessage());
         }
         return souvenirs;
-	}
+    }
 }

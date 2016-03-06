@@ -296,5 +296,7 @@ ul.nav li:hover{
     -o-transition: all 5s ease-in-out;
     transition: all 5s ease-in-out;
     -webkit-animation-iteration-count: infinite; 
-	animation-iteration-count: infinite; 
+	animation-iteration-count: infinite;
+    color: white;
+    background-color: green;
 }

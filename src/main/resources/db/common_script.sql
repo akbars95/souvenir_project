@@ -24,7 +24,7 @@ CREATE TABLE `SOUVENIRS` (
   `souvenir_name` varchar(50) NOT NULL,
   `souvenir_description` varchar(255) DEFAULT NULL,
   `souvenir_show` tinyint(1) NOT NULL DEFAULT '1',
-  `souvenir_path` varchar(300) NOT NULL,
+  `souvenir_main_photo_id` int(11) NULL,
   `souvenir_category_id` int(11) DEFAULT NULL,
   `souvenir_price` decimal(8,2) DEFAULT NULL,
   `souvenir_count_of_days_for_order` int(11) DEFAULT NULL,
@@ -74,7 +74,10 @@ CREATE TABLE `MESSAGE` (
 
 		/*views*/
 CREATE ALGORITHM=UNDEFINED DEFINER=`souvenir`@`localhost` SQL SECURITY DEFINER VIEW `FULL_SELECT_SOUVENIRS` AS
-select `s`.`souvenir_id` AS `souvenir_id`,`s`.`souvenir_name` AS `souvenir_name`,`s`.`souvenir_description` AS `souvenir_description`,`s`.`souvenir_show` AS `souvenir_show`,`s`.`souvenir_path` AS `souvenir_path`,`s`.`souvenir_category_id` AS `souvenir_category_id`,`s`.`souvenir_price` AS `souvenir_price`,`s`.`souvenir_count_of_days_for_order` AS `souvenir_count_of_days_for_order`,`sc`.`souvenir_category` AS `souvenir_category`
+select `s`.`souvenir_id` AS `souvenir_id`,`s`.`souvenir_name` AS `souvenir_name`,`s`.`souvenir_description` AS `souvenir_description`,
+`s`.`souvenir_show` AS `souvenir_show`,`s`.`souvenir_main_photo_id` AS `souvenir_main_photo_id`,
+`s`.`souvenir_category_id` AS `souvenir_category_id`,`s`.`souvenir_price` AS `souvenir_price`,
+`s`.`souvenir_count_of_days_for_order` AS `souvenir_count_of_days_for_order`,`sc`.`souvenir_category` AS `souvenir_category`
 from (`SOUVENIRS` `s` join `SOUVENIR_CATEGORIES` `sc` on((`s`.`souvenir_category_id` = `sc`.`souvenir_category_id`)));
 
 
@@ -236,11 +239,14 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertSouvenirs`(IN souvenir_nameIN VARCHAR(50), IN souvenir_descriptionIN VARCHAR(255), IN souvenir_showIN TINYINT(1), IN souvenir_pathIN VARCHAR(300),
+CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertSouvenirs`(IN souvenir_nameIN VARCHAR(50),
+ 									IN souvenir_descriptionIN VARCHAR(255), IN souvenir_showIN TINYINT(1), IN souvenir_main_photo_idIN int(11),
 									IN souvenir_category_idIN INT(11), IN souvenir_priceIN DECIMAL(8,2), IN souvenir_count_of_days_for_orderIN INT(11))
 BEGIN
-	insert into SOUVENIRS(souvenir_name, souvenir_description, souvenir_show, souvenir_path, souvenir_category_id, souvenir_price, souvenir_count_of_days_for_order)
-    values(souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_pathIN, souvenir_category_idIN, souvenir_priceIN, souvenir_count_of_days_for_orderIN);
+	insert into SOUVENIRS(souvenir_name, souvenir_description, souvenir_show, souvenir_main_photo_id,
+  souvenir_category_id, souvenir_price, souvenir_count_of_days_for_order)
+    values(souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_main_photo_idIN,
+    souvenir_category_idIN, souvenir_priceIN, souvenir_count_of_days_for_orderIN);
 END$$
 DELIMITER ;
 
@@ -320,24 +326,24 @@ CALL `souvenir`.`insertCaptcha`('po,djr3', '/resources/images/captcha/i18.png');
 CALL `souvenir`.`insertCaptcha`('0..692P', '/resources/images/captcha/i19.png');
 
 
-call insertSouvenirs('Souvenir #1', 'This is souvenir #1 is description', 1, 'souvenir path', 1, 120.96, 9);
-call insertSouvenirs('Souvenir #2', 'This is souvenir #2 is description', 0, 'souvenir path', 5, 360.6, 3);
-call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 8);
-call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 9);
-call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 8);
+call insertSouvenirs('Souvenir #1', 'This is souvenir #1 is description', 1, null, 1, 120.96, 9);
+call insertSouvenirs('Souvenir #2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 3);
+call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
+call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
+call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
 
 
-call insertSouvenirs('Korona #1', 'This is korona is description', 1, 'souvenir path for korona', 1, 20, 2);
-call insertSouvenirs('Seriga#2', 'This is souvenir #2 is description', 0, 'souvenir path', 5, 360.6, 6);
-call insertSouvenirs('Cepi#3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 12);
-call insertSouvenirs('Souvenir #20', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 14);
-call insertSouvenirs('Bezdelushka', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 5);
+call insertSouvenirs('Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
+call insertSouvenirs('Seriga#2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 6);
+call insertSouvenirs('Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);
+call insertSouvenirs('Souvenir #20', 'This is souvenir #4 is description', 0, null, 2, 500.10, 14);
+call insertSouvenirs('Bezdelushka', 'This is souvenir #5 is description', 1, null, 5, 1931, 5);
 
-call insertSouvenirs('Zolotaya Korona #1', 'This is korona is description', 1, 'souvenir path for korona', 1, 20, 2);
-call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is description', 0, 'souvenir path', 5, 360.6, 6);
-call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, 'souvenir path', 1, 100.5, 12);
-call insertSouvenirs('Bronzovyi Souvenir #19', 'This is souvenir #4 is description', 0, 'souvenir path', 2, 500.10, 14);
-call insertSouvenirs('Bezdelushka iz alyuminiya', 'This is souvenir #5 is description', 1, 'souvenir path', 5, 1931, 5);
+call insertSouvenirs('Zolotaya Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
+call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 6);
+call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);
+call insertSouvenirs('Bronzovyi Souvenir #19', 'This is souvenir #4 is description', 0, null, 2, 500.10, 14);
+call insertSouvenirs('Bezdelushka iz alyuminiya', 'This is souvenir #5 is description', 1, null, 5, 1931, 5);
 
 
 		/*functions*/
