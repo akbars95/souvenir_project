@@ -1,10 +1,13 @@
 package com.mtsmda.souvenir.repository.impl.java_standard;
 
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
+import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirAudit;
 import com.mtsmda.souvenir.model.SouvenirCategory;
+import com.mtsmda.souvenir.model.SouvenirPhoto;
+import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
 import com.mtsmda.souvenir.repository.SouvenirRepository;
 import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.MapperI;
 import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirAuditMapper;
@@ -25,8 +28,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mtsmda.souvenir.model.sp.CaptchaSP.CAPTCHA_ID_IN_SP_PARAM_NAME;
+import static com.mtsmda.souvenir.model.sp.CaptchaSP.CAPTCHA_URL_FILE_IN_SP_PARAM_NAME;
+import static com.mtsmda.souvenir.model.sp.CaptchaSP.CAPTCHA_VALUE_IN_SP_PARAM_NAME;
 import static com.mtsmda.souvenir.model.sp.SouvenirSP.*;
+import static com.mtsmda.souvenir.model.sp.SouvenirSP.SOUVENIR_SHOW_IN_SP_PARAM_NAME;
 
 /**
  * Created by MTSMDA on 21.02.2016.
@@ -38,21 +43,49 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
+    @Autowired
+    @Qualifier(value = "SouvenirPhotoRepositoryImplSPJavaStandard")
+    private SouvenirPhotoRepository souvenirPhotoRepository;
+
     @Override
     public boolean insertSouvenir(Souvenir souvenir) {
         try {
-            MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_ALL_SOUVENIRS_SP_NAME,
-                    null, false);
-            ResultSet rs = callableStatement.executeQuery();
-            dataSource.getConnection().commit();
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            mapParam.put(SOUVENIR_NAME_IN_SP_PARAM_NAME, souvenir.getSouvenirName());
+            mapParam.put(SOUVENIR_DESCRIPTION_IN_SP_PARAM_NAME, souvenir.getSouvenirDescription());
+            mapParam.put(SOUVENIR_SHOW_IN_SP_PARAM_NAME, souvenir.getSouvenirShow());
+            mapParam.put(SOUVENIR_MAIN_PHOTO_ID_IN_SP_PARAM_NAME, 1/*(souvenir.getSouvenirMainPhotoId() != null && souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() != null) ? souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() : null*/);
+            mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenir.getSouvenirCategory().getSouvenirCategoryId());
+            mapParam.put(SOUVENIR_PRICE_IN_SP_PARAM_NAME, souvenir.getSouvenirPrice());
+            mapParam.put(SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_IN_SP_PARAM_NAME, souvenir.getSouvenirCountOfDaysForOrder());
+
+            System.out.println(dataSource.getConnection().getAutoCommit());
+            dataSource.getConnection().setAutoCommit(false);
+            System.out.println(dataSource.getConnection().getAutoCommit());
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    INSERT_SOUVENIRS_SP_NAME, mapParam, false);
+            int count = callableStatement.executeUpdate();
+            if (count > 0) {
+                Souvenir lastAddedSouvenir = getLastAddedSouvenir();
+                if (lastAddedSouvenir != null && lastAddedSouvenir.getSouvenirId() != null) {
+                    if (souvenir.getSouvenirPhotos() != null && !souvenir.getSouvenirPhotos().isEmpty()) {
+                        for (SouvenirPhoto souvenirPhoto : souvenir.getSouvenirPhotos()) {
+                            souvenirPhoto.setSouvenir(lastAddedSouvenir);
+                            souvenirPhotoRepository.insertSouvenirPhoto(souvenirPhoto);
+                        }
+                    }
+                    dataSource.getConnection().commit();
+                    lastAddedSouvenir = getLastAddedSouvenir();
+                    return true;
+                }
+            }
         } catch (SQLException e) {
             try {
                 dataSource.getConnection().rollback();
             } catch (Exception e1) {
-                throw new SouvenirRuntimeException("insertSouvenir - " + e1.getMessage());
+                SouvenirExceptionHandler.handle("insertSouvenir", e1);
             }
-            throw new SouvenirRuntimeException("insertSouvenir - " + e.getMessage());
+            SouvenirExceptionHandler.handle("insertSouvenir", e);
         }
         return false;
     }
@@ -76,8 +109,8 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirId);
 
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, SELECT_SOUVENIR_SP_NAME,
-                    mapParam, false);
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    SELECT_SOUVENIR_SP_NAME, mapParam, false);
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
@@ -85,7 +118,7 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                 }
             }
         } catch (SQLException e) {
-            throw new SouvenirRuntimeException("getAllSouvenir - " + e.getMessage());
+            SouvenirExceptionHandler.handle("getSouvenir", e);
         }
         return souvenir;
     }
@@ -95,8 +128,8 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
         List<Souvenir> souvenirs = null;
         try {
             MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_ALL_SOUVENIRS_SP_NAME,
-                    null, false);
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    GET_ALL_SOUVENIRS_SP_NAME, null, false);
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 souvenirs = new ArrayList<>();
@@ -105,7 +138,7 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                 }
             }
         } catch (SQLException e) {
-            throw new SouvenirRuntimeException("getAllSouvenir - " + e.getMessage());
+            SouvenirExceptionHandler.handle("getAllSouvenir", e);
         }
         return souvenirs;
     }
@@ -122,8 +155,8 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
             MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
             MapperI<SouvenirCategory> souvenirCategoryMapper = new SouvenirCategoryMapper();
             MapperI<SouvenirAudit> souvenirAuditMapper = new SouvenirAuditMapper();
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, SELECT_FULL_SOUVENIR_WITH_CATEGORY_AND_AUDIT_SP_NAME,
-                    null, false);
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    SELECT_FULL_SOUVENIR_WITH_CATEGORY_AND_AUDIT_SP_NAME, null, false);
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 souvenirs = new ArrayList<>();
@@ -137,8 +170,27 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                 }
             }
         } catch (SQLException e) {
-            throw new SouvenirRuntimeException("getAllSouvenir - " + e.getMessage());
+            SouvenirExceptionHandler.handle("getAllSouvenirWithCategoryAndAudit", e);
         }
         return souvenirs;
+    }
+
+    @Override
+    public Souvenir getLastAddedSouvenir() {
+        Souvenir souvenir = null;
+        try {
+            MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    GET_LAST_ADDED_SOUVENIR_SP_NAME, null, false);
+            ResultSet resultSet = callableStatement.executeQuery();
+            if (resultSet != null) {
+                while (resultSet.next()) {
+                    souvenir = souvenirMapper.mapRow(resultSet);
+                }
+            }
+        } catch (Exception e) {
+            SouvenirExceptionHandler.handle("getLastAddedSouvenir", e);
+        }
+        return souvenir;
     }
 }

@@ -18,5 +18,7 @@ public interface SouvenirRepository {
     public List<Souvenir> getAllSouvenirWithCategoryAndAudit();
 
     public boolean hideSouvenir(Souvenir souvenir);
+    
+    public Souvenir getLastAddedSouvenir();
 
 }

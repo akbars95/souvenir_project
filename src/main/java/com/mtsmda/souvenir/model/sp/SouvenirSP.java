@@ -12,7 +12,9 @@ import static com.mtsmda.souvenir.model.sp.SPConstant.*;
 public class SouvenirSP {
 
 	/* stored procedure name */
+	public static final String INSERT_SOUVENIRS_SP_NAME = "souvenir.insertSouvenirs";
 	public static final String GET_ALL_SOUVENIRS_SP_NAME = "getAllSouvenirs";
+	public static final String GET_LAST_ADDED_SOUVENIR_SP_NAME = "getLastAddedSouvenir";
 	public static final String SELECT_SOUVENIR_SP_NAME = "selectSouvenir";
 	public static final String SELECT_FULL_SOUVENIR_WITH_CATEGORY_AND_AUDIT_SP_NAME = "selectFullSouvenirWithCategoryAndAudit";
 
@@ -33,7 +35,7 @@ public class SouvenirSP {
 	public static final String SOUVENIR_NAME_IN_SP_PARAM_NAME = SOUVENIR_NAME + IN;
 	public static final String SOUVENIR_DESCRIPTION_IN_SP_PARAM_NAME = SOUVENIR_DESCRIPTION + IN;
 	public static final String SOUVENIR_SHOW_IN_SP_PARAM_NAME = SOUVENIR_SHOW + IN;
-	public static final String SOUVENIR_PATH_IN_SP_PARAM_NAME = SOUVENIR_MAIN_PHOTO_ID + IN;
+	public static final String SOUVENIR_MAIN_PHOTO_ID_IN_SP_PARAM_NAME = SOUVENIR_MAIN_PHOTO_ID + IN;
 	public static final String SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME = SOUVENIR_CATEGORY_ID + IN;
 	public static final String SOUVENIR_PRICE_IN_SP_PARAM_NAME = SOUVENIR_PRICE + IN;
 	public static final String SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_IN_SP_PARAM_NAME = SOUVENIR_COUNT_OF_DAYS_FOR_ORDER + IN;

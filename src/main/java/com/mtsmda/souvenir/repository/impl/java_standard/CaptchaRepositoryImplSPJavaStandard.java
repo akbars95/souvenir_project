@@ -139,7 +139,11 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
     @Override
     public List<Captcha> getAllCaptcha() {
         List<Captcha> captchas = null;
+
         try {
+            System.out.println(dataSource.getConnection().getAutoCommit());
+            dataSource.getConnection().setAutoCommit(true);
+            System.out.println(dataSource.getConnection().getAutoCommit());
             CaptchaMapper captchaMapper = new CaptchaMapper();
             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
                     GET_ALL_CAPTCHA_SP_NAME, null, false);

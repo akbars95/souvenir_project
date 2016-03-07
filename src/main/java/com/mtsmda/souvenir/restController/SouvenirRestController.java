@@ -1,5 +1,7 @@
 package com.mtsmda.souvenir.restController;
 
+import com.mtsmda.souvenir.model.Captcha;
+import com.mtsmda.souvenir.repository.CaptchaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RequestMapping;

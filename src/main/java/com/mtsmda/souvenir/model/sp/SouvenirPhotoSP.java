@@ -5,6 +5,7 @@ import static com.mtsmda.souvenir.model.sp.SPConstant.IN;
 public class SouvenirPhotoSP {
 	
 	/* stored procedure name */
+	public static final String INSERT_SOUVENIR_PHOTO_SP_NAME = "insertSouvenirPhoto";
 	
 	/* function name */
 

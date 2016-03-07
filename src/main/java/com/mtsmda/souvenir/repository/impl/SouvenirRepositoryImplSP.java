@@ -20,7 +20,7 @@ import static com.mtsmda.souvenir.model.sp.SouvenirSP.*;
  */
 @SouvenirDepricated("will be used standard java SP")
 @Repository("souvenirRepository")
-public class SouvenirRepositoryImplSP implements SouvenirRepository {
+public class SouvenirRepositoryImplSP /*implements SouvenirRepository*/ {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
@@ -28,7 +28,7 @@ public class SouvenirRepositoryImplSP implements SouvenirRepository {
 
     private SouvenirStoredProcedure souvenirStoredProcedure;
 
-    @Override
+    /*@Override
     public boolean insertSouvenir(Souvenir souvenir) {
         return false;
     }
@@ -68,5 +68,5 @@ public class SouvenirRepositoryImplSP implements SouvenirRepository {
     @Override
     public boolean hideSouvenir(Souvenir souvenir) {
         return false;
-    }
+    }*/
 }

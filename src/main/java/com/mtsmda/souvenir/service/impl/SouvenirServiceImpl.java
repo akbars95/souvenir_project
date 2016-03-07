@@ -50,6 +50,11 @@ public class SouvenirServiceImpl implements SouvenirService {
 	}
 
 	@Override
+	public Souvenir getLastAddedSouvenir() {
+		return this.souvenirRepository.getLastAddedSouvenir();
+	}
+
+	@Override
 	public List<Souvenir> getAllSouvenirWithCategoryAndAudit() {
 		return this.souvenirRepository.getAllSouvenirWithCategoryAndAudit();
 	}
