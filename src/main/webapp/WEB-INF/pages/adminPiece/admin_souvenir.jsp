@@ -133,7 +133,8 @@
 													</label>
 												</div>
 												<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-													<select ng-model="currentSouvenirCategoryId">
+													<select id="souvenirCategory" ng-model="currentSouvenirCategoryId">
+														<option selected value="-"> - </option>
 														<option
 															ng-repeat="currentSouvenirCategory in souvenirCategories"
 															value="{{currentSouvenirCategory.souvenirCategoryId}}">{{currentSouvenirCategory.souvenirCategory}}</option>

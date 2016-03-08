@@ -239,6 +239,14 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSouvenirPhoto`(IN souvenir_photo_pathIN VARCHAR(255), IN souvenir_photo_souvenir_idIN INT(11))
+BEGIN
+	INSERT INTO souvenir_photos(souvenir_photo_path, souvenir_photo_souvenir_id)
+    values (souvenir_photo_pathIN, souvenir_photo_souvenir_idIN);
+END$$
+DELIMITER ;
+
+DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertSouvenirs`(IN souvenir_nameIN VARCHAR(50),
  									IN souvenir_descriptionIN VARCHAR(255), IN souvenir_showIN TINYINT(1), IN souvenir_main_photo_idIN int(11),
 									IN souvenir_category_idIN INT(11), IN souvenir_priceIN DECIMAL(8,2), IN souvenir_count_of_days_for_orderIN INT(11))

@@ -18,6 +18,8 @@ import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirMappe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
 import java.sql.CallableStatement;
@@ -37,6 +39,7 @@ import static com.mtsmda.souvenir.model.sp.SouvenirSP.SOUVENIR_SHOW_IN_SP_PARAM_
  * Created by MTSMDA on 21.02.2016.
  */
 @Repository("souvenirRepositoryImplSPJavaStandard")
+@Transactional(readOnly = true)
 public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository {
 
     @Autowired
@@ -47,6 +50,7 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
     @Qualifier(value = "SouvenirPhotoRepositoryImplSPJavaStandard")
     private SouvenirPhotoRepository souvenirPhotoRepository;
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public boolean insertSouvenir(Souvenir souvenir) {
         try {
@@ -54,14 +58,11 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
             mapParam.put(SOUVENIR_NAME_IN_SP_PARAM_NAME, souvenir.getSouvenirName());
             mapParam.put(SOUVENIR_DESCRIPTION_IN_SP_PARAM_NAME, souvenir.getSouvenirDescription());
             mapParam.put(SOUVENIR_SHOW_IN_SP_PARAM_NAME, souvenir.getSouvenirShow());
-            mapParam.put(SOUVENIR_MAIN_PHOTO_ID_IN_SP_PARAM_NAME, 1/*(souvenir.getSouvenirMainPhotoId() != null && souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() != null) ? souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() : null*/);
+            mapParam.put(SOUVENIR_MAIN_PHOTO_ID_IN_SP_PARAM_NAME, (souvenir.getSouvenirMainPhotoId() != null && souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() != null) ? souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() : null);
             mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenir.getSouvenirCategory().getSouvenirCategoryId());
             mapParam.put(SOUVENIR_PRICE_IN_SP_PARAM_NAME, souvenir.getSouvenirPrice());
             mapParam.put(SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_IN_SP_PARAM_NAME, souvenir.getSouvenirCountOfDaysForOrder());
 
-            System.out.println(dataSource.getConnection().getAutoCommit());
-            dataSource.getConnection().setAutoCommit(false);
-            System.out.println(dataSource.getConnection().getAutoCommit());
             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
                     INSERT_SOUVENIRS_SP_NAME, mapParam, false);
             int count = callableStatement.executeUpdate();
@@ -74,27 +75,23 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                             souvenirPhotoRepository.insertSouvenirPhoto(souvenirPhoto);
                         }
                     }
-                    dataSource.getConnection().commit();
                     lastAddedSouvenir = getLastAddedSouvenir();
                     return true;
                 }
             }
         } catch (SQLException e) {
-            try {
-                dataSource.getConnection().rollback();
-            } catch (Exception e1) {
-                SouvenirExceptionHandler.handle("insertSouvenir", e1);
-            }
             SouvenirExceptionHandler.handle("insertSouvenir", e);
         }
         return false;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public boolean updateSouvenir(Souvenir souvenir) {
         return false;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public boolean deleteSouvenir(Souvenir souvenir) {
         return false;

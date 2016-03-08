@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.mtsmda.souvenir.model.SouvenirPhoto;
 import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -20,12 +22,14 @@ import java.util.Map;
 import static com.mtsmda.souvenir.model.sp.SouvenirPhotoSP.*;
 
 @Repository("SouvenirPhotoRepositoryImplSPJavaStandard")
+@Transactional(readOnly = true)
 public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     @Override
     public boolean insertSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
         try {
@@ -40,11 +44,6 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
                 return true;
             }
         } catch (SQLException e) {
-            try {
-                dataSource.getConnection().rollback();
-            } catch (Exception e1) {
-                SouvenirExceptionHandler.handle("insertSouvenirPhoto", e1);
-            }
             SouvenirExceptionHandler.handle("insertSouvenirPhoto", e);
         }
         return false;

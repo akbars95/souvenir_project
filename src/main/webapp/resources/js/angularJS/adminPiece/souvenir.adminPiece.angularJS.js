@@ -78,6 +78,7 @@ souvenirAdminPieceApp
                 .success(
                 function (data, status, headers, config) {
                     $scope.souvenirCategories = data;
+                    $scope.souvenirCategoriesCopy = $scope.souvenirCategories;
                 })
                 .error(function (data, status, headers, config) {
                     // log error
@@ -105,7 +106,10 @@ souvenirAdminPieceApp
                 headers: {'Content-Type': undefined}
             })
             .success(function(data, status, headers, config){
-            	console.log(data);
+            	if(data && data == true && status == 200){
+                    $scope.getAllSouvenirs();
+                    $scope.resetForm();
+                }
             })
             .error(function(data, status, headers, config){
             	console.log(data);
@@ -118,8 +122,9 @@ souvenirAdminPieceApp
         	$scope.souvenirShow = false;
         	$scope.souvenirPrice = 0.0;
         	$scope.souvenirCountOfDaysForOrder = 0;
-        	$scope.currentSouvenirCategoryId = "";
+        	$scope.currentSouvenirCategoryId = "-";
         	$scope.souvenirFiles = null;
+            $scope.souvenirCategories = $scope.souvenirCategoriesCopy;
         	angular.element("input[type='file']").val(null);
         };
         

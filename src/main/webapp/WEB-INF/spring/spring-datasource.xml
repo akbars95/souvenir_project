@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
     <bean id="datasourceProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -9,16 +11,27 @@
     </bean>
 
     <!--Database connection -->
-    <!--<bean id="mySqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="${db.driverClassName}" />
-        <property name="url" value="${db.url}" />
-        <property name="username" value="${db.username}" />
-        <property name="password" value="${db.password}" />
-        <property name="defaultAutoCommit" value="${db.defaultAutoCommit}" />
-    </bean>-->
+    <bean id="mySqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <!--<property name="defaultAutoCommit" value="${db.defaultAutoCommit}"/>-->
+    </bean>
 
-    <bean id="mySqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!-- Enable Annotation based Declarative Transaction Management -->
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager"/>
+
+    <!-- Creating TransactionManager Bean, since JDBC we are creating of type
+        DataSourceTransactionManager -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="mySqlDataSource"/>
+    </bean>
+
+    <!--<bean id="mySqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${db.driverClassName}"/>
         <property name="url" value="${db.url}"/>
         <property name="username" value="${db.username}"/>
@@ -28,6 +41,6 @@
                 <prop key="autoCommit">false</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 
 </beans>
