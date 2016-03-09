@@ -52,11 +52,6 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
                 return true;
             }
         } catch (SQLException e) {
-            try {
-                this.dataSource.getConnection().rollback();
-            } catch (SQLException e1) {
-                throw new SouvenirRuntimeException("Error rollback operation! " + e1.getMessage());
-            }
             throw new SouvenirRuntimeException("Error " + e.getMessage());
         }
         return false;

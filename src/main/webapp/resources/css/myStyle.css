@@ -300,3 +300,12 @@ ul.nav li:hover{
     color: white;
     background-color: green;
 }
+
+.btn-margin-top{
+    margin-top: 5px;
+}
+
+.addNewSouvenirCategoryForm{
+    border: 2px inset gray;
+    padding: 15px 0;
+}

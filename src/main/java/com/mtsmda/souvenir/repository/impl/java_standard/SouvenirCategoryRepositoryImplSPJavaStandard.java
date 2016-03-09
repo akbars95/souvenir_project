@@ -12,8 +12,10 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.MapperI;
 import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirCategoryMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -24,17 +26,38 @@ import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.repository.SouvenirCategoryRepository;
 import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.CaptchaMapper;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 
 @Repository("souvenirCategoryRepositoryImplSPJavaStandard")
+@Transactional()
 public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCategoryRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
     @Override
     public boolean insertSouvenirCategory(SouvenirCategory souvenirCategory) {
-        // TODO Auto-generated method stub
+        try {
+            if (souvenirCategory == null && StringUtils.isNotBlank(souvenirCategory.getSouvenirCategory())) {
+                throw new SouvenirRuntimeException("insertSouvenirCategory - SouvenirCategory object is NULL");
+            }
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            mapParam.put(SOUVENIR_CATEGORY_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategory());
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    INSERT_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);
+            int count = callableStatement.executeUpdate();
+            if (count > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            SouvenirExceptionHandler.handle("insertSouvenirCategory", e);
+        }
         return false;
     }
 
