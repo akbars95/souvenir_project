@@ -151,6 +151,16 @@ souvenirAdminPieceApp
                     });
             };
 
+            $scope.hoverForRemove = false;
+
+            $scope.mouseHover = function(){
+                $scope.hoverForRemove = true;
+            };
+
+            $scope.mouseUnHover = function(){
+                $scope.hoverForRemove = false;
+            };
+
             $scope.getAllSouvenirs();
             $scope.getAllSouvenirCategories();
             $scope.resetForm();

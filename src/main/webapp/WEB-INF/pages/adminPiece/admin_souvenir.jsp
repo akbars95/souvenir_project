@@ -22,9 +22,13 @@
                     <div
                             ng-class-odd="'col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-5 col-lg-5'"
                             ng-class-even="'col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1'"
-                            ng-repeat="souvenirCurrent in souvenirs">
-                        <a href="#/{{souvenirCurrent.souvenirId}}"><h1
-                                class="text-center">{{souvenirCurrent.souvenirName}}</h1></a>
+                            ng-repeat="souvenirCurrent in souvenirs" style="position: relative;">
+                        <a href="#/{{souvenirCurrent.souvenirId}}" class="adminSouvenirs"
+                           ng-mouseleave="mouseUnHover();" ng-mouseover="mouseHover();"><h1
+                                class="text-center">{{souvenirCurrent.souvenirName}}</h1>
+                            <span ng-show="hoverForRemove" class="glyphicon glyphicon-remove removeItem"></span>
+                        </a>
+
                     </div>
                     <div class="text-center" ng-class="addNewSouvenirBootstrapClass"
                          ng-show="souvenirs.length > 0">
@@ -168,6 +172,7 @@
                                                                ng-model="souvenirCategory" required ng-minlength="2"
                                                                ng-maxlength="50"
                                                                placeholder="<spring:message code="page.admin.souvenir.add.new.modal_view.form.souvenirCategory.newSouvenirCategoryName_input_text.placeholder"/>">
+
                                                         <p>
                                                         <span ng-show="addNewSouvenirCategoryForm.newSouvenirCategoryName.$valid"><spring:message
                                                                 code="page.admin.souvenir.add.new.modal_view.form.souvenirCategory.newSouvenirCategoryName_input_text.count.input.letters"/> {{50 - souvenirCategory.length}} / 50</span>
