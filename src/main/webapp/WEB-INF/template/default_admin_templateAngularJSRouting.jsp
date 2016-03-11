@@ -25,7 +25,7 @@
 
 </head>
 <body style="display: inherit !important;"
-      ng-app="souvenirAdminPieceApp">
+      ng-app="adminSouvenirAngularJSRoutingApp">
 
 <div class="container">
     <!-- header -->
@@ -33,12 +33,6 @@
         <tiles:insertAttribute name="header"/>
     </div>
     <!-- end header  -->
-
-    <!-- menuAdmin -->
-    <div id="menuAdmin">
-        <tiles:insertAttribute name="menuAdmin"/>
-    </div>
-    <!-- end menuAdmin  -->
 
     <!-- content -->
     <div id="content">

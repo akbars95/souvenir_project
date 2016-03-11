@@ -61,10 +61,22 @@
 
 	<definition name="defaultAdminTemplate" extends="commonTemplate"
 		template="/WEB-INF/template/default_admin_template.jsp">
+		<put-attribute name="menuAdmin" value="/WEB-INF/template/d_admin_menu.jsp"
+					   cascade="true" />
 		<put-list-attribute name="javascripts" inherit="true"
 			cascade="true">
 			<add-attribute
 				value="/resources/js/angularJS/adminPiece/souvenir.adminPiece.angularJS.js" />
+		</put-list-attribute>
+	</definition>
+
+
+	<definition name="defaultAdminAngularJSRoutingTemplate" extends="commonTemplate"
+				template="/WEB-INF/template/default_admin_templateAngularJSRouting.jsp">
+		<put-list-attribute name="javascripts" inherit="true"
+							cascade="true">
+			<add-attribute
+					value="/resources/js/angularJS/adminPiece/souvenir.adminPiece.angularJS2.js" />
 		</put-list-attribute>
 	</definition>
 

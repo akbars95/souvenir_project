@@ -12,8 +12,7 @@
 
 <tiles:insertDefinition name="defaultAdminTemplate">
     <tiles:putAttribute name="title">
-        //TODO
-        <spring:message code="page.about_us.title"/>
+        <spring:message code="page.admin.souvenir.title"/>
     </tiles:putAttribute>
     <tiles:putAttribute name="content">
         <div class="" ng-controller="adminSouvenirCtrl">
@@ -22,9 +21,9 @@
                     <div
                             ng-class-odd="'col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-5 col-lg-5'"
                             ng-class-even="'col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1'"
-                            ng-repeat="souvenirCurrent in souvenirs" style="position: relative;">
-                        <a href="#/{{souvenirCurrent.souvenirId}}" class="adminSouvenirs"
-                           ng-mouseleave="mouseUnHover();" ng-mouseover="mouseHover();"><h1
+                            ng-repeat="souvenirCurrent in souvenirs" style="position: relative;"
+                            ng-mouseleave="mouseUnHover();" ng-mouseover="mouseHover();" id="souvenirNumber{{souvenirCurrent.souvenirId}}">
+                        <a href="#/{{souvenirCurrent.souvenirId}}" class="adminSouvenirs"><h1
                                 class="text-center">{{souvenirCurrent.souvenirName}}</h1>
                             <span ng-show="hoverForRemove" class="glyphicon glyphicon-remove removeItem"></span>
                         </a>
@@ -41,6 +40,7 @@
                                   ng-class="styleClassesForInsertNewSouvenir"></span>
                         </button>
 
+                        <%--modal begin--%>
                         <div class="modal fade" id="newSouvenirModalView" tabindex="-1"
                              role="dialog" aria-labelledby="gridSystemModalLabel">
                             <div class="modal-dialog" role="document">

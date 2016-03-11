@@ -3,7 +3,7 @@
  */
 
 /* apps */
-var souvenirAdminPieceApp = angular.module('souvenirAdminPieceApp', []);
+var souvenirAdminPieceApp = angular.module('souvenirAdminPieceApp', ['ngRoute']);
 
 /* constants */
 souvenirAdminPieceApp.constant("hostConst", "/souvenirs");
@@ -129,15 +129,15 @@ souvenirAdminPieceApp
 
             $scope.addNewCategory = false;
 
-            $scope.showOrHideAddNewSouvenirCategory = function(){
-              $scope.addNewCategory = !$scope.addNewCategory;
+            $scope.showOrHideAddNewSouvenirCategory = function () {
+                $scope.addNewCategory = !$scope.addNewCategory;
             };
 
-            $scope.addNewSouvenirCategory = function(){
+            $scope.addNewSouvenirCategory = function () {
                 var dataObj = {
-                    souvenirCategoryId : null,
-                    souvenirCategory : $scope.souvenirCategory,
-                    souvenirs : null
+                    souvenirCategoryId: null,
+                    souvenirCategory: $scope.souvenirCategory,
+                    souvenirs: null
                 };
                 $http.post(hostConst + "/insertSouvenirCategories", dataObj)
                     .success(function (data, status, headers, config) {
@@ -153,11 +153,11 @@ souvenirAdminPieceApp
 
             $scope.hoverForRemove = false;
 
-            $scope.mouseHover = function(){
+            $scope.mouseHover = function () {
                 $scope.hoverForRemove = true;
             };
 
-            $scope.mouseUnHover = function(){
+            $scope.mouseUnHover = function () {
                 $scope.hoverForRemove = false;
             };
 
@@ -183,3 +183,49 @@ souvenirAdminPieceApp.directive('fileModel', ['$parse', function ($parse) {
         }
     };
 }]);
+
+souvenirAdminPieceApp.config(['$routeProvider', function ($routeProvider) {
+    $routeProvider
+        .when('/admin/souvenir_piece', {
+            templateUrl: 'http://localhost:8989/souvenirs/adminPiece/souvenir',
+            controller: "adminSouvenirCtrl"
+        })
+        .when('/admin/message_piece', {
+            templateUrl: 'http://localhost:8989/souvenirs/adminPiece/message',
+            controller: "adminSouvenirCtrl"
+        })
+        ./*when('/items/computerdetails/:id', {
+            templateUrl: 'items/computerdetails',
+            controller: "ItemDetailsController as itemDetailsCtrl",
+            resolve: {
+                async: ['ItemService', '$route', function (ItemService, $route) {
+                    return ItemService.fetchSpecificItem('computers', $route.current.params.id);
+                }]
+            }
+        }).*/otherwise({redirectTo: '/items/computers'});
+}]);
+
+
+
+
+
+
+
+
+
+/*
+/!*apps*!/
+var adminSouvenirAngularJSRoutingApp = angular.module('adminSouvenirAngularJSRoutingApp', ['ngRoute']);
+
+/!* constants *!/
+adminSouvenirAngularJSRoutingApp.constant("hostConst", "/souvenirs");
+
+/!*configs*!/
+adminSouvenirAngularJSRoutingApp.config(['$routeProvider', function ($routeProvider, hostConst) {
+    $routeProvider
+        .when('/', {template: 'This is the default Route'})
+        .when('/computers', {template: 'This is the <h1>computers</h1> Route'})
+        .when('/printers', {template: 'This is the printers Route'})
+        .when('/souvenirs', {templateUrl: hostConst + '/adminPiece/message'})
+        .otherwise({redirectTo: '/'});
+}]);*/
