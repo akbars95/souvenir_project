@@ -9,11 +9,17 @@ import static com.mtsmda.souvenir.controller.constants.AdminPieceConstants.*;
 @Controller
 @RequestMapping(value = { ADMIN_PIECE_PIECE_URL }, method = RequestMethod.GET)
 public class AdminController {
-/*
+
+	/*@Deprecated
 	@RequestMapping(value = SOUVENIR_PIECE_OP_INSERT_URL, method = RequestMethod.GET)
 	public String insertNewSouvenir() {
 		return SOUVENIR_PIECE_INSERT_INTERNAL_URL;
 	}*/
+
+	@RequestMapping(value = INDEX_PIECE_URL, method = RequestMethod.GET)
+	public String indexMessage() {
+		return ADMIN_INDEX_INTERNAL_URL;
+	}
 
 	@RequestMapping(value = ADMIN_SOUVENIR_PIECE_URL, method = RequestMethod.GET)
 	public String adminSouvenir() {

@@ -27,7 +27,7 @@
 <body style="display: inherit !important;"
       ng-app="souvenirAdminPieceApp">
 
-<div class="container">
+<div class="container" ng-cloak>
     <!-- header -->
     <div id="header">
         <tiles:insertAttribute name="header"/>

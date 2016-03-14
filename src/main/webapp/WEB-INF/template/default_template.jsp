@@ -28,12 +28,12 @@
 <body style="display: inherit !important;" ng-app="souvenirApp">
 
 	<div ng-controller="fixedPieceCtrl">
-		<div class="fixedPieceInfoButton">
+		<div class="fixedPieceInfoButton"  ng-cloak>
 			<div class="infoBtn" ng-click="infoBtnClick()">
 				<spring:message code="fixed.piece.info.btn_title" />
 			</div>
 		</div>
-		<div class="fixedPieceOtherButtons">
+		<div class="fixedPieceOtherButtons"  ng-cloak>
 			<div ng-class="openInfoBtn">
 				<div class="otherBtnWrapperDiv">
 					<button class="btn btn-default" ng-click="otherBtnClick('0')">
@@ -57,7 +57,7 @@
 		</div>
 	</div>
 
-	<div class="container">
+	<div class="container"  ng-cloak>
 		<!-- header -->
 		<div id="header">
 			<tiles:insertAttribute name="header" />

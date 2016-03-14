@@ -311,12 +311,22 @@ ul.nav li:hover{
 }
 
 a.adminSouvenirs{
-    display: block;
+    display: inline-block;
 }
 
-.removeItem{
-    position: absolute;
-    right: 0;
-    padding: 5px;
-    cursor: pointer;
+.iconForRemoveOrEdit{
+    font-size: 29px;
+}
+
+/*admin*/
+.adminMenu ul{
+    text-align: center;
+}
+
+.adminMenu ul li{
+    display: inline;
+    font-size: 17px;
+    padding: 15px;
+    margin-right: 15px;
+    text-transform: uppercase;
 }

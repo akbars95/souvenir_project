@@ -17,10 +17,14 @@
     <tiles:putAttribute name="content">
         <div class="">
 
-            <li><a href="#/">Default Route</a></li>
-            <li><a href="#/computers">Computer Route</a></li>
-            <li><a href="#/printers">Printers Route</a></li>
-            <li><a href="#/messages">messages</a></li>
+            <div class="adminMenu">
+                <ul>
+                    <li><a href="#/"><spring:message code="page.admin_piece.index.menu.title" /></a></li>
+                    <li><a href="#/souvenirs"><spring:message code="page.admin_piece.souvenirs.menu.title" /></a></li>
+                    <li><a href="#/souvenir_categories"><spring:message code="page.admin_piece.souvenir_categories.menu.title" /></a></li>
+                    <li><a href="#/messages"><spring:message code="page.admin_piece.messages.menu.title" /></a></li>
+                </ul>
+            </div>
 
             <div ng-view></div>
 
