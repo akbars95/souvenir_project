@@ -1,3 +1,8 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <div class=""><%-- ng-controller="adminSouvenirCtrl"--%>
     <div id="allSouvenirs">
         <div class="row">
@@ -5,17 +10,49 @@
                     ng-class-odd="'col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-5 col-lg-5'"
                     ng-class-even="'col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1'"
                     ng-repeat="souvenirCurrent in souvenirs" id="souvenirNumber{{$index}}">
-                <div style="display: inline-block;" ng-mouseenter="showOrHideButtons($index)" ng-mouseleave=showOrHideButtons(-1)>
+                <div style="display: inline-block;" ng-mouseenter="showOrHideButtons($index)"
+                     ng-mouseleave=showOrHideButtons(-1)>
                     <a href="" class="adminSouvenirs"><h1
                             class="text-center">{{souvenirCurrent.souvenirName}}</h1>
                     </a>
-                    <span ng-show="currentHoverIndex == $index" ng-click="editSouvenir(souvenirCurrent);"
+                    <span ng-show="currentHoverIndex == $index" ng-click="editSouvenir($index);"
                           class="glyphicon glyphicon-edit iconForRemoveOrEdit"></span>
-                    <span ng-show="currentHoverIndex == $index" ng-click=""
-                          class="glyphicon glyphicon-remove iconForRemoveOrEdit"></span>
+                    <span ng-show="currentHoverIndex == $index"
+                          ng-click="prepareForRemoveSouvenir($index, souvenirCurrent.souvenirName);"
+                          class="glyphicon glyphicon-remove iconForRemoveOrEdit" data-toggle="modal"
+                          data-target=".bs-example-modal-lg"></span>
+
                 </div>
 
             </div>
+
+            <!-- Small modal -->
+            <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-lg removeModelDialog">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            <spring:message
+                                    code="page.admin.souvenir.remove.modal_view.title"/>
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <h2 class="text-center" class="currentForRemoveSouvenirQuestion"><spring:message
+                                code="page.admin.souvenir.remove.modal_view.remove_question.title"/><span class="currentForRemoveSouvenir">{{currentSouvenirName}}</span>?</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message
+                                code="page.admin.souvenir.remove.modal_view.reset_btn.title"/></button>
+                        <button type="button" class="btn btn-danger"  data-dismiss="modal" ng-click="removeSouvenir();">
+                            <spring:message
+                                    code="page.admin.souvenir.remove.modal_view.remove_btn.title"/>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="text-center" ng-class="addNewSouvenirBootstrapClass"
                  ng-show="souvenirs.length > 0">
                 <!-- Button trigger modal -->

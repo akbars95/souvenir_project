@@ -17,7 +17,6 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import com.mtsmda.souvenir.annotation.SouvenirDepricated;
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.ListHelper;
 import com.mtsmda.souvenir.helper.MapHelper;
@@ -25,7 +24,7 @@ import com.mtsmda.souvenir.model.Message;
 import com.mtsmda.souvenir.repository.MessageRepository;
 import com.mtsmda.souvenir.sp.SouvenirStoredProcedure;
 
-@SouvenirDepricated("will be used standard java SP")
+@Deprecated
 @Repository("messageRepository")
 public class MessageRepositoryImplSP implements MessageRepository {
 

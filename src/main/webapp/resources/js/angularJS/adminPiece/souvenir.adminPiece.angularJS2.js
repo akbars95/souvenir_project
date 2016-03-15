@@ -123,6 +123,35 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $scope.currentHoverIndex = index;
     };
 
+    $scope.currentSouvenirForEdit = -1;
+
+    $scope.editSouvenir = function (index) {
+        $scope.currentSouvenirForEdit = index;
+    };
+
+    $scope.currentSouvenirForRemove = -1;
+
+    $scope.prepareForRemoveSouvenir = function (index, currentSouvenirName) {
+        $scope.currentSouvenirForRemove = index;
+        $scope.currentSouvenirName = currentSouvenirName;
+    };
+
+    $scope.removeSouvenir = function () {
+        if ($scope.currentSouvenirForRemove > -1 && $scope.currentSouvenirForRemove < $scope.souvenirs.length) {
+            var temp = $scope.souvenirs[$scope.currentSouvenirForRemove];
+            $scope.souvenirs.splice($scope.currentSouvenirForRemove, 1);
+            $http.delete(hostConst + "/delete_souvenir/" + temp.souvenirId)
+                .success(function (data, status, headers) {
+                    console.log(data + " - " + status);
+                })
+                .error(function (data, status, header, config) {
+                    console.log(data + " - " + status);
+                });
+        } else {
+            console.log("error index - " + $scope.currentSouvenirForRemove);
+        }
+    };
+
     $scope.getAllSouvenirs();
     $scope.getAllSouvenirCategories();
     $scope.resetForm();
