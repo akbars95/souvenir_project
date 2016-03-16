@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.repository.impl.java_standard;
+package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 
 import javax.sql.DataSource;
 

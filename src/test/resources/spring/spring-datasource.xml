@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+    <bean id="datasourceProperties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="/WEB-INF/spring/datasource.properties"/>
+    </bean>
+
+    <!--Database connection -->
+    <!--<bean id="mySqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+          >&lt;!&ndash;destroy-method="close"&ndash;&gt;
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="maxIdle" value="8"/>
+        <property name="minIdle" value="2"/>
+        <property name="maxActive" value="8"/>
+        &lt;!&ndash;<property name="maxWait" value="1000"/>&ndash;&gt;
+        &lt;!&ndash;<property name="defaultAutoCommit" value="${db.defaultAutoCommit}"/>&ndash;&gt;
+    </bean>-->
+
+    <bean id="mySqlDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+    destroy-method="close">
+    <property name="driverClass" value="${jdbc.driverClassName}" />
+    <property name="jdbcUrl" value="${jdbc.employee_db_url}" />
+    <property name="user" value="${jdbc.username}" />
+    <property name="password" value="${jdbc.password}" />
+    <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
+    <property name="minPoolSize" value="${jdbc.minPoolSize}" />
+    <property name="maxStatements" value="${jdbc.maxStatements}" />
+    <property name="testConnectionOnCheckout" value="${jdbc.testConnection}" />
+</bean>
+
+    <!-- Enable Annotation based Declarative Transaction Management -->
+    <tx:annotation-driven proxy-target-class="true"
+                          transaction-manager="transactionManager"/>
+
+    <!-- Creating TransactionManager Bean, since JDBC we are creating of type
+        DataSourceTransactionManager -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="mySqlDataSource"/>
+    </bean>
+
+    <!--<bean id="mySqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${db.driverClassName}"/>
+        <property name="url" value="${db.url}"/>
+        <property name="username" value="${db.username}"/>
+        <property name="password" value="${db.password}"/>
+        <property name="connectionProperties">
+            <props>
+                <prop key="autoCommit">false</prop>
+            </props>
+        </property>
+    </bean>-->
+
+</beans>

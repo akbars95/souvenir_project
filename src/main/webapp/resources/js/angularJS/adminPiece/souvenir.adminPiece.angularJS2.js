@@ -152,6 +152,19 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         }
     };
 
+    $scope.showSouvenir = function(index){
+        var temp = $scope.souvenirs[index];
+        if($scope.souvenirs[index].souvenirShow){
+            $scope.souvenirs[index].souvenirShow = false;
+        }else {
+            $scope.souvenirs[index].souvenirShow = true;
+        }
+    };
+
+    $scope.hideSouvenir = function(index){
+        $scope.showSouvenir(index);
+    };
+
     $scope.getAllSouvenirs();
     $scope.getAllSouvenirCategories();
     $scope.resetForm();

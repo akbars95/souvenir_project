@@ -1,6 +1,5 @@
-package com.mtsmda.souvenir.repository.impl.java_standard;
+package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 
-import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Souvenir;
@@ -9,11 +8,11 @@ import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.model.SouvenirPhoto;
 import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
 import com.mtsmda.souvenir.repository.SouvenirRepository;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.MapperI;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirAuditMapper;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirCategoryMapper;
-//import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirMapper;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirMapper;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.MapperI;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirAuditMapper;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirCategoryMapper;
+//import SouvenirMapper;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,8 +29,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.mtsmda.souvenir.model.sp.CaptchaSP.CAPTCHA_URL_FILE_IN_SP_PARAM_NAME;
-import static com.mtsmda.souvenir.model.sp.CaptchaSP.CAPTCHA_VALUE_IN_SP_PARAM_NAME;
 import static com.mtsmda.souvenir.model.sp.SouvenirSP.*;
 import static com.mtsmda.souvenir.model.sp.SouvenirSP.SOUVENIR_SHOW_IN_SP_PARAM_NAME;
 

@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.repository.impl.java_standard.rowMapper;
+package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper;
 
 
 import java.sql.ResultSet;

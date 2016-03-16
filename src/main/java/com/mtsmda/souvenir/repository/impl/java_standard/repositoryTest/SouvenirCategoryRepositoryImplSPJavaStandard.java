@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.repository.impl.java_standard;
+package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 
 import static com.mtsmda.souvenir.model.sp.SouvenirCategorySP.*;
 
@@ -13,8 +13,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.MapperI;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.SouvenirCategoryMapper;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.MapperI;
+import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirCategoryMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,15 +22,11 @@ import org.springframework.stereotype.Repository;
 
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
-import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.repository.SouvenirCategoryRepository;
-import com.mtsmda.souvenir.repository.impl.java_standard.rowMapper.CaptchaMapper;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.method.annotation.ExceptionHandlerMethodResolver;
 
 @Repository("souvenirCategoryRepositoryImplSPJavaStandard")
 @Transactional()

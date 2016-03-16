@@ -34,7 +34,7 @@ public class EmailSenderRestController {
     private Logger logger = Logger.getLogger(getClass());
 
     @Autowired
-    @Qualifier("mailSender")
+    /*@Qualifier("mailSender")*/
     private JavaMailSender mailSender;
 
     @Autowired

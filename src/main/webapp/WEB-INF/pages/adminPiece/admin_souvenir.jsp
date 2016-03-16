@@ -15,13 +15,16 @@
                     <a href="" class="adminSouvenirs"><h1
                             class="text-center">{{souvenirCurrent.souvenirName}}</h1>
                     </a>
+                    <span style="cursor: pointer;" ng-click="hideSouvenir($index);" ng-show="currentHoverIndex == $index && souvenirCurrent.souvenirShow"><img
+                            ng-src="<spring:url value="/resources/images/visible.png" htmlEscape="true"/>"/></span>
+                    <span style="cursor: pointer;" ng-click="showSouvenir($index);" ng-show="currentHoverIndex == $index && !souvenirCurrent.souvenirShow"><img
+                            ng-src="<spring:url value="/resources/images/invisible.png" htmlEscape="true"/>"/></span>
                     <span ng-show="currentHoverIndex == $index" ng-click="editSouvenir($index);"
                           class="glyphicon glyphicon-edit iconForRemoveOrEdit"></span>
                     <span ng-show="currentHoverIndex == $index"
                           ng-click="prepareForRemoveSouvenir($index, souvenirCurrent.souvenirName);"
                           class="glyphicon glyphicon-remove iconForRemoveOrEdit" data-toggle="modal"
                           data-target=".bs-example-modal-lg"></span>
-
                 </div>
 
             </div>
@@ -40,12 +43,13 @@
                     </div>
                     <div class="modal-body">
                         <h2 class="text-center" class="currentForRemoveSouvenirQuestion"><spring:message
-                                code="page.admin.souvenir.remove.modal_view.remove_question.title"/><span class="currentForRemoveSouvenir">{{currentSouvenirName}}</span>?</h2>
+                                code="page.admin.souvenir.remove.modal_view.remove_question.title"/><span
+                                class="currentForRemoveSouvenir">{{currentSouvenirName}}</span>?</h2>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><spring:message
                                 code="page.admin.souvenir.remove.modal_view.reset_btn.title"/></button>
-                        <button type="button" class="btn btn-danger"  data-dismiss="modal" ng-click="removeSouvenir();">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="removeSouvenir();">
                             <spring:message
                                     code="page.admin.souvenir.remove.modal_view.remove_btn.title"/>
                         </button>
