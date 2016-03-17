@@ -187,6 +187,9 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
     @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     @Override
     public boolean checkCaptcha(Captcha captcha) {
+        if(captcha == null){
+            throw new SouvenirRuntimeException("getRandomCaptcha - Null pointer Exception!");
+        }
         try {
             CaptchaMapper captchaMapper = new CaptchaMapper();
             List<String> keysList = new ArrayList<>();

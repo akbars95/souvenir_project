@@ -117,5 +117,44 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
         captcha = captchaLocal;
     }
 
+    @Test(timeout = 500)
+    public void test93GetCaptchaById(){
+        Captcha captchaById = captchaRepository.getCaptchaById(captcha.getCaptchaId());
+        Assert.assertNotNull(captchaById);
+        Assert.assertNotNull(captchaById.getCaptchaId());
+        Assert.assertNotNull(captchaById.getCaptchaValue());
+        Assert.assertNotNull(captchaById.getCaptchaUrlFile());
+        Assert.assertEquals(captchaById, captcha);
+    }
+
+    @Test()
+    public void test94GetRandomCaptcha(){
+        Captcha randomCaptcha = captchaRepository.getRandomCaptcha(captcha);
+        Assert.assertNotNull(randomCaptcha);
+        Assert.assertNotNull(randomCaptcha.getCaptchaId());
+        Assert.assertNull(randomCaptcha.getCaptchaValue());
+        Assert.assertNotNull(randomCaptcha.getCaptchaUrlFile());
+        Assert.assertNotEquals(randomCaptcha, captcha);
+    }
+
+    @Test()
+    public void test95CheckCaptcha(){
+        boolean b = captchaRepository.checkCaptcha(captcha);
+        Assert.assertTrue(b);
+    }
+
+    @Test(expected = SouvenirRuntimeException.class)
+    public void test96CheckCaptchaException(){
+        Captcha captcha = null;
+        boolean b = captchaRepository.checkCaptcha(captcha);
+    }
+
+    @Test()
+    public void test97CheckCaptchaException(){
+        captcha.setCaptchaId(null);
+        boolean b = captchaRepository.checkCaptcha(captcha);
+        Assert.assertFalse(b);
+    }
+
 
 }
