@@ -28,10 +28,6 @@ import java.util.List;
 public class CaptchaRepositoryImplSPJavaStandardTest {
 
     @Autowired
-    @Qualifier(value = "mySqlDataSource")
-    private DataSource dataSource;
-
-    @Autowired
     @Qualifier(value = "captchaRepositoryImplSPJavaStandard")
     private CaptchaRepository captchaRepository;
 

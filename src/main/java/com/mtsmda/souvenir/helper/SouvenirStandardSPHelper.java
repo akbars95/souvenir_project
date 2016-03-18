@@ -10,7 +10,6 @@ public class SouvenirStandardSPHelper {
 
     public static CallableStatement execute(DataSource dataSource, String storedProcedureName,
                                             Map<String, Object> mapParam, boolean isFunction) throws SQLException {
-        Connection connection = dataSource.getConnection();
         StringBuilder query = new StringBuilder("{");
         if (isFunction) {
             query.append("? = ");
@@ -27,7 +26,7 @@ public class SouvenirStandardSPHelper {
         }
         query.append(")}");
 
-        CallableStatement callableStatement = connection.prepareCall(query.toString());
+        CallableStatement callableStatement = dataSource.getConnection().prepareCall(query.toString());
         if (isFunction) {
 
         }

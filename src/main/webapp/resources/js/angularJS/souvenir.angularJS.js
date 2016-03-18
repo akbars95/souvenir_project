@@ -6,7 +6,7 @@
 var souvenirApp = angular.module('souvenirApp', [ 'ngRoute', 'ngAnimate' ]);
 
 /* constants */
-souvenirApp.constant("hostConst", "/souvenir");
+souvenirApp.constant("hostConst", "/souvenirs");
 /* http://souvenir-mtsmda999.rhcloud.com */
 
 /* Ctrl */
