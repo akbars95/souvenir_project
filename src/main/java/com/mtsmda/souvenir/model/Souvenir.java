@@ -5,6 +5,11 @@ import java.util.List;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by MTSMDA on 16.11.2015.
  */
@@ -12,12 +17,26 @@ import com.mtsmda.souvenir.annotation.ModelClassInfo;
 public class Souvenir implements Serializable {
 
 	private Integer souvenirId;
+
+	@NotNull
+	@Size(min = 3, max = 50)
 	private String souvenirName;
+
+	@NotNull
+	@Size(min = 3, max = 255)
 	private String souvenirDescription;
+
+	@NotNull
 	private Boolean souvenirShow;
 	private SouvenirPhoto souvenirMainPhotoId;
 	private SouvenirCategory souvenirCategory;
+
+	@NotNull
 	private Double souvenirPrice;
+
+	@NotNull
+	@Max(value = 50)
+	@Min(value = 1)
 	private Integer souvenirCountOfDaysForOrder;
 
 	private SouvenirAudit souvenirAudit;
@@ -137,12 +156,12 @@ public class Souvenir implements Serializable {
 	@Override
 	public int hashCode() {
 		int result = souvenirId != null ? souvenirId.hashCode() : 0;
-		result = 31 * result + souvenirName.hashCode();
-		result = 31 * result + souvenirDescription.hashCode();
-		result = 31 * result + souvenirShow.hashCode();
+		result = 31 * result + ((souvenirName == null) ? 0 : souvenirName.hashCode());
+		result = 31 * result + souvenirDescription == null ? 0 : souvenirDescription.hashCode();
+		result = 31 * result + (souvenirShow ==  null ? 0 : souvenirShow.hashCode());
 		result = 31 * result + (souvenirCategory != null ? souvenirCategory.hashCode() : 0);
-		result = 31 * result + souvenirPrice.hashCode();
-		result = 31 * result + souvenirCountOfDaysForOrder.hashCode();
+		result = 31 * result + (souvenirPrice == null ? 0 : souvenirPrice.hashCode());
+		result = 31 * result + (souvenirCountOfDaysForOrder == null ? 0 : souvenirCountOfDaysForOrder.hashCode());
 		return result;
 	}
 

@@ -1,3 +1,4 @@
+<%@ page import="com.mtsmda.souvenir.toggleFeature.MyFeatures" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>

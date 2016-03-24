@@ -3,14 +3,30 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import org.hibernate.validator.constraints.Email;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @ModelClassInfo(tableName = "MESSAGE")
 public class Message implements Serializable {
 
 	private Integer messageId;
+
+	@NotNull
+	@Size(min = 3, max = 50)
 	private String messageName;
+
+	@NotNull
+	@Size(min = 6, max = 50)
+	@Email
 	private String messageEmail;
+
+	@NotNull
+	@Size(min = 3, max = 1000)
 	private String messageText;
+
+	@NotNull
 	private Integer messageCaptchaId;
 
 	public Message() {

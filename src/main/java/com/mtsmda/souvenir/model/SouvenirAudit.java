@@ -5,6 +5,9 @@ import java.util.Date;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+
 /**
  * Created by c-DMITMINZ on 29.01.2016.
  */
@@ -17,7 +20,13 @@ public class SouvenirAudit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Souvenir souvenir;
+
+	@NotNull
+	@Past
 	private Date createdDatetime;
+
+	@NotNull
+	@Past
 	private Date lastUpdateDatetime;
 
 	public SouvenirAudit() {

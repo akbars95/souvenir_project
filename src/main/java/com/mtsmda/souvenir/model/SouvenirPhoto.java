@@ -4,10 +4,16 @@ import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 @ModelClassInfo(tableName = "SOUVENIR_PHOTOS")
 public class SouvenirPhoto implements Serializable {
 
 	private Integer souvenirPhotoId;
+
+	@NotNull
+	@Size(min = 3, max = 255)
 	private String souvenirPhotoPath;
 	private Souvenir souvenir;
 

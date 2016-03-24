@@ -18,6 +18,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.sql.DataSource;
 import java.util.List;
 
+import static org.junit.Assert.*;
+
+
 /**
  * Created by dminzat on 3/16/2016.
  */
@@ -43,21 +46,21 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
     @Test
     public void test1InsertCaptchaNormal() {
         boolean resultInsertCaptcha = captchaRepository.insertCaptcha(captcha);
-        Assert.assertEquals("test insert captcha normal", true, resultInsertCaptcha);
+        assertEquals("test insert captcha normal", true, resultInsertCaptcha);
     }
 
     @Test(expected = SouvenirRuntimeException.class)
     public void test2InsertCaptchaException() {
         Captcha captcha = null;
-        Assert.assertNull("test insert captcha null", captcha);
+        assertNull("test insert captcha null", captcha);
         captchaRepository.insertCaptcha(captcha);
     }
 
     @Test(timeout = 900)
     public void test3GetMaxIdCaptcha() {
-        Assert.assertNull(this.currentCaptchaId);
+        assertNull(this.currentCaptchaId);
         this.currentCaptchaId = captchaRepository.getMaxIdCaptcha();
-        Assert.assertNotNull(this.currentCaptchaId);
+        assertNotNull(this.currentCaptchaId);
     }
 
     @Test(expected = SouvenirRuntimeException.class)
@@ -70,7 +73,7 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
         Captcha captcha = new Captcha("gg", "img");
         captcha.setCaptchaId(this.currentCaptchaId);
         boolean b = captchaRepository.updateCaptcha(captcha);
-        Assert.assertTrue("update last added captcha", b);
+        assertTrue("update last added captcha", b);
     }
 
     @Test(expected = SouvenirRuntimeException.class, timeout = 2500)
@@ -84,7 +87,7 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
     public void test7DeleteCaptchaNullIdFieldException() {
         Captcha captcha = new Captcha(null, "img");
         boolean b = captchaRepository.deleteCaptcha(captcha);
-        Assert.assertFalse("captchaId field is NULL", b);
+        assertFalse("captchaId field is NULL", b);
     }
 
     @Test(timeout = 2500)
@@ -92,7 +95,7 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
         Captcha captcha = new Captcha(null, "img");
         captcha.setCaptchaId(currentCaptchaId);
         boolean b = captchaRepository.deleteCaptcha(captcha);
-        Assert.assertTrue("normal delete", b);
+        assertTrue("normal delete", b);
     }
 
     @Test(timeout = 2500)
@@ -100,43 +103,43 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
         Captcha captcha = new Captcha(null, "img");
         captcha.setCaptchaId(currentCaptchaId + 1000);
         boolean b = captchaRepository.deleteCaptcha(captcha);
-        Assert.assertFalse("captchaId is not exists", b);
+        assertFalse("captchaId is not exists", b);
     }
 
     @Test(timeout = 2000)
     public void test92GetAllCaptchaNormal() {
         List<Captcha> allCaptcha = captchaRepository.getAllCaptcha();
-        Assert.assertNotNull("all captchas", allCaptcha);
-        Assert.assertTrue("captchas size > 0", allCaptcha.size() > 0);
+        assertNotNull("all captchas", allCaptcha);
+        assertTrue("captchas size > 0", allCaptcha.size() > 0);
         Captcha captchaLocal = allCaptcha.get(0);
-        Assert.assertNotNull("captcha index 0 is not null", captchaLocal);
+        assertNotNull("captcha index 0 is not null", captchaLocal);
         captcha = captchaLocal;
     }
 
     @Test(timeout = 500)
     public void test93GetCaptchaById(){
         Captcha captchaById = captchaRepository.getCaptchaById(captcha.getCaptchaId());
-        Assert.assertNotNull(captchaById);
-        Assert.assertNotNull(captchaById.getCaptchaId());
-        Assert.assertNotNull(captchaById.getCaptchaValue());
-        Assert.assertNotNull(captchaById.getCaptchaUrlFile());
-        Assert.assertEquals(captchaById, captcha);
+        assertNotNull(captchaById);
+        assertNotNull(captchaById.getCaptchaId());
+        assertNotNull(captchaById.getCaptchaValue());
+        assertNotNull(captchaById.getCaptchaUrlFile());
+        assertEquals(captchaById, captcha);
     }
 
     @Test()
     public void test94GetRandomCaptcha(){
         Captcha randomCaptcha = captchaRepository.getRandomCaptcha(captcha);
-        Assert.assertNotNull(randomCaptcha);
-        Assert.assertNotNull(randomCaptcha.getCaptchaId());
-        Assert.assertNull(randomCaptcha.getCaptchaValue());
-        Assert.assertNotNull(randomCaptcha.getCaptchaUrlFile());
-        Assert.assertNotEquals(randomCaptcha, captcha);
+        assertNotNull(randomCaptcha);
+        assertNotNull(randomCaptcha.getCaptchaId());
+        assertNull(randomCaptcha.getCaptchaValue());
+        assertNotNull(randomCaptcha.getCaptchaUrlFile());
+        assertNotEquals(randomCaptcha, captcha);
     }
 
     @Test()
     public void test95CheckCaptcha(){
         boolean b = captchaRepository.checkCaptcha(captcha);
-        Assert.assertTrue(b);
+        assertTrue(b);
     }
 
     @Test(expected = SouvenirRuntimeException.class)
@@ -149,7 +152,7 @@ public class CaptchaRepositoryImplSPJavaStandardTest {
     public void test97CheckCaptchaException(){
         captcha.setCaptchaId(null);
         boolean b = captchaRepository.checkCaptcha(captcha);
-        Assert.assertFalse(b);
+        assertFalse(b);
     }
 
 

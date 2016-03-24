@@ -15,6 +15,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import static org.junit.Assert.*;
+
 /**
  * Created by dminzat on 3/17/2016.
  */
@@ -37,27 +39,27 @@ public class SouvenirCategoryRepositoryImplSPJavaStandardTest {
 
     @Test
     public void test1000Init(){
-        Assert.assertNotNull(souvenirCategoryRepository);
+        assertNotNull(souvenirCategoryRepository);
     }
 
     @Test
     public void test1001InsertSouvenirCategoryNormal(){
-        Assert.assertNotNull(souvenirCategory);
-        Assert.assertNull(souvenirCategory.getSouvenirCategoryId());
-        Assert.assertNotNull(souvenirCategory.getSouvenirCategory());
+        assertNotNull(souvenirCategory);
+        assertNull(souvenirCategory.getSouvenirCategoryId());
+        assertNotNull(souvenirCategory.getSouvenirCategory());
         boolean b = souvenirCategoryRepository.insertSouvenirCategory(souvenirCategory);
-        Assert.assertTrue(b);
+        assertTrue(b);
     }
 
     @Test(expected = SouvenirRuntimeException.class)
     public void test1002InsertSouvenirCategoryException(){
-        Assert.assertNotNull(souvenirCategory);
-        Assert.assertNull(souvenirCategory.getSouvenirCategoryId());
-        Assert.assertNotNull(souvenirCategory.getSouvenirCategory());
+        assertNotNull(souvenirCategory);
+        assertNull(souvenirCategory.getSouvenirCategoryId());
+        assertNotNull(souvenirCategory.getSouvenirCategory());
         SouvenirCategory local = souvenirCategory;
         local.setSouvenirCategory(null);
         boolean b = souvenirCategoryRepository.insertSouvenirCategory(local);
-        Assert.assertTrue(b);
+        assertTrue(b);
     }
 
 }

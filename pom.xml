@@ -20,6 +20,7 @@
         <velocity.version>1.7</velocity.version>
         <tiles.version>3.0.3</tiles.version>
         <mockito.version>1.9.5</mockito.version>
+        <togglz.version>2.2.0.Final</togglz.version>
 
         <plugin.compile.version>3.3</plugin.compile.version>
         <plugin.test.version>2.19.1</plugin.test.version>
@@ -218,6 +219,42 @@
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity</artifactId>
             <version>${velocity.version}</version>
+        </dependency>
+
+        <!--validation-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.1.Final</version>
+        </dependency>
+
+        <!-- Togglz core module (mandatory) -->
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-core</artifactId>
+            <version>${togglz.version}</version>
+        </dependency>
+
+        <!-- Togglz for Servlet environments (mandatory for webapps) -->
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-servlet</artifactId>
+            <version>${togglz.version}</version>
+        </dependency>
+
+        <!-- Spring integration (optional) -->
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-spring-web</artifactId>
+            <version>${togglz.version}</version>
+        </dependency>
+
+        <!-- Togglz testing support -->
+        <dependency>
+            <groupId>org.togglz</groupId>
+            <artifactId>togglz-junit</artifactId>
+            <version>${togglz.version}</version>
+            <scope>test</scope>
         </dependency>
 
 

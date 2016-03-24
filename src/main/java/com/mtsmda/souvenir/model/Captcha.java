@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Created by c-DMITMINZ on 04.02.2016.
  */
@@ -11,7 +14,13 @@ import com.mtsmda.souvenir.annotation.ModelClassInfo;
 public class Captcha implements Serializable {
 
 	private Integer captchaId;
+
+	@NotNull
+	@Size(min = 5, max = 10)
 	private String captchaValue;
+
+	@NotNull
+	@Size(min = 10, max = 255)
 	private String captchaUrlFile;
 
 	public Captcha() {
