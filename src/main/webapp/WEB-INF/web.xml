@@ -49,4 +49,18 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
 
+    <filter>
+        <filter-name>FirstFilter</filter-name>
+        <filter-class>com.mtsmda.souvenir.filters.FirstFilter</filter-class>
+        <init-param>
+            <param-name>namespace</param-name>
+            <param-value>NameSpace</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>FirstFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>
