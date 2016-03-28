@@ -70,7 +70,7 @@ public class SouvenirCategory implements Serializable {
 	@Override
 	public int hashCode() {
 		int result = souvenirCategoryId != null ? souvenirCategoryId.hashCode() : 0;
-		result = 31 * result + souvenirCategory.hashCode();
+		result = 31 * result + ((souvenirCategory == null) ? 0 : souvenirCategory.hashCode());
 		result = 31 * result + (souvenirs != null ? souvenirs.hashCode() : 0);
 		return result;
 	}

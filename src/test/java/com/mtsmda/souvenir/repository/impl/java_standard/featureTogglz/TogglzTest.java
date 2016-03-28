@@ -20,19 +20,28 @@ import static org.junit.Assert.*;
 /**
  * Created by dminzat on 3/22/2016.
  */
+/*
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:text-mvc-dispatcher-servlet.xml"/*, "classpath:/spring/spring-datasource.xml"*/})
-/*@WebAppConfiguration*/
+@ContextConfiguration({"classpath:text-mvc-dispatcher-servlet.xml"*/
+/*, "classpath:/spring/spring-datasource.xml"*//*
+})
+*/
+/*@WebAppConfiguration*//*
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+*/
 public class TogglzTest {
+/*
 
     @Autowired
     @Qualifier("appConfig")
     private AppConfig appConfig;
+*/
 /*
     @Autowired
     @Qualifier(value = "captchaRepositoryImplSPJavaStandard")
-    private CaptchaRepository captchaRepository;*/
+    private CaptchaRepository captchaRepository;*//*
+
 
     @Rule
     public TogglzRule togglzRule = TogglzRule.allEnabled(MyFeatures.class);
@@ -48,7 +57,9 @@ public class TogglzTest {
         // you can easily modify the feature state using the TogglzRule
         togglzRule.disable(MyFeatures.FEATURE_ONE);
         assertFalse(MyFeatures.FEATURE_ONE.isActive());
-        /*assertNotNull(captchaRepository);*/
+        */
+/*assertNotNull(captchaRepository);*//*
+
         System.out.println(MyFeatures.FEATURE_ONE.isActive());
 
     }
@@ -59,5 +70,6 @@ public class TogglzTest {
         appConfig.setFeatureTwo(false);
         assertFalse(appConfig.isFeatureTwo());
     }
+*/
 
 }

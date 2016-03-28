@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.io.File;
+
 import static com.mtsmda.souvenir.controller.constants.AdminPieceConstants.*;
 
 @Controller
@@ -41,6 +43,18 @@ public class AdminController {
 		return ADMIN_MAIN_PAGE_PIECE_INTERNAL_URL;
 	}
 
+	public static void main(String[] args) {
+		String s = new AdminController().getClass().getResource("").getFile();
+		System.out.println(s);
+		File file = new File(s + "/file.txt");
+		System.out.println("ex - " + file.exists());
+		System.out.println(file.getAbsoluteFile().getAbsolutePath());
+
+		ClassLoader classLoader = new AdminController().getClass().getClassLoader();
+		File file2 = new File(classLoader.getResource("log4j.properties").getFile());
+
+		System.out.println(file2.exists());
+	}
 
 
 }

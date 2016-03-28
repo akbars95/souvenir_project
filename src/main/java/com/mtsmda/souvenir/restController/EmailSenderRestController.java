@@ -33,17 +33,17 @@ public class EmailSenderRestController {
 
     private Logger logger = Logger.getLogger(getClass());
 
-    @Autowired
-    /*@Qualifier("mailSender")*/
-    private JavaMailSender mailSender;
+    /*@Autowired
+    @Qualifier("mailSender")
+    private JavaMailSender mailSender;*/
 
     @Autowired
     @Qualifier("messageService")
     private MessageService messageService;
 
-    @Autowired
+    /*@Autowired
     @Qualifier("velocityEngine")
-    private VelocityEngine velocityEngine;
+    private VelocityEngine velocityEngine;*/
 
     @RequestMapping(value = "/sendemail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean emailSend(@RequestBody MessageCaptchaDTO messageCaptchaDTO ) {

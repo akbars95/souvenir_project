@@ -16,14 +16,14 @@ public class StaticPageController {
 
     private static final Logger logger = Logger.getLogger(StaticPageController.class);
 
-    @Autowired
+    /*@Autowired
     @Qualifier("appConfig")
-    private AppConfig appConfig;
+    private AppConfig appConfig;*/
 
     @RequestMapping(value = {ROOT, HOME_URL, INDEX_URL}, method = RequestMethod.GET)
     public String indexPage() {
         logger.info("get " + INDEX + " page");
-
+/*
 
         if (MyFeatures.FEATURE_ONE.isActive()) {
             System.out.println("HERE IS - " + MyFeatures.FEATURE_ONE.isActive());
@@ -38,7 +38,7 @@ public class StaticPageController {
         }
 
         System.out.println(appConfig.isFeatureOne());
-        System.out.println(appConfig.isFeatureTwo());
+        System.out.println(appConfig.isFeatureTwo());*/
 
         return INDEX;
     }

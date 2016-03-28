@@ -17,10 +17,10 @@
         </param-value>
     </context-param>
 
-    <context-param>
+    <!--<context-param>
         <param-name>org.togglz.core.manager.TogglzConfig</param-name>
         <param-value>com.mtsmda.souvenir.toggleFeature.MyTogglzConfiguration</param-value>
-    </context-param>
+    </context-param>-->
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>

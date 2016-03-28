@@ -3,10 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="emailProperties"
+	<!--<bean id="emailProperties"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="email.properties" />
-	</bean>
+	</bean>-->
 
 	<!-- <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
 		<property name="host" value="${mail.host}" /> <property name="port" value="${mail.port}" 
@@ -18,7 +18,7 @@
 		<prop key="mail.mime.charset">${mail.javaMailProperties.mail.mime.charset}</prop> 
 		</props> </property> </bean> -->
 
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	<!--<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
 		<property name="username" value="souvenir.buy.site" />
@@ -35,12 +35,12 @@
 
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-		<!-- max upload size in bytes -->
+		&lt;!&ndash; max upload size in bytes &ndash;&gt;
 		<property name="maxUploadSize" value="20971520" />
-		<!-- 20MB -->
-		<!-- max size of file in memory (in bytes) -->
+		&lt;!&ndash; 20MB &ndash;&gt;
+		&lt;!&ndash; max size of file in memory (in bytes) &ndash;&gt;
 		<property name="maxInMemorySize" value="1048576" />
-		<!-- 1MB -->
+		&lt;!&ndash; 1MB &ndash;&gt;
 	</bean>
 
 	<bean id="velocityEngine"
@@ -53,6 +53,6 @@
 				</prop>
 			</props>
 		</property>
-	</bean>
+	</bean>-->
 
 </beans>

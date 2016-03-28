@@ -6,19 +6,20 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <context:component-scan base-package="com.mtsmda.souvenir" />
     <context:annotation-config/>
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>
-    <bean id="featureTestProperties"
+    <!--<bean id="featureTestProperties"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="features.properties"/>
-    </bean>
+        <property name="location" value="/features.properties"/>
+    </bean>-->
 
-    <bean id="appConfig" class="com.mtsmda.souvenir.toggleFeature.AppConfig">
+    <!--<bean id="appConfig" class="com.mtsmda.souvenir.toggleFeature.AppConfig">
         <property name="featureOne" value="${FEATURE_ONE}"/>
         <property name="featureTwo" value="${FEATURE_TWO}"/>
-    </bean>
+    </bean>-->
 
 
     <import resource="/spring/spring-datasource.xml"/>

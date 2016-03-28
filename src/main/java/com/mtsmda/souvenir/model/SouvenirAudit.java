@@ -76,9 +76,9 @@ public class SouvenirAudit implements Serializable {
 
 	@Override
 	public int hashCode() {
-		int result = souvenir.hashCode();
-		result = 31 * result + createdDatetime.hashCode();
-		result = 31 * result + lastUpdateDatetime.hashCode();
+		int result = souvenir == null ? 0 : souvenir.hashCode();
+		result = 31 * result + ((createdDatetime == null) ? 0 : createdDatetime.hashCode());
+		result = 31 * result + ((lastUpdateDatetime == null) ? 0 : lastUpdateDatetime.hashCode());
 		return result;
 	}
 

@@ -13,10 +13,10 @@ import java.io.File;
 /**
  * Created by dminzat on 3/21/2016.
  */
-@Component
-public class MyTogglzConfiguration implements TogglzConfig {
+/*@Component*/
+public class MyTogglzConfiguration /*implements TogglzConfig */{
 
-    public Class<? extends Feature> getFeatureClass() {
+    /*public Class<? extends Feature> getFeatureClass() {
         return MyFeatures.class;
     }
 
@@ -29,5 +29,5 @@ public class MyTogglzConfiguration implements TogglzConfig {
     public UserProvider getUserProvider() {
         return new ServletUserProvider(null);
     }
-
+*/
 }
