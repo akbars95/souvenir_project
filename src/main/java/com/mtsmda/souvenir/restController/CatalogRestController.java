@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.service.SouvenirService;
 
-//import static com.mtsmda.souvenir.controller.constants.SouvenirConstants.SOUVENIR_ID_FIELD_NAME;
+import static com.mtsmda.souvenir.restController.constants.CatalogRestControllerConstants.*;
 
 @RestController
 public class CatalogRestController {
@@ -20,7 +20,7 @@ public class CatalogRestController {
     @Qualifier("souvenirService")
     private SouvenirService souvenirService;
 
-    @RequestMapping(value = "/get_all_souvenirs", method = RequestMethod.GET)
+    @RequestMapping(value = GET_ALL_SOUVENIRS_PIECE_URL, method = RequestMethod.GET)
     public List<Souvenir> getAllSouvenirs() {
         List<Souvenir> souvenirs = null;
         souvenirs = souvenirService.getAllSouvenirWithCategoryAndAudit();

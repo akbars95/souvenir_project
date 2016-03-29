@@ -105,7 +105,7 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         SouvenirCategory souvenirCategory = null;
         MapperI<SouvenirCategory> souvenirCategoryMapper = new SouvenirCategoryMapper();
         Map<String, Object> mapParam = new LinkedHashMap<>();
-        mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategoryId());
+        mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenirCategoryId);
         try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_SOUVENIR_CATEGORY_SP_NAME,
                 mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();

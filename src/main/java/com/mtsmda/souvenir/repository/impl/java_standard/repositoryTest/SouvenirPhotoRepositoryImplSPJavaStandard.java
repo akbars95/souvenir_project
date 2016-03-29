@@ -49,9 +49,23 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
         return false;
     }
 
+    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
     @Override
     public boolean updateSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
-        // TODO Auto-generated method stub
+        try {
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            mapParam.put(SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoPath());
+            mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenir().getSouvenirId());
+
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    UPDATE_SOUVENIR_PHOTO_SP_NAME, mapParam, false);
+            int count = callableStatement.executeUpdate();
+            if (count > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            SouvenirExceptionHandler.handle("insertSouvenirPhoto", e);
+        }
         return false;
     }
 
