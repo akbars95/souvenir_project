@@ -15,6 +15,7 @@ import java.io.File;
 /**
  * Created by dminzat on 3/21/2016.
  */
+@Deprecated
 @Component
 public class MyTogglzConfiguration implements TogglzConfig {
 

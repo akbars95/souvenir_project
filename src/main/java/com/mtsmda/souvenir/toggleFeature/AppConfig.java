@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 /**
  * Created by dminzat on 3/22/2016.
  */
+@Deprecated
 public class AppConfig {
 
     private boolean featureOne;

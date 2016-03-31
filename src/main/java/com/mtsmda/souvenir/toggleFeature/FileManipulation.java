@@ -64,6 +64,26 @@ public class FileManipulation {
         }
     }
 
+    public void enable(My2Feature my2Feature) {
+        my2Feature.setValue(true);
+    }
+
+    public void enableAll() {
+        for (My2Feature my2Feature : My2Feature.class.getEnumConstants()) {
+            my2Feature.setValue(true);
+        }
+    }
+
+    public void disable(My2Feature my2Feature) {
+        my2Feature.setValue(false);
+    }
+
+    public void disableAll() {
+        for (My2Feature my2Feature : My2Feature.class.getEnumConstants()) {
+            my2Feature.setValue(false);
+        }
+    }
+
     public String getFileName() {
         return fileName;
     }

@@ -9,6 +9,7 @@ import org.togglz.core.context.FeatureContext;
 /**
  * Created by dminzat on 3/21/2016.
  */
+@Deprecated
 public enum MyFeatures implements Feature {
 
     @EnabledByDefault
