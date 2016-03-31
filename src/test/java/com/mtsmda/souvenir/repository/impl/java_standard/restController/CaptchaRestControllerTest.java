@@ -40,16 +40,7 @@ public class CaptchaRestControllerTest {
                 MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
 
-    @Test
-    public void read_method_should_return_correct_cart_Json_object()
-            throws Exception {
-        //Arrange
-        this.mockMvc.perform(get("/check_captcha"))
-                .andExpect(status().is(200));
-        //Act
-        this.mockMvc.perform(get("/rest/cart/").session(mockHttpSession))
-                .andExpect(status().isOk()).andExpect(jsonPath("$.cartItems.P1234.product.productId").value("P1234"));
-    }
+
 
 
 }

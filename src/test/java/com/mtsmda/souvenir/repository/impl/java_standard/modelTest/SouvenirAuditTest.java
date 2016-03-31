@@ -65,7 +65,7 @@ public class SouvenirAuditTest {
         GregorianCalendar gregorianCalendar = new GregorianCalendar(2015, 1, 1);
         SouvenirAudit souvenirAudit = new SouvenirAudit();
         souvenirAudit.setLastUpdateDatetime(null);
-        souvenirAudit.setCreatedDatetime(new Date());
+        souvenirAudit.setCreatedDatetime(gregorianCalendar.getTime());
         assertNotNull(souvenirAudit);
         Set<ConstraintViolation<SouvenirAudit>> constraintViolations = validator.validate(souvenirAudit);
         assertEquals(1, constraintViolations.size());

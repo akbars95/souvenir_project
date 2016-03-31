@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.toggleFeature;
 
+
 import org.togglz.core.Feature;
 import org.togglz.core.annotation.EnabledByDefault;
 import org.togglz.core.annotation.Label;

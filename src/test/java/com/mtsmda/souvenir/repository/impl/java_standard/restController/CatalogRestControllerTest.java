@@ -1,6 +1,5 @@
 package com.mtsmda.souvenir.repository.impl.java_standard.restController;
 
-import com.jayway.jsonpath.JsonPath;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

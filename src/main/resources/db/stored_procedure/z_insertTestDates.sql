@@ -1,8 +1,8 @@
-CALL `souvenir`.`insertCategory`('Category 1');
-CALL `souvenir`.`insertCategory`('Category 2');
-CALL `souvenir`.`insertCategory`('Category 3');
-CALL `souvenir`.`insertCategory`('Category 4');
-CALL `souvenir`.`insertCategory`('Category 5');
+CALL `souvenir`.`insertCategory`('Бижу из бисера');
+CALL `souvenir`.`insertCategory`('Бижу из проволки');
+CALL `souvenir`.`insertCategory`('Букуты из конфет');
+CALL `souvenir`.`insertCategory`('Канзаши');
+CALL `souvenir`.`insertCategory`('Свадебные бокалы');
 
 CALL `souvenir`.`insertCategory`('Category 6');
 CALL `souvenir`.`updateCategory`('Category 999', 6);

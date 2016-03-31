@@ -79,7 +79,6 @@
 							htmlEscape="true" />
 						<a href="${homeUrl}{{souvenir.souvenirId}}">{{souvenir.souvenirName}}</a>
 					</h1>
-					<p></p>
 					<img ng-src="souvenir.souvenirPath">
 					price = {{souvenir.souvenirPrice}} order day :
 					{{souvenir.souvenirCountOfDaysForOrder}}

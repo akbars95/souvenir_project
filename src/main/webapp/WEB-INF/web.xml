@@ -32,6 +32,11 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <!-- 
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping> -->
 
 
     <error-page>
@@ -49,7 +54,7 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
 
-    <filter>
+    <!--<filter>
         <filter-name>FirstFilter</filter-name>
         <filter-class>com.mtsmda.souvenir.filters.FirstFilter</filter-class>
         <init-param>
@@ -61,6 +66,15 @@
     <filter-mapping>
         <filter-name>FirstFilter</filter-name>
         <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
+
+    <!--<servlet>
+        <servlet-name>TogglzConsoleServlet</servlet-name>
+        <servlet-class>org.togglz.console.TogglzConsoleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TogglzConsoleServlet</servlet-name>
+        <url-pattern>/togglz/*</url-pattern>
+    </servlet-mapping>-->
 
 </web-app>

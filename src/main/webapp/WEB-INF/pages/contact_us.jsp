@@ -203,7 +203,7 @@
 					</form>
 				</div>
 			</div>
-			<div class="row">
+			<%-- <div class="row">
 				<div class="col-lg-12">
 					<div id="googleMapP">
 						<label> <spring:message
@@ -218,7 +218,7 @@
 					</div>
 					<div id="googleMap"></div>
 				</div>
-			</div>
+			</div> --%>
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

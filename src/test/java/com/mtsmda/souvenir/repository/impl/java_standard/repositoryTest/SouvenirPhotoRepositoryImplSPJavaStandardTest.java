@@ -7,6 +7,7 @@ import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
 import com.mtsmda.souvenir.repository.SouvenirRepository;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -41,7 +42,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandardTest {
     private static Souvenir souvenir;
 
     @BeforeClass
-    public void initSouvenirPhoto() {
+    public static void initSouvenirPhoto() {
         souvenirPhoto.setSouvenirPhotoPath("/img/new1/srg.jpg");
     }
 
@@ -59,6 +60,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandardTest {
         assertNotNull(souvenir.getSouvenirId());
     }
 
+    @Ignore
     @Test
     public void test1001InsertSouvenirPhoto() {
         assertNotNull(souvenirPhoto);
@@ -68,6 +70,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandardTest {
         assertTrue(b);
     }
 
+    @Ignore
     @Test(expected = SouvenirRuntimeException.class)
     public void test1002InsertSouvenirPhotoException() {
         assertNotNull(souvenirPhoto);
