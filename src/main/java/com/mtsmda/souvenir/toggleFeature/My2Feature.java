@@ -1,27 +1,30 @@
 package com.mtsmda.souvenir.toggleFeature;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Created by dminzat on 3/31/2016.
  */
-public enum My2Feature {
+@Deprecated
+public enum My2Feature implements Feature{
 
     FEATURE_ONE(false, "FEATURE_ONE"), FEATURE_TWO(false, "FEATURE_TWO");
 
-    My2Feature(Boolean value, String name) {
-        this.value = value;
+    My2Feature(Boolean active, String name) {
+        this.active = active;
         this.name = name;
     }
 
-    private Boolean value;
+    private Boolean active;
 
     private String name;
 
-    public Boolean getValue() {
-        return value;
+    public Boolean isActive() {
+        return active;
     }
 
-    public void setValue(Boolean value) {
-        this.value = value;
+    public void setActive(Boolean value){
+        this.active = value;
     }
 
     public String getName() {

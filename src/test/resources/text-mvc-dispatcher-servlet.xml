@@ -6,8 +6,14 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <context:component-scan base-package="com.mtsmda.souvenir" />
+    <context:component-scan base-package="com.mtsmda.souvenir"/>
     <context:annotation-config/>
+
+    <!--<bean class="com.mtsmda.souvenir.toggleFeature.PropertiesFileEditor">
+        <constructor-arg index="0">
+            <value>features.properties</value>
+        </constructor-arg>
+    </bean>-->
 
     <!-- Enables the Spring MVC @Controller programming model -->
     <mvc:annotation-driven/>

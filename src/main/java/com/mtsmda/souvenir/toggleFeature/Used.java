@@ -1,7 +1,5 @@
 package com.mtsmda.souvenir.toggleFeature;
 
-import java.io.File;
-
 /**
  * Created by dminzat on 3/31/2016.
  */
@@ -14,11 +12,11 @@ public class Used {
         System.out.println(my2Feature.getValue());
         System.out.println("-----------------------");*/
 
-        FileManipulation fileManipulation = new FileManipulation("features.properties");
-        fileManipulation.setFeatures();
+        /*PropertiesFileEditor fileManipulation = new PropertiesFileEditor("features.properties");
         System.out.println(fileManipulation.getFile().getAbsoluteFile());
-        My2Feature my2Feature1 = fileManipulation.getMy2Feature();
-        My2Feature[] values = my2Feature1.values();
+        sout();
+        *//*My2Feature my2Feature1 = fileManipulation.getMy2Feature();
+        My2Feature[] values = my2Feature1.values();*//*
         System.out.println("");
         fileManipulation.enableAll();
         sout();
@@ -26,13 +24,21 @@ public class Used {
         sout();
         fileManipulation.enable(My2Feature.FEATURE_ONE);
         sout();
-
+*/
+        PropertiesFileEditor fileManipulation = new PropertiesFileEditor("features.properties");
+        sout();
+        fileManipulation.enable(My3Feature.FEATURE_ONE);
+        sout();
+        fileManipulation.disableAll();
+        sout();
+        fileManipulation.push();
     }
 
     private static void sout(){
-        for(My2Feature my2Feature : My2Feature.values()){
-            System.out.println(my2Feature.name() + " = " + my2Feature.getValue());
+        for(My3Feature my3Feature : My3Feature.values()){
+            System.out.println(my3Feature.name() + " = " + my3Feature.isActive());
         }
+        System.out.println("******************************");
     }
 
 }
