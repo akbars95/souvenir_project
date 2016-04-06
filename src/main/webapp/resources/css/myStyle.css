@@ -346,3 +346,15 @@ a.adminSouvenirs{
     text-transform: uppercase;
     text-shadow: 5px 5px 2px black, 0 0 25px blue, 0 0 18px darkblue;
 }
+
+button span.glyphicon{
+    vertical-align: text-top;
+}
+
+span.glyphicon-remove:before{
+    color: red;
+}
+
+span.glyphicon-edit:before{
+    color: green;
+}

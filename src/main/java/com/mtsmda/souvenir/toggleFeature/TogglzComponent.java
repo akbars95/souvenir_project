@@ -10,9 +10,11 @@ import org.springframework.stereotype.Component;
 public class TogglzComponent {
 
 	public boolean example() {
+/*
 		System.out.println(MyFeatures.FEATURE_ONE.isActive());
 		return MyFeatures.FEATURE_ONE.isActive();
-		// return false;
+*/
+		 return false;
 	}
 
 }

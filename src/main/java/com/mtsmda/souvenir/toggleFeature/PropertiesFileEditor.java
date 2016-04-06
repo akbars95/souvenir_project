@@ -20,9 +20,11 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
     @Value("features.properties")
     private String filename;
 
-    private File file;
+    private static File file;
 
-    private Properties properties;
+    private static Properties properties;
+
+    private static boolean lastModifiedFile = false;
 
     private static Set<String> my3Features = new HashSet<>();
 
@@ -42,14 +44,18 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
     @PostConstruct
     public void init() {
         file = new File(this.getClass().getClassLoader().getResource(this.getFilename()).getFile());
+        file.lastModified();
         setFeatures();
     }
 
     public static Boolean isActive(My3Feature my3Feature) {
+        if (lastModifiedFile) {
+            readPropertiesFile();
+        }
         return my3Features.contains(my3Feature.name());
     }
 
-    private void readPropertiesFile() {
+    private static void readPropertiesFile() {
         try (FileInputStream stream = new FileInputStream(file);) {
             properties.load(stream);
         } catch (FileNotFoundException e) {
@@ -59,8 +65,8 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
         }
     }
 
-    private void writePropertiesFile() {
-        try (FileOutputStream outputStream = new FileOutputStream(this.file);) {
+    private static void writePropertiesFile() {
+        try (FileOutputStream outputStream = new FileOutputStream(file);) {
             properties.store(outputStream, null);
             outputStream.flush();
         } catch (IOException e) {
@@ -70,6 +76,7 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
 
     public void push() {
         writePropertiesFile();
+        lastModifiedFile = true;
     }
 
     public void pull() {
@@ -92,9 +99,9 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
     }
 
     public void enable(My3Feature my3Feature) {
-        if(!my3Features.contains(my3Feature.name())){
+        if (!my3Features.contains(my3Feature.name())) {
             my3Features.add(my3Feature.name());
-            if(properties.containsKey(my3Feature.name())){
+            if (properties.containsKey(my3Feature.name())) {
                 properties.put(my3Feature.name(), "true");
             }
         }
@@ -106,9 +113,9 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
     }
 
     public void disable(My3Feature my3Feature) {
-        if(my3Features.contains(my3Feature.name())){
+        if (my3Features.contains(my3Feature.name())) {
             my3Features.remove(my3Feature.name());
-            if(properties.containsKey(my3Feature.name())){
+            if (properties.containsKey(my3Feature.name())) {
                 properties.put(my3Feature.name(), "false");
             }
         }
@@ -116,6 +123,15 @@ public class PropertiesFileEditor implements Editor, FeatureManipulation {
 
     public void disableAll() {
         processAll(DISABLE_ALL);
+    }
+
+    @Override
+    public void setState(My3Feature my3Feature, boolean value) {
+        if(value){
+            enable(my3Feature);
+        }else{
+            disable(my3Feature);
+        }
     }
 
     private void processAll(Integer operation) {

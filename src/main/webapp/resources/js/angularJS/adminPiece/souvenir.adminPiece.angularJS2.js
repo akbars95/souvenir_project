@@ -10,16 +10,18 @@ adminSouvenirAngularJSRoutingApp.controller('indexCtrl', function ($scope) {
 });
 
 adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $http, hostConst) {
+
+    $scope.classForSouvenirOdd = "col-xs-12 col-sm-12 col-md-6 col-lg-6";
+    $scope.classForSouvenirEven = "col-md-6 col-lg-6";
     $scope.getAllSouvenirs = function () {
         $scope.souvenirs = [];
-        $scope.souvenirCategories = [];
 
         $http.get(hostConst + "/get_all_souvenirs")
             .success(
                 function (data, status, headers, config) {
                     $scope.souvenirs = data;
-                    $scope.addNewSouvenirBootstrapClass = ($scope.souvenirs.length % 2 == 0) ? "col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-5 col-lg-5"
-                        : "col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1";
+                    $scope.addNewSouvenirBootstrapClass = ($scope.souvenirs.length % 2 == 0) ? $scope.classForSouvenirOdd
+                        : $scope.classForSouvenirEven;
                 })
             .error(function (data, status, headers, config) {
                 // log error
@@ -37,6 +39,8 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
 
     };
 
+
+        $scope.souvenirCategories = [];
     $scope.getAllSouvenirCategories = function () {
         $http
             .get(hostConst + "/getAllSouvenirCategories")
@@ -101,9 +105,7 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
 
     $scope.addNewSouvenirCategory = function () {
         var dataObj = {
-            souvenirCategoryId: null,
-            souvenirCategory: $scope.souvenirCategory,
-            souvenirs: null
+            souvenirCategory: $scope.souvenirCategory
         };
         $http.post(hostConst + "/insertSouvenirCategories", dataObj)
             .success(function (data, status, headers, config) {
@@ -159,6 +161,15 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         }else {
             $scope.souvenirs[index].souvenirShow = true;
         }
+
+        $http.put(hostConst + "/show_hide_souvenir/" + temp.souvenirId)
+                .success(function (data, status, headers) {
+                    console.log(data + " - " + status);
+                })
+                .error(function (data, status, header, config) {
+                    console.log(data + " - " + status);
+                });
+
     };
 
     $scope.hideSouvenir = function(index){

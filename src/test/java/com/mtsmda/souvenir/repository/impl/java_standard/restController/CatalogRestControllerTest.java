@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.JsonPathResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.validation.constraints.Null;
@@ -47,6 +48,9 @@ public class CatalogRestControllerTest {
 
     @Test
     public void test1000GetAllSouvenirs() throws Exception {
+        RestTemplate restTemplate = new RestTemplate();
+        String forObject = restTemplate.getForObject("/get_all_souvenirs", String.class);
+        System.out.println(forObject);
         this.mockMvc.perform(get("/get_all_souvenirs"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON + ";charset=UTF-8"))

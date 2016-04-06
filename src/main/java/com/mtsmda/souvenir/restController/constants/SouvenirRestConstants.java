@@ -8,6 +8,7 @@ public class SouvenirRestConstants {
 
     public static final String INSERT_SOUVENIR_PIECE = "insert_souvenir";
     public static final String DELETE_SOUVENIR_PIECE = "delete_souvenir";
+    public static final String SHOW_HIDE_SOUVENIR_PIECE = "show_hide_souvenir";
 
     public static final String SOUVENIR_ID_REQUEST_PARAM = "souvenirId";
     public static final String SOUVENIR_NAME_REQUEST_PARAM = "souvenirName";
@@ -20,5 +21,6 @@ public class SouvenirRestConstants {
 
     public static final String INSERT_SOUVENIR_PIECE_URL = ROOT + INSERT_SOUVENIR_PIECE;
     public static final String DELETE_SOUVENIR_PIECE_URL = ROOT + DELETE_SOUVENIR_PIECE + ROOT + OPEN_BRACE + SOUVENIR_ID_REQUEST_PARAM + CLOSE_BRACE;
+    public static final String SHOW_HIDE_SOUVENIR_PIECE_URL = ROOT + SHOW_HIDE_SOUVENIR_PIECE + ROOT + OPEN_BRACE + SOUVENIR_ID_REQUEST_PARAM + CLOSE_BRACE;
 
 }

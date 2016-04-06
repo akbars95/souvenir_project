@@ -95,4 +95,11 @@ public class SouvenirRestController {
 		return souvenirService.deleteSouvenir(souvenir);
 	}
 
+	@RequestMapping(value = SHOW_HIDE_SOUVENIR_PIECE_URL, method = RequestMethod.PUT)
+	public boolean showHideSouvenir(@PathVariable(SOUVENIR_ID_REQUEST_PARAM) Integer souvenirId){
+		Souvenir souvenir = new Souvenir();
+		souvenir.setSouvenirId(souvenirId);
+		return souvenirService.hideSouvenir(souvenir);
+	}
+
 }

@@ -7,9 +7,10 @@ public class SouvenirPhotoSP {
 	/* stored procedure name */
 	public static final String INSERT_SOUVENIR_PHOTO_SP_NAME = "insertSouvenirPhoto";
 	public static final String UPDATE_SOUVENIR_PHOTO_SP_NAME = "updateSouvenirPhoto";
-	public static final String DELETE_SOUVENIR_PHOTO_SP_NAME = "deleteSouvenirPhoto";
+	public static final String DELETE_SOUVENIR_PHOTO_SP_NAME = "deleteSouvenirPhotos";
 	public static final String GET_SOUVENIR_PHOTO_BY_ID_SP_NAME = "getSouvenirPhotoById";
 	public static final String GET_SOUVENIR_PHOTOS_SP_NAME = "getSouvenirPhotos";
+	public static final String GET_SOUVENIR_PHOTOS_BY_SOUVENIR_ID_SP_NAME = "getSouvenirPhotosBySouvenirId";
 
 	/* function name */
 

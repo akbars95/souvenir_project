@@ -17,6 +17,8 @@ public class SouvenirSP {
 	public static final String GET_LAST_ADDED_SOUVENIR_SP_NAME = "getLastAddedSouvenir";
 	public static final String SELECT_SOUVENIR_SP_NAME = "selectSouvenir";
 	public static final String SELECT_FULL_SOUVENIR_WITH_CATEGORY_AND_AUDIT_SP_NAME = "selectFullSouvenirWithCategoryAndAudit";
+	public static final String DELETE_SOUVENIR_SP_NAME = "deleteSouvenir";
+	public static final String HIDE_SHOW_SOUVENIR_SP_NAME = "hideShowSouvenir";
 
 	/* function name */
 

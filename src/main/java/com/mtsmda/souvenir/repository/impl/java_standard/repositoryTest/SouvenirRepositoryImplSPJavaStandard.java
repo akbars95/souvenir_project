@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 
+import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Souvenir;
@@ -17,6 +18,7 @@ import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMappe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -91,22 +93,44 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
     @Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
     @Override
     public boolean deleteSouvenir(Souvenir souvenir) {
+        try {
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            mapParam.put(SOUVENIR_ID_IN_SP_PARAM_NAME, souvenir.getSouvenirId());
+
+            List<SouvenirPhoto> souvenirPhotosBySouvenirId = souvenirPhotoRepository.getSouvenirPhotosBySouvenirId(souvenir.getSouvenirId());
+
+            for (SouvenirPhoto souvenirPhoto : souvenirPhotosBySouvenirId) {
+                boolean b = souvenirPhotoRepository.deleteSouvenirPhoto(souvenirPhoto);
+                if (!b) {
+                    throw new SouvenirRuntimeException("Error delete photos!");
+                }
+            }
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    DELETE_SOUVENIR_SP_NAME, mapParam, false);
+            int count = callableStatement.executeUpdate();
+            if (count > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            SouvenirExceptionHandler.handle("insertSouvenir", e);
+        }
         return false;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
     @Override
     public Souvenir getSouvenir(Integer souvenirId) {
         Souvenir souvenir = null;
         try {
-            MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
-
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirId);
 
             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
                     SELECT_SOUVENIR_SP_NAME, mapParam, false);
             ResultSet rs = callableStatement.executeQuery();
+
             if (rs != null) {
+                MapperI<Souvenir> souvenirMapper = new SouvenirMapper();
                 while (rs.next()) {
                     souvenir = souvenirMapper.mapRow(rs);
                 }
@@ -137,8 +161,22 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
         return souvenirs;
     }
 
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.READ_COMMITTED)
     @Override
     public boolean hideSouvenir(Souvenir souvenir) {
+        try {
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            mapParam.put(SOUVENIR_ID_IN_SP_PARAM_NAME, souvenir.getSouvenirId());
+
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+                    HIDE_SHOW_SOUVENIR_SP_NAME, mapParam, false);
+            int count = callableStatement.executeUpdate();
+            if (count > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            SouvenirExceptionHandler.handle("hideSouvenir", e);
+        }
         return false;
     }
 

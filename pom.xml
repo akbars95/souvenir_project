@@ -229,33 +229,33 @@
         </dependency>
 
         <!-- Togglz core module (mandatory) -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-core</artifactId>
             <version>${togglz.version}</version>
         </dependency>
 
-        <!-- &lt;!&ndash; Togglz for Servlet environments (mandatory for webapps) &ndash;&gt; -->
+        &lt;!&ndash; &lt;!&ndash; Togglz for Servlet environments (mandatory for webapps) &ndash;&gt; &ndash;&gt;
         <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-servlet</artifactId>
             <version>${togglz.version}</version>
         </dependency>
 
-        <!-- &lt;!&ndash; Spring integration (optional) &ndash;&gt; -->
+        &lt;!&ndash; &lt;!&ndash; Spring integration (optional) &ndash;&gt; &ndash;&gt;
         <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-spring-web</artifactId>
             <version>${togglz.version}</version>
         </dependency>
 
-        <!-- &lt;!&ndash; Togglz testing support &ndash;&gt; -->
+        &lt;!&ndash; &lt;!&ndash; Togglz testing support &ndash;&gt; &ndash;&gt;
         <dependency>
             <groupId>org.togglz</groupId>
             <artifactId>togglz-junit</artifactId>
             <version>${togglz.version}</version>
             <scope>test</scope>
-        </dependency>
+        </dependency>-->
 
         <!-- Togglz Admin Console -->
         <!--<dependency>

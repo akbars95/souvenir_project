@@ -1,5 +1,7 @@
 package com.mtsmda.souvenir.toggleFeature;
 
+import java.io.File;
+
 /**
  * Created by dminzat on 3/31/2016.
  */
@@ -25,6 +27,7 @@ public class Used {
         fileManipulation.enable(My2Feature.FEATURE_ONE);
         sout();
 */
+        System.out.println(File.separator);
         PropertiesFileEditor fileManipulation = new PropertiesFileEditor("features.properties");
         sout();
         fileManipulation.enable(My3Feature.FEATURE_ONE);

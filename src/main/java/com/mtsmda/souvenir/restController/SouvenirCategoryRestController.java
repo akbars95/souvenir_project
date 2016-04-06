@@ -4,6 +4,7 @@ import java.util.List;
 
 import static com.mtsmda.souvenir.restController.constants.SouvenirCategoryRestConstants.*;
 
+import com.mtsmda.souvenir.dto.SouvenirCategoryDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,9 +30,9 @@ public class SouvenirCategoryRestController {
     }
 
     @RequestMapping(value = INSERT_SOUVENIR_CATEGORIES_PIECE_URL)
-    public boolean insertSouvenirCategory(@RequestBody SouvenirCategory souvenirCategory) {
-        if (souvenirCategory != null && StringUtils.isNotBlank(souvenirCategory.getSouvenirCategory())) {
-            return souvenirCategoryService.insertSouvenirCategory(souvenirCategory);
+    public boolean insertSouvenirCategory(@RequestBody SouvenirCategoryDTO souvenirCategoryDTO) {
+        if (souvenirCategoryDTO != null && StringUtils.isNotBlank(souvenirCategoryDTO.getSouvenirCategory())) {
+            return souvenirCategoryService.insertSouvenirCategory(souvenirCategoryDTO.convertToSouvenirCategory());
         }
         return false;
     }

@@ -16,13 +16,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.togglz.core.repository.FeatureState;
-import org.togglz.core.repository.StateRepository;
 /*import org.togglz.core.repository.FeatureState;
 import org.togglz.core.repository.StateRepository;
+*//*import org.togglz.core.repository.FeatureState;
+import org.togglz.core.repository.StateRepository;
 import org.togglz.core.repository.file.FileBasedStateRepository;
+import org.togglz.junit.TogglzRule;*//*
 import org.togglz.junit.TogglzRule;*/
-import org.togglz.junit.TogglzRule;
 
 import static org.junit.Assert.*;
 
@@ -44,12 +44,12 @@ public class TogglzTest {
     @Qualifier(value = "captchaRepositoryImplSPJavaStandard")
     private CaptchaRepository captchaRepository;*/
 
-    @Autowired
+    /*@Autowired
     @Qualifier("togglzComponent")
     private TogglzComponent togglzComponent;
 
     @Rule
-    public TogglzRule togglzRule = TogglzRule.allEnabled(MyFeatures.class);
+    public TogglzRule togglzRule = TogglzRule.allEnabled(MyFeatures.class);*/
 
     @Ignore
     @Test
@@ -70,14 +70,14 @@ public class TogglzTest {
     @Ignore
     @Test
     public void testJavaTogglz() {
-    	assertNotNull(togglzComponent);
+    	/*assertNotNull(togglzComponent);
         StateRepository stateRepository = new MyTogglzConfiguration().getStateRepository();
         stateRepository.setFeatureState(new FeatureState(MyFeatures.FEATURE_ONE, true));
         togglzRule.enableAll();
         stateRepository.setFeatureState(new FeatureState(MyFeatures.FEATURE_TWO, false));
         assertTrue(togglzComponent.example());
         togglzRule.disableAll();
-        assertFalse(togglzComponent.example());
+        assertFalse(togglzComponent.example());*/
     }
 
     /*@Test

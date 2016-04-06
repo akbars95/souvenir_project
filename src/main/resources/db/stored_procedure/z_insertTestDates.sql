@@ -1,17 +1,28 @@
-CALL `souvenir`.`insertCategory`('Бижу из бисера');
-CALL `souvenir`.`insertCategory`('Бижу из проволки');
-CALL `souvenir`.`insertCategory`('Букуты из конфет');
-CALL `souvenir`.`insertCategory`('Канзаши');
-CALL `souvenir`.`insertCategory`('Свадебные бокалы');
+
+CALL `souvenir`.`insertCategory`('Бижу из бисера');/*1*/
+CALL `souvenir`.`insertCategory`('Бижу из проволки');/*2*/
+CALL `souvenir`.`insertCategory`('Букуты из конфет');/*3*/
+CALL `souvenir`.`insertCategory`('Канзаши');/*4*/
+CALL `souvenir`.`insertCategory`('Свадебные бокалы');/*5*/
+CALL `souvenir`.`insertCategory`('Без категории');/*6*/
 
 CALL `souvenir`.`insertCategory`('Category 6');
-CALL `souvenir`.`updateCategory`('Category 999', 6);
-CALL `souvenir`.`deleteCategoryById`(6);
+CALL `souvenir`.`updateCategory`('Category 999', 7);
+CALL `souvenir`.`deleteCategoryById`(7);
+
+/*
+souvenir_nameIN VARCHAR(50), souvenir_descriptionIN VARCHAR(255), souvenir_showIN TINYINT(1),
+souvenir_main_photo_idIN int(11), souvenir_category_idIN INT(11), souvenir_priceIN DECIMAL(8,2),
+souvenir_count_of_days_for_orderIN INT(11)
+*/
+call insertSouvenirs('Бижу - Линия', 'Это Бижу Линия. Белая, желтая. Шарики', 1, '\images\souvenirs\поделки\поделки\бижу из бисера\IMG_0039.JPG', 1, 120.96, 9);
+call insertSouvenirs('Бижу - Заколка', 'Заколка.', 0, '\images\souvenirs\поделки\поделки\бижу из бисера\IMG_0040.JPG', 1, 360.6, 3);
+call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
+call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
+call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
+
 
 CALL `souvenir`.`checkCaptcha`(3, '1e345t$');
-
-
-
 
 CALL `souvenir`.`insertCaptcha`('192frt$', '/resources/images/captcha/i1.png');
 CALL `souvenir`.`insertCaptcha`('1e345t$', '/resources/images/captcha/i2.png');
@@ -32,14 +43,6 @@ CALL `souvenir`.`insertCaptcha`('ifhvno', '/resources/images/captcha/i16.png');
 CALL `souvenir`.`insertCaptcha`('ifhO', '/resources/images/captcha/i17.png');
 CALL `souvenir`.`insertCaptcha`('po,djr3', '/resources/images/captcha/i18.png');
 CALL `souvenir`.`insertCaptcha`('0..692P', '/resources/images/captcha/i19.png');
-
-
-call insertSouvenirs('Souvenir #1', 'This is souvenir #1 is description', 1, null, 1, 120.96, 9);
-call insertSouvenirs('Souvenir #2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 3);
-call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
-call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
-call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
-
 
 call insertSouvenirs('Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
 call insertSouvenirs('Seriga#2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 6);

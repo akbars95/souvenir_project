@@ -18,13 +18,14 @@ import static org.junit.Assert.*;
 /**
  * Created by dminzat on 4/1/2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@Deprecated
+/*@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:text-mvc-dispatcher-servlet.xml"})
 @WebAppConfiguration
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)*/
 public class My3FeatureTest {
 
-    @Autowired
+    /*@Autowired
     private PropertiesFileEditor propertiesFileEditor;
 
     @Autowired
@@ -58,5 +59,5 @@ public class My3FeatureTest {
         assertFalse(myComponent.testF1());
         assertFalse(myComponent.testF2());
     }
-
+*/
 }

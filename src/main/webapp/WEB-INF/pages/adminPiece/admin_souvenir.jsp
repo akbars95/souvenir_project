@@ -7,8 +7,8 @@
     <div id="allSouvenirs">
         <div class="row">
             <div
-                    ng-class-odd="'col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-5 col-lg-5'"
-                    ng-class-even="'col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1'"
+                    ng-class-odd="classForSouvenirOdd"
+                    ng-class-even="classForSouvenirEven"
                     ng-repeat="souvenirCurrent in souvenirs" id="souvenirNumber{{$index}}">
                 <div style="display: inline-block;" ng-mouseenter="showOrHideButtons($index)"
                      ng-mouseleave=showOrHideButtons(-1)>
@@ -29,7 +29,7 @@
 
             </div>
 
-            <!-- Small modal -->
+            <!-- Small modal for remove souvenir -->
             <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                 <div class="modal-dialog modal-lg removeModelDialog">
                     <div class="modal-header">
@@ -68,10 +68,10 @@
                                   ng-class="styleClassesForInsertNewSouvenir"></span>
                 </button>
 
-                <%--modal begin--%>
+                <%--modal begin for new souvenir--%>
                 <div class="modal fade" id="newSouvenirModalView" tabindex="-1"
                      role="dialog" aria-labelledby="gridSystemModalLabel">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal"
