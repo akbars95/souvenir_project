@@ -40,7 +40,7 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
     };
 
 
-        $scope.souvenirCategories = [];
+    $scope.souvenirCategories = [];
     $scope.getAllSouvenirCategories = function () {
         $http
             .get(hostConst + "/getAllSouvenirCategories")
@@ -53,38 +53,43 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
             });
     };
 
-    $scope.saveSouvenir = function () {
-        var fd = new FormData();
-        if ($scope.souvenirFiles && $scope.souvenirFiles.length > 0) {
-            for (i = 0; i < $scope.souvenirFiles.length; i++) {
-                fd.append("souvenirFiles", $scope.souvenirFiles[i]);
-            }
-        }
-
-        fd.append("souvenirName", $scope.souvenirName);
-        fd.append("souvenirDescription", $scope.souvenirDescription);
-        fd.append("souvenirShow", $scope.souvenirShow);
-        fd.append("souvenirPrice", $scope.souvenirPrice);
-        fd.append("souvenirCountOfDaysForOrder", $scope.souvenirCountOfDaysForOrder);
-        fd.append("souvenirCategoryId", $scope.currentSouvenirCategoryId);
-        var c = angular.isNumber($scope.currentSouvenirCategoryId);
-        var g = angular.isNumber($scope.souvenirPrice);
-        $http.post(hostConst + "/insert_souvenir", fd, {
-                transformRequest: angular.identity,
-                headers: {'Content-Type': undefined}
-            })
-            .success(function (data, status, headers, config) {
-                if (data && data == true && status == 200) {
-                    $scope.getAllSouvenirs();
-                    $scope.resetForm();
+    $scope.saveSouvenir = function (operation) {
+        if(operation == 1){
+            var fd = new FormData();
+            if ($scope.souvenirFiles && $scope.souvenirFiles.length > 0) {
+                for (i = 0; i < $scope.souvenirFiles.length; i++) {
+                    fd.append("souvenirFiles", $scope.souvenirFiles[i]);
                 }
-            })
-            .error(function (data, status, headers, config) {
-                console.log(data);
-            });
+            }
+
+            fd.append("souvenirName", $scope.souvenirName);
+            fd.append("souvenirDescription", $scope.souvenirDescription);
+            fd.append("souvenirShow", $scope.souvenirShow);
+            fd.append("souvenirPrice", $scope.souvenirPrice);
+            fd.append("souvenirCountOfDaysForOrder", $scope.souvenirCountOfDaysForOrder);
+            fd.append("souvenirCategoryId", $scope.currentSouvenirCategoryId);
+            var c = angular.isNumber($scope.currentSouvenirCategoryId);
+            var g = angular.isNumber($scope.souvenirPrice);
+            $http.post(hostConst + "/insert_souvenir", fd, {
+                    transformRequest: angular.identity,
+                    headers: {'Content-Type': undefined}
+                })
+                .success(function (data, status, headers, config) {
+                    if (data && data == true && status == 200) {
+                        $scope.getAllSouvenirs();
+                        $scope.resetForm(1);
+                    }
+                })
+                .error(function (data, status, headers, config) {
+                    console.log(data);
+                });
+        }else if(operation == 0){
+            currentSouvenirForEdit
+        }
     };
 
-    $scope.resetForm = function () {
+    $scope.resetForm = function (operation) {
+    if(operation == 1){
         var temp = $scope.souvenirCategories;
         $scope.souvenirName = "";
         $scope.souvenirDescription = "";
@@ -95,6 +100,10 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $scope.souvenirFiles = null;
         $scope.souvenirCategories = temp;
         angular.element("input[type='file']").val(null);
+    }else if(operation == 0){
+        $scope.currentSouvenirForEdit = angular.copy($scope.currentSouvenirForEditTemp);
+    }
+
     };
 
     $scope.addNewCategory = false;
@@ -125,10 +134,41 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $scope.currentHoverIndex = index;
     };
 
-    $scope.currentSouvenirForEdit = -1;
+    $scope.currentSouvenirIndexForEdit = -1;
+    $scope.currentSouvenirForEdit = null;
+    $scope.currentSouvenirForEditTemp = null;
+
+    $scope.currentModalView = -1;
 
     $scope.editSouvenir = function (index) {
-        $scope.currentSouvenirForEdit = index;
+    if(index != -9){
+        $scope.currentSouvenirIndexForEdit = index;
+        $scope.currentSouvenirForEdit = $scope.getSouvenirByIndex(index);
+    }else{
+        $scope.currentSouvenirForEdit = $scope.currentSouvenirForReview;
+    }
+        $scope.currentSouvenirForEditTemp = angular.copy($scope.currentSouvenirForEdit);
+        $scope.currentModalView = 0;
+    };
+
+    $scope.editSouvenirCategoryStatus = false;
+
+    $scope.editSouvenirCategory = function(){
+        $scope.editSouvenirCategoryStatus = !$scope.editSouvenirCategoryStatus;
+        $scope.getSouvenirCategoryById($scope.currentSouvenirForEdit.souvenirCategory.souvenirCategoryId);
+    }
+
+    $scope.getSouvenirCategoryById = function(id){
+        for(i = 0; i < $scope.souvenirCategories.length; i++){
+            if($scope.souvenirCategories[i].souvenirCategoryId == id){
+                $scope.currentSouvenirForEdit.souvenirCategory.souvenirCategory = $scope.souvenirCategories[i].souvenirCategory;
+                return;
+            }
+        }
+    };
+
+    $scope.addNewSouvenirButtonClick = function(){
+        $scope.currentModalView = 1;
     };
 
     $scope.currentSouvenirForRemove = -1;
@@ -154,12 +194,16 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         }
     };
 
+    $scope.getSouvenirByIndex = function(index){
+        return $scope.souvenirs[index];
+    };
+
     $scope.showSouvenir = function(index){
-        var temp = $scope.souvenirs[index];
-        if($scope.souvenirs[index].souvenirShow){
-            $scope.souvenirs[index].souvenirShow = false;
+        var temp = $scope.getSouvenirByIndex(index);
+        if(temp.souvenirShow){
+            temp.souvenirShow = false;
         }else {
-            $scope.souvenirs[index].souvenirShow = true;
+            temp.souvenirShow = true;
         }
 
         $http.put(hostConst + "/show_hide_souvenir/" + temp.souvenirId)
@@ -176,9 +220,16 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $scope.showSouvenir(index);
     };
 
+    $scope.currentSouvenirForReview;
+
+    $scope.reviewSouvenirButtonClick = function(index){
+        $scope.currentModalView = 9;
+        $scope.currentSouvenirForReview = $scope.getSouvenirByIndex(index);
+    };
+
     $scope.getAllSouvenirs();
     $scope.getAllSouvenirCategories();
-    $scope.resetForm();
+    $scope.resetForm(1);
 
 });
 

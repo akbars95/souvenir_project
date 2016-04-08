@@ -8,7 +8,7 @@
     <name>souvenir</name>
 
     <properties>
-        <spring.version>4.2.1.RELEASE</spring.version>
+        <spring.version>4.2.1.RELEASE</spring.version><!---->
         <junit.version>4.11</junit.version>
         <mysql.version>5.1.35</mysql.version>
         <commons-dbcp.version>1.4</commons-dbcp.version>

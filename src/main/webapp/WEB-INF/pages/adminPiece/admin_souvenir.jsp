@@ -8,23 +8,28 @@
         <div class="row">
             <div
                     ng-class-odd="classForSouvenirOdd"
-                    ng-class-even="classForSouvenirEven"
+                    ng-class-even="classForSouvenirEven" class="text-center"
                     ng-repeat="souvenirCurrent in souvenirs" id="souvenirNumber{{$index}}">
                 <div style="display: inline-block;" ng-mouseenter="showOrHideButtons($index)"
                      ng-mouseleave=showOrHideButtons(-1)>
-                    <a href="" class="adminSouvenirs"><h1
+                    <a href="" class="adminSouvenirs" data-toggle="modal" data-target="#newOrEditOrViewSouvenirModalView"
+                    ng-click="reviewSouvenirButtonClick($index);"><h1
                             class="text-center">{{souvenirCurrent.souvenirName}}</h1>
                     </a>
-                    <span style="cursor: pointer;" ng-click="hideSouvenir($index);" ng-show="currentHoverIndex == $index && souvenirCurrent.souvenirShow"><img
-                            ng-src="<spring:url value="/resources/images/visible.png" htmlEscape="true"/>"/></span>
-                    <span style="cursor: pointer;" ng-click="showSouvenir($index);" ng-show="currentHoverIndex == $index && !souvenirCurrent.souvenirShow"><img
+                    <span style="cursor: pointer;" ng-click="hideSouvenir($index);" ng-show="currentHoverIndex == $index && souvenirCurrent.souvenirShow" data-toggle="tooltip" data-placement="top" title='<spring:message code="page.admin.souvenir.hide.button.tooltip"/>'>
+                    <img ng-src="<spring:url value="/resources/images/visible.png" htmlEscape="true"/>"/></span>
+                    <span style="cursor: pointer;" ng-click="showSouvenir($index);" ng-show="currentHoverIndex == $index && !souvenirCurrent.souvenirShow" data-toggle="tooltip" data-placement="top" title='<spring:message code="page.admin.souvenir.show.button.tooltip"/>'><img
                             ng-src="<spring:url value="/resources/images/invisible.png" htmlEscape="true"/>"/></span>
-                    <span ng-show="currentHoverIndex == $index" ng-click="editSouvenir($index);"
-                          class="glyphicon glyphicon-edit iconForRemoveOrEdit"></span>
+                    <span data-toggle="tooltip" data-placement="top" title='<spring:message code="page.admin.souvenir.edit.button.tooltip"/>'>
+                    <span ng-show="currentHoverIndex == $index" ng-click="editSouvenir($index);" data-toggle="modal" data-target="#newOrEditOrViewSouvenirModalView"
+                          class="glyphicon glyphicon-edit iconForRemoveOrEdit">
+                          </span>
+                          </span>
                     <span ng-show="currentHoverIndex == $index"
                           ng-click="prepareForRemoveSouvenir($index, souvenirCurrent.souvenirName);"
                           class="glyphicon glyphicon-remove iconForRemoveOrEdit" data-toggle="modal"
-                          data-target=".bs-example-modal-lg"></span>
+                          data-target=".bs-example-modal-lg" data-toggle="tooltip" data-placement="top" title='<spring:message code="page.admin.souvenir.remove.button.tooltip"/>'>
+                          </span>
                 </div>
 
             </div>
@@ -61,15 +66,15 @@
                  ng-show="souvenirs.length > 0">
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-primary btn-lg"
-                        data-toggle="modal" data-target="#newSouvenirModalView"
+                        data-toggle="modal" data-target="#newOrEditOrViewSouvenirModalView"
                         ng-mouseenter="eventMouseEnterNew()"
-                        ng-mouseleave="eventMouseLeaveNew()">
+                        ng-mouseleave="eventMouseLeaveNew()" ng-click="addNewSouvenirButtonClick();">
 							<span class="glyphicon"
                                   ng-class="styleClassesForInsertNewSouvenir"></span>
                 </button>
 
                 <%--modal begin for new souvenir--%>
-                <div class="modal fade" id="newSouvenirModalView" tabindex="-1"
+                <div class="modal fade" id="newOrEditOrViewSouvenirModalView" tabindex="-1"
                      role="dialog" aria-labelledby="gridSystemModalLabel">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -79,12 +84,17 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                                 <h4 class="modal-title" id="gridSystemModalLabel">
-                                    <spring:message
-                                            code="page.admin.souvenir.add.new.modal_view.title"/>
+                                    <span ng-show="currentModalView == 1"><spring:message
+                                            code="page.admin.souvenir.add.new.modal_view.title"/></span>
+                                    <span ng-show="currentModalView == 0">
+                                    <spring:message code="page.admin.souvenir.edit.modal_view.title"/></span>
+                                    <span ng-show="currentModalView == 9">
+                                    <spring:message code="page.admin.souvenir.view.modal_view.title"/></span>
                                 </h4>
                             </div>
                             <!-- body -->
                             <div class="modal-body">
+								<div ng-hide="currentModalView == 9">
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -93,8 +103,10 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <input class="form-control" type="text" name="souvenirName"
+                                            <input ng-show="currentModalView == 1" class="form-control" type="text" name="souvenirName"
                                                    id="souvenirName" ng-model="souvenirName">
+                                                   <input ng-show="currentModalView == 0" class="form-control" type="text" name="souvenirName"
+                                                                                                      id="souvenirName" ng-model="currentSouvenirForEdit.souvenirName">
                                         </div>
                                     </div>
                                 </div>
@@ -107,9 +119,12 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-													<textarea class="form-control" rows="5" cols="25"
+													<textarea ng-show="currentModalView == 1" class="form-control" rows="5" cols="25"
                                                               id="souvenirDescription" name="souvenirDescription"
                                                               ng-model="souvenirDescription"></textarea>
+                                                      <textarea ng-show="currentModalView == 0" class="form-control" rows="5" cols="25"
+                                                            id="souvenirDescription" name="souvenirDescription"
+                                                            ng-model="currentSouvenirForEdit.souvenirDescription"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -121,8 +136,10 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <input type="checkbox" name="souvenirShow"
+                                            <input ng-show="currentModalView == 1" type="checkbox" name="souvenirShow"
                                                    id="souvenirShow" ng-model="souvenirShow">
+                                           <input ng-show="currentModalView == 0" type="checkbox" name="souvenirShow"
+                                                                              id="souvenirShow" ng-model="currentSouvenirForEdit.souvenirShow">
                                         </div>
                                     </div>
                                 </div>
@@ -134,9 +151,12 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <input class="form-control" type="number"
+                                            <input ng-show="currentModalView == 1" class="form-control" type="number"
                                                    name="souvenirPrice" id="souvenirPrice"
                                                    ng-model="souvenirPrice">
+                                           <input ng-show="currentModalView == 0" class="form-control" type="number"
+                                                                                              name="souvenirPrice" id="souvenirPrice"
+                                                                                              ng-model="currentSouvenirForEdit.souvenirPrice">
                                         </div>
                                     </div>
                                 </div>
@@ -149,10 +169,14 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <input class="form-control" type="number"
+                                            <input ng-show="currentModalView == 1" class="form-control" type="number"
                                                    name="souvenirCountOfDaysForOrder"
                                                    id="souvenirCountOfDaysForOrder"
                                                    ng-model="souvenirCountOfDaysForOrder">
+                                           <input ng-show="currentModalView == 0" class="form-control" type="number"
+                                                  name="souvenirCountOfDaysForOrder"
+                                                  id="souvenirCountOfDaysForOrder"
+                                                  ng-model="currentSouvenirForEdit.souvenirCountOfDaysForOrder">
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +189,7 @@
                                             </label>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <select id="souvenirCategory" ng-model="currentSouvenirCategoryId">
+                                            <select ng-show="currentModalView == 1" id="souvenirCategory" ng-model="currentSouvenirCategoryId">
                                                 <option selected value="-"> -</option>
                                                 <option
                                                         ng-repeat="currentSouvenirCategory in souvenirCategories"
@@ -173,6 +197,15 @@
                                                     {{currentSouvenirCategory.souvenirCategory}}
                                                 </option>
                                             </select>
+                                            <span ng-show="currentModalView == 0 && !editSouvenirCategoryStatus" ng-click="editSouvenirCategory();">{{currentSouvenirForEdit.souvenirCategory.souvenirCategory}}</span>
+                                            <select ng-blur="editSouvenirCategory();" ng-show="currentModalView == 0 && editSouvenirCategoryStatus" id="souvenirCategory" ng-model="currentSouvenirForEdit.souvenirCategory.souvenirCategoryId">
+                                                    <option selected value="-"> -</option>
+                                                    <option
+                                                            ng-repeat="currentSouvenirCategory in souvenirCategories"
+                                                            value="{{currentSouvenirCategory.souvenirCategoryId}}">
+                                                        {{currentSouvenirCategory.souvenirCategory}}
+                                                    </option>
+                                                </select>
                                             <button class="btn btn-default btn-margin-top"
                                                     ng-click="showOrHideAddNewSouvenirCategory();">
                                                         <span ng-if="!addNewCategory"><spring:message
@@ -238,19 +271,60 @@
                                         </div>
                                     </div>
                                 </div>
+								</div>
+								<div ng-show="currentModalView == 9">
+									<div class="row">
+									    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+									        Author: admin
+									    </div>
+									    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            createdDatetime - {{currentSouvenirForReview.souvenirAudit.createdDatetime}}
+                                        </div>
+                                        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                                            lastUpdateDatetime - {{currentSouvenirForReview.souvenirAudit.lastUpdateDatetime}}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-center col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                                            <h1>{{currentSouvenirForReview.souvenirName}}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-left col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                                            <p>{{currentSouvenirForReview.souvenirDescription}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <p>{{currentSouvenirForReview.souvenirDescription}}</p>
+                                        </div>
+                                    </div>
+                                            souvenirShow - {{currentSouvenirForReview.souvenirShow}}
+                                            souvenirCountOfDaysForOrder - {{currentSouvenirForReview.souvenirCountOfDaysForOrder}}
+                                            souvenirMainPhotoId - {{currentSouvenirForReview.souvenirMainPhotoId.souvenirPhotoPath}}
+                                            souvenirPhotoPath - {{currentSouvenirForReview.souvenirPhotos}}
+
+
+
+								</div>
                             </div>
                             <div class="modal-footer">
+                                <button ng-show="currentModalView == 9" type="button" class="btn btn-info"
+                                ng-click="editSouvenir(currentModalView);">
+                                    <spring:message
+                                            code="page.admin.souvenir.add.new.modal_view.modify.title"/>
+                                </button>
                                 <button type="button" class="btn btn-default"
                                         data-dismiss="modal">
                                     <spring:message
                                             code="page.admin.souvenir.add.new.modal_view.close_btn.title"/>
                                 </button>
-                                <button type="reset" class="btn btn-danger" ng-click="resetForm();">
+                                <button ng-hide="currentModalView == 9" type="reset" class="btn btn-danger" ng-click="resetForm(currentModalView);">
                                     <spring:message
                                             code="page.admin.souvenir.add.new.modal_view.reset_btn.title"/>
                                 </button>
-                                <button type="button" class="btn btn-success"
-                                        ng-click="saveSouvenir();">
+                                <button ng-hide="currentModalView == 9" type="button" class="btn btn-success"
+                                        ng-click="saveSouvenir(currentModalView);">
                                     <spring:message
                                             code="page.admin.souvenir.add.new.modal_view.save_btn.title"/>
                                 </button>
