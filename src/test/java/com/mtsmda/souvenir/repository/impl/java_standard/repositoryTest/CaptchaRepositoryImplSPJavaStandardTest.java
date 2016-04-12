@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.repository.CaptchaRepository;
+import com.mtsmda.souvenir.repository.impl.java_standard.ParentTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -24,11 +25,8 @@ import static org.junit.Assert.*;
 /**
  * Created by dminzat on 3/16/2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:text-mvc-dispatcher-servlet.xml")
-@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CaptchaRepositoryImplSPJavaStandardTest {
+public class CaptchaRepositoryImplSPJavaStandardTest extends ParentTest {
 
     @Autowired
     @Qualifier(value = "captchaRepositoryImplSPJavaStandard")

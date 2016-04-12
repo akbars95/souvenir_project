@@ -17,10 +17,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.sql.DataSource;
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -33,14 +30,14 @@ import static com.mtsmda.souvenir.model.sp.CaptchaSP.*;
  * Created by MTSMDA on 08.02.2016.
  */
 @Repository("captchaRepositoryImplSPJavaStandard")
-@Transactional
+@Transactional(isolation = Isolation.READ_COMMITTED)
 public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean insertCaptcha(Captcha captcha) {
         if (captcha == null) {
@@ -49,8 +46,10 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(CAPTCHA_VALUE_IN_SP_PARAM_NAME, captcha.getCaptchaValue());
         mapParam.put(CAPTCHA_URL_FILE_IN_SP_PARAM_NAME, captcha.getCaptchaUrlFile());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                INSERT_CAPTCHA_SP_NAME, mapParam, false);) {
+
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     INSERT_CAPTCHA_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -61,7 +60,7 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return false;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean updateCaptcha(Captcha captcha) {
         if (captcha == null) {
@@ -71,8 +70,9 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captcha.getCaptchaId());
         mapParam.put(CAPTCHA_VALUE_IN_SP_PARAM_NAME, captcha.getCaptchaValue());
         mapParam.put(CAPTCHA_URL_FILE_IN_SP_PARAM_NAME, captcha.getCaptchaUrlFile());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                UPDATE_CAPTCHA_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     UPDATE_CAPTCHA_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -83,7 +83,7 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return false;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean deleteCaptcha(Captcha captcha) {
         if (captcha == null) {
@@ -91,8 +91,9 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         }
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captcha.getCaptchaId());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                DELETE_CAPTCHA_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     DELETE_CAPTCHA_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -103,15 +104,16 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return false;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public Captcha getCaptchaById(Integer idCaptcha) {
         Captcha captcha = null;
         CaptchaMapper captchaMapper = new CaptchaMapper();
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, idCaptcha);
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                GET_CAPTCHA_BY_ID_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     GET_CAPTCHA_BY_ID_SP_NAME, mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 captcha = captchaMapper.mapRow(rs);
@@ -122,13 +124,14 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return captcha;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional(readOnly = true)
     @Override
     public List<Captcha> getAllCaptcha() {
         List<Captcha> captchas = null;
         CaptchaMapper captchaMapper = new CaptchaMapper();
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                GET_ALL_CAPTCHA_SP_NAME, null, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     GET_ALL_CAPTCHA_SP_NAME, null, false);) {
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 captchas = new ArrayList<>();
@@ -142,15 +145,16 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return captchas;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public Captcha getRandomCaptcha(Captcha captchaUser) {
         Captcha captcha = null;
         CaptchaMapper captchaMapper = new CaptchaMapper();
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captchaUser.getCaptchaId());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                GET_RANDOM_CAPTCHA_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     GET_RANDOM_CAPTCHA_SP_NAME, mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 captcha = captchaMapper.mapRow(rs);
@@ -161,11 +165,12 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return captcha;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public Integer getMaxIdCaptcha() {
         Integer maxId = null;
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                 GET_MAX_ID_CAPTCHA_FN_NAME, null, true);) {
             callableStatement.registerOutParameter(1, Types.INTEGER);
             callableStatement.execute();
@@ -176,7 +181,7 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         return maxId;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public boolean checkCaptcha(Captcha captcha) {
         if (captcha == null) {
@@ -187,7 +192,8 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
         ListHelper.getList(keysList, CAPTCHA_ID_IN_SP_PARAM_NAME, CAPTCHA_VALUE_IN_SP_PARAM_NAME);
         HashMap<String, Object> mapParam = new HashMap<>();
         MapHelper.getMap(mapParam, keysList, captcha.getCaptchaId(), captcha.getCaptchaValue());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                 CHECK_CAPTCHA_SP_NAME, mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotNull;
  * Created by dminzat on 3/22/2016.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CaptchaTest {
+public class CaptchaTest{
 
     private static Validator validator;
 

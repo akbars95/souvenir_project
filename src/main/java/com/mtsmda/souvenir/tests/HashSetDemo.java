@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir;
+package com.mtsmda.souvenir.tests;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;

@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 import static com.mtsmda.souvenir.model.sp.SouvenirCategorySP.*;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,14 +30,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository("souvenirCategoryRepositoryImplSPJavaStandard")
-@Transactional()
+@Transactional(isolation = Isolation.READ_COMMITTED)
 public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCategoryRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean insertSouvenirCategory(SouvenirCategory souvenirCategory) {
         if (souvenirCategory == null && StringUtils.isNotBlank(souvenirCategory.getSouvenirCategory())) {
@@ -44,8 +45,9 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         }
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(SOUVENIR_CATEGORY_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategory());
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                INSERT_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     INSERT_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -56,7 +58,7 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         return false;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean updateSouvenirCategory(SouvenirCategory souvenirCategory) {
         if (souvenirCategory == null && StringUtils.isNotBlank(souvenirCategory.getSouvenirCategory())) {
@@ -66,8 +68,9 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategoryId());
         mapParam.put(SOUVENIR_CATEGORY_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategory());
 
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                UPDATE_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     UPDATE_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -78,7 +81,7 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         return false;
     }
 
-    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     @Override
     public boolean deleteSouvenirCategory(SouvenirCategory souvenirCategory) {
         if (souvenirCategory == null && souvenirCategory.getSouvenirCategoryId() != null) {
@@ -87,8 +90,9 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenirCategory.getSouvenirCategoryId());
 
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
-                DELETE_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                     DELETE_SOUVENIR_CATEGORY_SP_NAME, mapParam, false);) {
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 return true;
@@ -99,15 +103,16 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         return false;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public SouvenirCategory getSouvenirCategory(Integer souvenirCategoryId) {
         SouvenirCategory souvenirCategory = null;
         MapperI<SouvenirCategory> souvenirCategoryMapper = new SouvenirCategoryMapper();
         Map<String, Object> mapParam = new LinkedHashMap<>();
         mapParam.put(SOUVENIR_CATEGORY_ID_IN_SP_PARAM_NAME, souvenirCategoryId);
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_SOUVENIR_CATEGORY_SP_NAME,
-                mapParam, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection, GET_SOUVENIR_CATEGORY_SP_NAME,
+                     mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 while (rs.next()) {
@@ -120,13 +125,14 @@ public class SouvenirCategoryRepositoryImplSPJavaStandard implements SouvenirCat
         return souvenirCategory;
     }
 
-    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public List<SouvenirCategory> getAllSouvenirCategories() {
         List<SouvenirCategory> categories = null;
         MapperI<SouvenirCategory> souvenirCategoryMapper = new SouvenirCategoryMapper();
-        try (CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource, GET_ALL_SOUVENIR_CATEGORIES_SP_NAME,
-                null, false);) {
+        try (Connection connection = this.dataSource.getConnection();
+             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection, GET_ALL_SOUVENIR_CATEGORIES_SP_NAME,
+                     null, false);) {
             ResultSet rs = callableStatement.executeQuery();
             if (rs != null) {
                 categories = new ArrayList<>();

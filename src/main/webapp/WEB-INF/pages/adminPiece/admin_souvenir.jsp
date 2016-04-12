@@ -271,17 +271,33 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group" ng-show="souvenirFiles.length > 0">
+                                    <div class="row">
+                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</div>
+                                        <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">File name</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">File size</div>
+                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">File type</div>
+                                    </div>
+                                    <div class="row" ng-repeat="currentFile in souvenirFiles">
+                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">{{$index}}</div>
+                                        <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">{{currentFile.name}}</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{currentFile.size}} _____ {{currentFile.getAsBinary()}}</div>
+                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">{{currentFile.type}}</div>
+                                    </div>
+                                </div>
+
+
 								</div>
 								<div ng-show="currentModalView == 9">
 									<div class="row">
 									    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-									        Author: admin
+									        <spring:message code="page.admin.souvenir.review.modal_view.author.title"/>: admin
 									    </div>
 									    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                            createdDatetime - {{currentSouvenirForReview.souvenirAudit.createdDatetime}}
+                                            <spring:message code="page.admin.souvenir.review.modal_view.createdDateTime.title"/> - {{currentSouvenirForReview.souvenirAudit.createdDatetime}}
                                         </div>
                                         <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                            lastUpdateDatetime - {{currentSouvenirForReview.souvenirAudit.lastUpdateDatetime}}
+                                            <spring:message code="page.admin.souvenir.review.modal_view.lastUpdatedDateTime.title"/> - {{currentSouvenirForReview.souvenirAudit.lastUpdateDatetime}}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -291,21 +307,35 @@
                                     </div>
                                     <div class="row">
                                         <div class="text-left col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+                                            <p><spring:message code="page.admin.souvenir.review.modal_view.description.title"/></p>
                                             <p>{{currentSouvenirForReview.souvenirDescription}}</p>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <p>{{currentSouvenirForReview.souvenirDescription}}</p>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <p><spring:message code="page.admin.souvenir.review.modal_view.showInSite.title"/> - <span class="glyphicon {{currentSouvenirForReview.souvenirShow == true ? 'glyphicon-ok' : 'glyphicon-remove'}}" aria-hidden="true"></span></p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <p><spring:message code="page.admin.souvenir.review.modal_view.countOfDaysForOrder.title"/> - {{currentSouvenirForReview.souvenirCountOfDaysForOrder}}</p>
+                                        </div>
+                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                            <p><spring:message code="page.admin.souvenir.review.modal_view.category.title"/> - {{currentSouvenirForReview.souvenirCategory.souvenirCategory}}</p>
                                         </div>
                                     </div>
-                                            souvenirShow - {{currentSouvenirForReview.souvenirShow}}
-                                            souvenirCountOfDaysForOrder - {{currentSouvenirForReview.souvenirCountOfDaysForOrder}}
-                                            souvenirMainPhotoId - {{currentSouvenirForReview.souvenirMainPhotoId.souvenirPhotoPath}}
-                                            souvenirPhotoPath - {{currentSouvenirForReview.souvenirPhotos}}
-
-
-
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <p>
+                                                <img class="imgSouvenirPhoto" src="{{hostConst}}{{currentSouvenirForReview.souvenirMainPhotoId.souvenirPhotoPath}}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <p ng-repeat="currentSouvenirPhoto in currentSouvenirForReview.souvenirPhotos">
+                                                <img class="imgSouvenirPhoto" src="{{hostConst}}{{currentSouvenirPhoto.souvenirPhotoPath}}">
+                                            </p>
+                                        </div>
+                                    </div>
 								</div>
                             </div>
                             <div class="modal-footer">

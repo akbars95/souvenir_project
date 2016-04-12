@@ -358,3 +358,13 @@ span.glyphicon-remove:before{
 span.glyphicon-edit:before{
     color: green;
 }
+
+@media (min-width: 992px)
+.modal-lg {
+    width: 1200px;
+}
+
+img.imgSouvenirPhoto{
+    width: 5%;
+    height: 5%;
+}

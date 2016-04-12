@@ -39,6 +39,37 @@ public class SouvenirStandardSPHelper {
         return callableStatement;
     }
 
+    public static CallableStatement execute(Connection connection, String storedProcedureName,
+                                            Map<String, Object> mapParam, boolean isFunction) throws SQLException {
+        StringBuilder query = new StringBuilder("{");
+        if (isFunction) {
+            query.append("? = ");
+        }
+
+        query.append("call ").append(storedProcedureName).append("(");
+        if (mapParam != null) {
+            for (int i = 0; i < mapParam.size(); i++) {
+                query.append("?");
+                if (i != mapParam.size() - 1) {
+                    query.append(",");
+                }
+            }
+        }
+        query.append(")}");
+
+        CallableStatement callableStatement = connection.prepareCall(query.toString());
+        if (isFunction) {
+
+        }
+        if (mapParam != null) {
+            for (String key : mapParam.keySet()) {
+                Object value = mapParam.get(key);
+                getRightType(callableStatement, key, value);
+            }
+        }
+        return callableStatement;
+    }
+
     private static void getRightType(CallableStatement callableStatement, String key, Object value)
             throws SQLException {
         if (value == null) {

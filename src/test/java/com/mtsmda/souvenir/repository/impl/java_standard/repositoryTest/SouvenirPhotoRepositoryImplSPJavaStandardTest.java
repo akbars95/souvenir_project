@@ -5,6 +5,7 @@ import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirPhoto;
 import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
 import com.mtsmda.souvenir.repository.SouvenirRepository;
+import com.mtsmda.souvenir.repository.impl.java_standard.ParentTest;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Ignore;
@@ -24,11 +25,8 @@ import static org.junit.Assert.*;
 /**
  * Created by dminzat on 3/29/2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:text-mvc-dispatcher-servlet.xml")
-@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SouvenirPhotoRepositoryImplSPJavaStandardTest {
+public class SouvenirPhotoRepositoryImplSPJavaStandardTest extends ParentTest {
 
     @Autowired
     @Qualifier("SouvenirPhotoRepositoryImplSPJavaStandard")

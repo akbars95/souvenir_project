@@ -45,6 +45,11 @@ public class SouvenirServiceImpl implements SouvenirService {
 	}
 
 	@Override
+	public List<Souvenir> getAllSouvenirWithCategoryAndAudit(boolean withSouvenirPhotos) {
+		return this.souvenirRepository.getAllSouvenirWithCategoryAndAudit(withSouvenirPhotos);
+	}
+
+	@Override
 	public boolean hideSouvenir(Souvenir souvenir) {
 		return this.souvenirRepository.hideSouvenir(souvenir);
 	}
@@ -52,10 +57,5 @@ public class SouvenirServiceImpl implements SouvenirService {
 	@Override
 	public Souvenir getLastAddedSouvenir() {
 		return this.souvenirRepository.getLastAddedSouvenir();
-	}
-
-	@Override
-	public List<Souvenir> getAllSouvenirWithCategoryAndAudit() {
-		return this.souvenirRepository.getAllSouvenirWithCategoryAndAudit();
 	}
 }

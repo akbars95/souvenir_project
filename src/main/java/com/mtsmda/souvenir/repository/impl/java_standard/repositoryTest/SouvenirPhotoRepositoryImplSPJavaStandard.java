@@ -13,10 +13,12 @@ import org.springframework.stereotype.Repository;
 
 import com.mtsmda.souvenir.model.SouvenirPhoto;
 import com.mtsmda.souvenir.repository.SouvenirPhotoRepository;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,22 +29,22 @@ import java.util.Map;
 import static com.mtsmda.souvenir.model.sp.SouvenirPhotoSP.*;
 
 @Repository("SouvenirPhotoRepositoryImplSPJavaStandard")
-@Transactional(readOnly = true)
+@Transactional(isolation = Isolation.READ_COMMITTED)
 public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoRepository {
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional
     @Override
     public boolean insertSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
-        try {
+        try (Connection connection = this.dataSource.getConnection();){
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoPath());
             mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenir().getSouvenirId());
 
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                     INSERT_SOUVENIR_PHOTO_SP_NAME, mapParam, false);
             int count = callableStatement.executeUpdate();
             if (count > 0) {
@@ -54,15 +56,15 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
         return false;
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional
     @Override
     public boolean updateSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
-        try {
+        try (Connection connection = this.dataSource.getConnection();){
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoPath());
             mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenir().getSouvenirId());
 
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                     UPDATE_SOUVENIR_PHOTO_SP_NAME, mapParam, false);
             int count = callableStatement.executeUpdate();
             if (count > 0) {
@@ -74,10 +76,10 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
         return false;
     }
 
-    @Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+    @Transactional
     @Override
     public boolean deleteSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
-        try {
+        try (Connection connection = this.dataSource.getConnection();){
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_PHOTO_ID_IN_SP_PARAM_NAME, (souvenirPhoto.getSouvenirPhotoId() == null) ? -1 : souvenirPhoto.getSouvenirPhotoId());
             if (souvenirPhoto.getSouvenir() != null && souvenirPhoto.getSouvenir().getSouvenirId() != null) {
@@ -86,7 +88,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
                 mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, -1);
             }
 
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                     DELETE_SOUVENIR_PHOTO_SP_NAME, mapParam, false);
             int count = callableStatement.executeUpdate();
             if (count > 0) {
@@ -98,27 +100,29 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
         return false;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public SouvenirPhoto getSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
         // TODO Auto-generated method stub
         return null;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<SouvenirPhoto> getAllSouvenirPhotos() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(readOnly = true)
     @Override
     public List<SouvenirPhoto> getSouvenirPhotosBySouvenirId(Integer souvenirId) {
         List<SouvenirPhoto> souvenirPhotos = new ArrayList<>();
-        try {
+        try (Connection connection = this.dataSource.getConnection();) {
             Map<String, Object> mapParam = new LinkedHashMap<>();
             mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirId);
 
-            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(this.dataSource,
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                     GET_SOUVENIR_PHOTOS_BY_SOUVENIR_ID_SP_NAME, mapParam, false);
             ResultSet resultSet = callableStatement.executeQuery();
             MapperI<SouvenirPhoto> souvenirPhotoMapperI = new SouvenirPhotoMapper();

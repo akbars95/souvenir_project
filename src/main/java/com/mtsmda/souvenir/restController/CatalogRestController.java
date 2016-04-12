@@ -23,7 +23,7 @@ public class CatalogRestController {
     @RequestMapping(value = GET_ALL_SOUVENIRS_PIECE_URL, method = RequestMethod.GET)
     public List<Souvenir> getAllSouvenirs() {
         List<Souvenir> souvenirs = null;
-        souvenirs = souvenirService.getAllSouvenirWithCategoryAndAudit();
+        souvenirs = souvenirService.getAllSouvenirWithCategoryAndAudit(true);
         return souvenirs;
     }
 

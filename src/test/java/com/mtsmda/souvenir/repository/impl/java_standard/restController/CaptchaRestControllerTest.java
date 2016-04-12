@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.repository.impl.java_standard.restController;
 
+import com.mtsmda.souvenir.repository.impl.java_standard.ParentTest;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -20,11 +21,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Created by MTSMDA on 28.03.2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:text-mvc-dispatcher-servlet.xml")
-@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class CaptchaRestControllerTest {
+public class CaptchaRestControllerTest extends ParentTest {
 
     @Autowired
     private WebApplicationContext wac;

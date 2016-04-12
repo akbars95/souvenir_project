@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest;
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.repository.SouvenirCategoryRepository;
+import com.mtsmda.souvenir.repository.impl.java_standard.ParentTest;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
@@ -22,11 +23,8 @@ import static org.junit.Assert.*;
 /**
  * Created by dminzat on 3/17/2016.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath:text-mvc-dispatcher-servlet.xml")
-@WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SouvenirCategoryRepositoryImplSPJavaStandardTest {
+public class SouvenirCategoryRepositoryImplSPJavaStandardTest extends ParentTest {
 
     @Autowired
     @Qualifier("souvenirCategoryRepositoryImplSPJavaStandard")

@@ -11,6 +11,7 @@ adminSouvenirAngularJSRoutingApp.controller('indexCtrl', function ($scope) {
 
 adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $http, hostConst) {
 
+    $scope.hostConst = hostConst;
     $scope.classForSouvenirOdd = "col-xs-12 col-sm-12 col-md-6 col-lg-6";
     $scope.classForSouvenirEven = "col-md-6 col-lg-6";
     $scope.getAllSouvenirs = function () {
@@ -22,10 +23,23 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
                     $scope.souvenirs = data;
                     $scope.addNewSouvenirBootstrapClass = ($scope.souvenirs.length % 2 == 0) ? $scope.classForSouvenirOdd
                         : $scope.classForSouvenirEven;
+                    $scope.getSouvenirPhotoPath();
                 })
             .error(function (data, status, headers, config) {
                 // log error
             });
+
+        $scope.getSouvenirPhotoPath = function(){
+            for(i = 0; i < $scope.souvenirs.length; i++){
+                var tempPhotoId = $scope.souvenirs[i].souvenirMainPhotoId.souvenirPhotoId;
+                for(j = 0; j < $scope.souvenirs[i].souvenirPhotos.length; j++){
+                    if($scope.souvenirs[i].souvenirPhotos[j].souvenirPhotoId == tempPhotoId){
+                        $scope.souvenirs[i].souvenirMainPhotoId.souvenirPhotoPath = $scope.souvenirs[i].souvenirPhotos[j].souvenirPhotoPath;
+                        break;
+                    }
+                }
+            }
+        };
 
         $scope.styleClassesForInsertNewSouvenir = "glyphicon-plus";
 
@@ -226,6 +240,7 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $scope.currentModalView = 9;
         $scope.currentSouvenirForReview = $scope.getSouvenirByIndex(index);
     };
+
 
     $scope.getAllSouvenirs();
     $scope.getAllSouvenirCategories();
