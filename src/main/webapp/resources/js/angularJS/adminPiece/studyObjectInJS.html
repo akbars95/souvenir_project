@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OOP</title>
+    <style>
+        #progress_bar {
+        margin: 10px 0;
+        padding: 3px;
+        border: 1px solid #000;
+        font-size: 14px;
+        clear: both;
+        opacity: 0;
+        -moz-transition: opacity 3s linear;
+        -o-transition: opacity 3s linear;
+        -webkit-transition: opacity 3s linear;
+        }
+        #progress_bar.loading {
+        opacity: 1.0;
+        }
+        #progress_bar .percent {
+        background-color: #99ccff;
+        height: auto;
+        width: 0;
+        }
+
+        #drop_zone{
+            HEIGHT: 50PX;
+            BORDER: 2PX DOTTED GREEN;
+            TEXT-ALIGN: CENTER;
+            PADDING-TOP: 30PX;
+        }
+    </style>
+</head>
+<body>
+
+<input type="file" accept="image/*" multiple="multiple"
+       id="files" />
+<button onclick="abortRead();">Cancel read</button>
+<div id="progress_bar"><div style="background-color: green; display: inline;" class="percent">0%</div></div>
+
+<div id="drop_zone">Drop files here</div>
+<output id="list"></output>
+
+<script src="fileRead.js"></script>
+<script src="dragOnDrop.js"></script>
+
+</body>
+</html>

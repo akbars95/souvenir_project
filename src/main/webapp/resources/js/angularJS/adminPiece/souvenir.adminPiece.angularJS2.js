@@ -9,7 +9,7 @@ adminSouvenirAngularJSRoutingApp.controller('indexCtrl', function ($scope) {
     $scope.message = "Index";
 });
 
-adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $http, hostConst) {
+adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $http, hostConst, CalcService, FileReaderService) {
 
     $scope.hostConst = hostConst;
     $scope.classForSouvenirOdd = "col-xs-12 col-sm-12 col-md-6 col-lg-6";
@@ -246,6 +246,18 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
     $scope.getAllSouvenirCategories();
     $scope.resetForm(1);
 
+    $scope.square = function() {
+       $scope.result = CalcService.square($scope.number);
+    }
+
+    /*FileReaderService*/
+    FileReaderService.init("progress", "progress_bar", "souvenirPhotos");
+
+    $scope.abortFiles = function(){
+        FileReaderService.abortRead();
+    }
+
+
 });
 
 adminSouvenirAngularJSRoutingApp.controller('souvenirCategoryCtrl', function ($scope) {
@@ -295,3 +307,101 @@ adminSouvenirAngularJSRoutingApp.directive('fileModel', ['$parse', function ($pa
         }
     };
 }]);
+
+/*factories*/
+adminSouvenirAngularJSRoutingApp.factory('MathService', function() {
+    var factory = {};
+
+    factory.multiply = function(a, b) {
+       return a * b
+    }
+    return factory;
+ });
+
+adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
+     var factory = {};
+
+    factory.init = function(progressClassName, progressBarElId, filesIdInputEl){
+        factory.setProcess(progressClassName);
+        factory.setProgressBarElId(progressBarElId);
+        document.getElementById(filesIdInputEl).addEventListener('change', factory.handleFileSelect, false);
+    }
+
+     factory.reader;
+     factory.setProcess = function(progressClassName){
+        factory.progress = document.querySelector('.' + progressClassName);//percent
+     }
+
+     factory.setProgressBarElId = function(progressBarElId){
+        factory.progressBarElId = progressBarElId;
+     }
+
+     factory.abortRead = function() {
+         factory.reader.abort();
+     }
+
+     factory.errorHandler = function(evt) {
+         switch(evt.target.error.code) {
+             case evt.target.error.NOT_FOUND_ERR:
+             alert('File Not Found!');
+             break;
+         case evt.target.error.NOT_READABLE_ERR:
+             alert('File is not readable');
+             break;
+         case evt.target.error.ABORT_ERR:
+             break; // noop
+             default:
+             alert('An error occurred reading this file.');
+         };
+     }
+
+     factory.updateProgress = function(evt) {
+        // evt is an ProgressEvent.
+         if (evt.lengthComputable) {
+             var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+             // Increase the progress bar length.
+             if (percentLoaded < 100) {
+                 factory.progress.style.width = percentLoaded + '%';
+                 factory.progress.textContent = percentLoaded + '%';
+             }
+         }
+     }
+
+     factory.handleFileSelect = function(evt) {
+        // Reset progress indicator on new file selection.
+         factory.progress.style.width = '0%';
+         factory.progress.textContent = '0%';
+
+         factory.reader = new FileReader();
+         factory.reader.onerror = factory.errorHandler;
+         factory.reader.onprogress = factory.updateProgress;
+
+         factory.reader.onabort = function(e) {
+             alert('File read cancelled');
+         };
+
+         factory.reader.onloadstart = function(e) {
+             document.getElementById(factory.progressBarElId).className = 'loading';/////progress_bar
+         };
+
+         factory.reader.onload = function(e) {
+         // Ensure that the progress bar displays 100% at the end.
+         factory.progress.style.width = '100%';
+         factory.progress.style.display = 'block';
+         factory.progress.textContent = '100%';
+         setTimeout("document.getElementById('" + factory.progressBarElId + "').className='';", 2000);
+     }
+
+         // Read in the image file as a binary string.
+         factory.reader.readAsBinaryString(evt.target.files[0]);
+     }
+
+    return factory;
+});
+
+ /*services*/
+ adminSouvenirAngularJSRoutingApp.service('CalcService', function(MathService){
+    this.square = function(a) {
+       return MathService.multiply(a,a);
+    }
+ });

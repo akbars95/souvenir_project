@@ -77,6 +77,8 @@
 							cascade="true">
 			<add-attribute
 					value="/resources/js/angularJS/adminPiece/souvenir.adminPiece.angularJS2.js" />
+			<!--<add-attribute
+					value="/resources/js/angularJS/adminPiece/fileRead.js" />-->
 		</put-list-attribute>
 	</definition>
 
