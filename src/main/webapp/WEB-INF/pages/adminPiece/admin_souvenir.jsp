@@ -272,8 +272,8 @@
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <input type="file" accept="image/*" multiple="multiple"
                                                    id="souvenirPhotos" file-model="souvenirFiles"/>
-                                           <button ng-click="abortFiles();">Cancel read</button>
                                            <div id="progress_bar"><div class="progress">0%</div></div>
+                                           <button ng-click="abortFiles();">Cancel read</button>
                                         </div>
                                     </div>
                                 </div>
@@ -281,15 +281,16 @@
                                     <div class="row">
                                         <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</div>
                                         <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">File name</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">File size</div>
-                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">File type</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">File size / File type</div>
+                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4"></div>
                                     </div>
                                     <div class="row" ng-repeat="currentFile in souvenirFiles">
-                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">{{$index}}</div>
+                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><label><input type="radio" name="mainPhoto" ng-model="mainPhoto" value="{{$index}}">{{$index + 1}}</label></div>
                                         <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">{{currentFile.name}}</div>
-                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{currentFile.size}} _____ {{currentFile.getAsBinary()}}</div>
-                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4">{{currentFile.type}}</div>
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{currentFile.size}} / {{currentFile.type}}</div>
+                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4"></div>
                                     </div>
+                                    <img id="output">
                                 </div>
 								</div>
 								<div ng-show="currentModalView == 9">

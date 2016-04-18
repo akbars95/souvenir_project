@@ -20,10 +20,12 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         $http.get(hostConst + "/get_all_souvenirs")
             .success(
                 function (data, status, headers, config) {
-                    $scope.souvenirs = data;
-                    $scope.addNewSouvenirBootstrapClass = ($scope.souvenirs.length % 2 == 0) ? $scope.classForSouvenirOdd
-                        : $scope.classForSouvenirEven;
-                    $scope.getSouvenirPhotoPath();
+                    if(data.responseCode.code == 100 && status == 200){
+                        $scope.souvenirs = data.object;
+                        $scope.addNewSouvenirBootstrapClass = ($scope.souvenirs.length % 2 == 0) ? $scope.classForSouvenirOdd
+                            : $scope.classForSouvenirEven;
+                        $scope.getSouvenirPhotoPath();
+                    }
                 })
             .error(function (data, status, headers, config) {
                 // log error
@@ -67,6 +69,8 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
             });
     };
 
+    $scope.mainPhoto;
+
     $scope.saveSouvenir = function (operation) {
         if(operation == 1){
             var fd = new FormData();
@@ -75,6 +79,8 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
                     fd.append("souvenirFiles", $scope.souvenirFiles[i]);
                 }
             }
+            console.log($scope.colorname);
+console.log($scope.example);
 
             fd.append("souvenirName", $scope.souvenirName);
             fd.append("souvenirDescription", $scope.souvenirDescription);
@@ -257,6 +263,8 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
         FileReaderService.abortRead();
     }
 
+    $scope.uploadedFileURL = [];
+
 
 });
 
@@ -309,15 +317,6 @@ adminSouvenirAngularJSRoutingApp.directive('fileModel', ['$parse', function ($pa
 }]);
 
 /*factories*/
-adminSouvenirAngularJSRoutingApp.factory('MathService', function() {
-    var factory = {};
-
-    factory.multiply = function(a, b) {
-       return a * b
-    }
-    return factory;
- });
-
 adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
      var factory = {};
 
@@ -327,10 +326,10 @@ adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
         document.getElementById(filesIdInputEl).addEventListener('change', factory.handleFileSelect, false);
     }
 
-     factory.reader;
+     factory.reader = new FileReader();
      factory.setProcess = function(progressClassName){
         factory.progress = document.querySelector('.' + progressClassName);//percent
-     }
+     };
 
      factory.setProgressBarElId = function(progressBarElId){
         factory.progressBarElId = progressBarElId;
@@ -372,7 +371,6 @@ adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
          factory.progress.style.width = '0%';
          factory.progress.textContent = '0%';
 
-         factory.reader = new FileReader();
          factory.reader.onerror = factory.errorHandler;
          factory.reader.onprogress = factory.updateProgress;
 
@@ -390,7 +388,14 @@ adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
          factory.progress.style.display = 'block';
          factory.progress.textContent = '100%';
          setTimeout("document.getElementById('" + factory.progressBarElId + "').className='';", 2000);
+            /*var dataURL = factory.reader.result;
+            var output = document.getElementById('output');
+            output.src = dataURL;
+            var input = e.target;
+         factory.reader.readAsDataURL(input.files[0]);*/
      }
+
+
 
          // Read in the image file as a binary string.
          factory.reader.readAsBinaryString(evt.target.files[0]);
@@ -398,6 +403,15 @@ adminSouvenirAngularJSRoutingApp.factory('FileReaderService', function() {
 
     return factory;
 });
+
+adminSouvenirAngularJSRoutingApp.factory('MathService', function() {
+    var factory = {};
+
+    factory.multiply = function(a, b) {
+       return a * b
+    }
+    return factory;
+ });
 
  /*services*/
  adminSouvenirAngularJSRoutingApp.service('CalcService', function(MathService){
