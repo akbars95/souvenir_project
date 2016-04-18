@@ -5,9 +5,9 @@ BEGIN
   DECLARE isUpdated VARCHAR(5);
   DECLARE created_datetimeL datetime;
   
-  select created_datetime into created_datetimeL
+  SELECT created_datetime INTO created_datetimeL
   FROM SOUVENIRS_AUDIT sa
-  where sa.created_datetime = sa.last_update_datetime and sa.souvenir_id = souvenir_idIN;
+  WHERE sa.created_datetime = sa.last_update_datetime AND sa.souvenir_id = souvenir_idIN;
   
   IF created_datetimeL is null
   THEN SET isUpdated = 'true';

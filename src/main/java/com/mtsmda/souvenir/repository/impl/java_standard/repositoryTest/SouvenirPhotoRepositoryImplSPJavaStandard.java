@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -50,7 +49,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
             if (count > 0) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             SouvenirExceptionHandler.handle("insertSouvenirPhoto", e);
         }
         return false;
@@ -70,7 +69,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
             if (count > 0) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             SouvenirExceptionHandler.handle("insertSouvenirPhoto", e);
         }
         return false;
@@ -94,7 +93,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
             if (count > 0) {
                 return true;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             SouvenirExceptionHandler.handle("deleteSouvenirPhoto", e);
         }
         return false;
@@ -129,7 +128,7 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
             while (resultSet.next()) {
                 souvenirPhotos.add(souvenirPhotoMapperI.mapRow(resultSet));
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             SouvenirExceptionHandler.handle("getSouvenirPhotosBySouvenirId", e);
         }
         return souvenirPhotos;

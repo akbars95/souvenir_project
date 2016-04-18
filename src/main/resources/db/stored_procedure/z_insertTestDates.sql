@@ -1,27 +1,4 @@
-
-CALL `souvenir`.`insertCategory`('Бижу из бисера');/*1*/
-CALL `souvenir`.`insertCategory`('Бижу из проволки');/*2*/
-CALL `souvenir`.`insertCategory`('Букуты из конфет');/*3*/
-CALL `souvenir`.`insertCategory`('Канзаши');/*4*/
-CALL `souvenir`.`insertCategory`('Свадебные бокалы');/*5*/
-CALL `souvenir`.`insertCategory`('Без категории');/*6*/
-
-CALL `souvenir`.`insertCategory`('Category 6');
-CALL `souvenir`.`updateCategory`('Category 999', 7);
-CALL `souvenir`.`deleteCategoryById`(7);
-
-/*
-souvenir_nameIN VARCHAR(50), souvenir_descriptionIN VARCHAR(255), souvenir_showIN TINYINT(1),
-souvenir_main_photo_idIN int(11), souvenir_category_idIN INT(11), souvenir_priceIN DECIMAL(8,2),
-souvenir_count_of_days_for_orderIN INT(11)
-*/
-call insertSouvenirs('Бижу - Линия', 'Это Бижу Линия. Белая, желтая. Шарики', 1, '\images\souvenirs\поделки\поделки\бижу из бисера\IMG_0039.JPG', 1, 120.96, 9);
-call insertSouvenirs('Бижу - Заколка', 'Заколка.', 0, '\images\souvenirs\поделки\поделки\бижу из бисера\IMG_0040.JPG', 1, 360.6, 3);
-call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
-call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
-call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
-
-
+/*insert captcha*/
 CALL `souvenir`.`checkCaptcha`(3, '1e345t$');
 
 CALL `souvenir`.`insertCaptcha`('192frt$', '/resources/images/captcha/i1.png');
@@ -44,12 +21,52 @@ CALL `souvenir`.`insertCaptcha`('ifhO', '/resources/images/captcha/i17.png');
 CALL `souvenir`.`insertCaptcha`('po,djr3', '/resources/images/captcha/i18.png');
 CALL `souvenir`.`insertCaptcha`('0..692P', '/resources/images/captcha/i19.png');
 
+
+/*insert souvenir category*/
+CALL `souvenir`.`insertCategory`('Бижу из бисера');/*1*/
+CALL `souvenir`.`insertCategory`('Бижу из проволки');/*2*/
+CALL `souvenir`.`insertCategory`('Букуты из конфет');/*3*/
+CALL `souvenir`.`insertCategory`('Канзаши');/*4*/
+CALL `souvenir`.`insertCategory`('Свадебные бокалы');/*5*/
+CALL `souvenir`.`insertCategory`('Без категории');/*6*/
+CALL `souvenir`.`insertCategory`('Серьги');/*7*/
+
+CALL `souvenir`.`insertCategory`('Category 6');
+CALL `souvenir`.`updateCategory`('Category 999', 8);
+CALL `souvenir`.`deleteCategoryById`(8);
+
+/*
+insert souvenir
+souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_main_photo_idIN, souvenir_category_idIN,
+souvenir_priceIN, souvenir_count_of_days_for_orderIN
+*/
+/*1*/call insertSouvenirs('Бежевые свадебные бокалы', 'Бежевые свадебные бокалы', 1, null, 5, 193, 2);
+/*2*/call insertSouvenirs('Бижу - Линия', 'Это Бижу Линия. Белая, желтая. Шарики', 1, null, 1, 120.96, 9);
+/*3*/call insertSouvenirs('Бижу - Заколка', 'Заколка', 0, null, 1, 360.6, 3);
+/*4*/call insertSouvenirs('Серьги', 'Серьги', 1, null, 7, 250, 4);
+/*5*/call insertSouvenirs('Сувенир - бабочка', 'Сувенир - бабочка', 1, null, 1, 300, 7);
+/*6*/call insertSouvenirs('Сувенир - меч', 'Сувенир - меч', 1, null, 2, 130, 4);
+/*7*/call insertSouvenirs('Цветок - звезда', 'Цветок - звезда', 1, null, 6, 130, 4);
+
+
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Бежевые свадебные бокалы\photo_1_12042016_115632137.jpg', 1);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Браслет - Линия\photo_1_06042016_121008471.JPG', 2);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Заколка\photo_1_06042016_121424815.JPG', 3);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Серьги\photo_1_06042016_122934986.JPG', 4);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - бабочка\photo_1_06042016_121838571.JPG', 5);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - меч\photo_1_12042016_094828387.png', 6);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_1_17042016_131528387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_2_17042016_131529387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_3_17042016_131531387.jpg', 7);
+
+call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
+call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
+call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
 call insertSouvenirs('Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
 call insertSouvenirs('Seriga#2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 6);
 call insertSouvenirs('Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);
 call insertSouvenirs('Souvenir #20', 'This is souvenir #4 is description', 0, null, 2, 500.10, 14);
 call insertSouvenirs('Bezdelushka', 'This is souvenir #5 is description', 1, null, 5, 1931, 5);
-
 call insertSouvenirs('Zolotaya Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
 call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is description', 0, null, 5, 360.6, 6);
 call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);

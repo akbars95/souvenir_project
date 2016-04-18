@@ -46,10 +46,10 @@ Controller Class:
 	return value: take from controller constants
 	
 RestController Class:
-	package: com.mtsmda.souvenir.restController
+	package: com.mtsmda.souvenir.controller.restController
 	class name - CamelCase class name or other + RestController (CaptchaRestController)
 	annotation: @RestController
-	url: @RequestMapping value field take from controller constants(com.mtsmda.souvenir.restController.constants)
+	url: @RequestMapping value field take from controller constants(com.mtsmda.souvenir.controller.restController.constants)
 	return value: take from controller constants
 	
 Controller and RestController Constants:

@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.getAllCaptcha;
 DELIMITER $$
 CREATE PROCEDURE getAllCaptcha ()
 BEGIN

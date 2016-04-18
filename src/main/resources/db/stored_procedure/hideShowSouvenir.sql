@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.hideShowSouvenir;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `hideShowSouvenir`(IN souvenir_idIN int(11))
 BEGIN

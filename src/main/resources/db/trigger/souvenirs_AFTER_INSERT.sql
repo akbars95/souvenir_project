@@ -10,6 +10,7 @@ SET @lastID = 0;
 
 CALL `souvenir`.`getLastAddedSouvenirId`(@lastID);
 
-insert into SOUVENIRS_AUDIT(souvenir_id, created_datetime, last_update_datetime) values(NEW.souvenir_id , current_timestamp(), now());/*@lastID instead of NEW.souvenir_id */
+INSERT INTO SOUVENIRS_AUDIT(souvenir_id, created_datetime, last_update_datetime)
+VALUES(NEW.souvenir_id , current_timestamp(), now());/*@lastID instead of NEW.souvenir_id */
 END$$
 DELIMITER ;

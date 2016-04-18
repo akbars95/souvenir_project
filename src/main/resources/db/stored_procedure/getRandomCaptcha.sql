@@ -1,19 +1,20 @@
+DROP PROCEDURE IF EXISTS souvenir.getRandomCaptcha;
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getRandomCaptcha`(IN captcha_idIN INT(11))
 BEGIN
-	DECLARE maxIdCaptcha int;
-    DECLARE captcha_idNew int;
+	DECLARE maxIdCaptcha INT;
+  DECLARE captcha_idNew INT;
     
-	select round(rand() * getMaxIdCaptcha()) into maxIdCaptcha;
+	SELECT round(rand() * getMaxIdCaptcha()) INTO maxIdCaptcha;
     
-    WHILE maxIdCaptcha = captcha_idIN DO
-		select round(rand() * getMaxIdCaptcha()) into maxIdCaptcha;
+  WHILE maxIdCaptcha = captcha_idIN DO
+    SELECT round(rand() * getMaxIdCaptcha()) INTO maxIdCaptcha;
 	END WHILE;
     
-    while captcha_idNew is null do
-		select c.captcha_id into captcha_idNew from CAPTCHA c where captcha_id = maxIdCaptcha;
-    end while;
+  WHILE captcha_idNew IS NULL DO
+    SELECT c.captcha_id into captcha_idNew FROM CAPTCHA c WHERE captcha_id = maxIdCaptcha;
+  END WHILE;
     
-    select c.captcha_id, c.captcha_url_file from CAPTCHA c where captcha_id = maxIdCaptcha;
+    SELECT c.captcha_id, c.captcha_url_file FROM CAPTCHA c WHERE captcha_id = maxIdCaptcha;
 END$$
 DELIMITER ;

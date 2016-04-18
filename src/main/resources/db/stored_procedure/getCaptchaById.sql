@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.getCaptchaById;
 DELIMITER $$
 CREATE PROCEDURE getCaptchaById (IN captcha_idIN int(11))
 BEGIN

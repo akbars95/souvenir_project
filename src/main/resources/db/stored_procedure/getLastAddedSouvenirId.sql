@@ -1,7 +1,8 @@
+DROP PROCEDURE IF EXISTS souvenir.getLastAddedSouvenirId;
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `getLastAddedSouvenirId`(INOUT lastID INT)
 BEGIN
-	select MAX(souvenir_id) into lastID
-    from SOUVENIRS;
+	SELECT MAX(souvenir_id) INTO lastID
+  FROM SOUVENIRS;
 END$$
 DELIMITER ;

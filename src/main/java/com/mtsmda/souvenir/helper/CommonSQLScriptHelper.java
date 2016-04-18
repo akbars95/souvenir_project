@@ -17,6 +17,12 @@ import java.util.Locale;
  */
 public class CommonSQLScriptHelper {
 
+    private static final String TABLE = "table";
+    private static final String VIEW = "view";
+    private static final String TRIGGER = "trigger";
+    private static final String STORED_PROCEDURE = "stored_procedure";
+    private static final String FUNCTION = "function";
+
     private StringBuilder stringBuilderSQLText = new StringBuilder();
 
     public void createAndUpdateCommonSQLScript() {
@@ -48,7 +54,6 @@ public class CommonSQLScriptHelper {
             for (String currentFileName : strings) {
                 readFiles(currentFileName);
             }
-
             strings.clear();
         }
     }

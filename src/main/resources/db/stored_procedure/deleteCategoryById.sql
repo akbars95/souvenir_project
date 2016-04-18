@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.deleteCategoryById;
 DELIMITER $$
 CREATE PROCEDURE deleteCategoryById (IN souvenir_category_idIN int(11))
 BEGIN

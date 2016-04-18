@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.selectAllSouvenirs;
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `selectAllSouvenirs`()
 BEGIN

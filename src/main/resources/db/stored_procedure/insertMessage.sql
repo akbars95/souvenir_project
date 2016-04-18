@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.insertMessage;
 DELIMITER $$
 CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertMessage`(IN message_nameIN VARCHAR(50), IN message_emailIN VARCHAR(50), IN message_text_mIN TEXT, IN message_captcha_idIN INT(11))
 BEGIN

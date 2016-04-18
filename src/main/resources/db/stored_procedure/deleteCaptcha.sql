@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.deleteCaptcha;
 DELIMITER $$
 CREATE PROCEDURE deleteCaptcha (IN captcha_idIN int(11))
 BEGIN

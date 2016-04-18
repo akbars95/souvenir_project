@@ -205,7 +205,7 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                     souvenirs.add(souvenir);
                 }
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             SouvenirExceptionHandler.handle("getAllSouvenirWithCategoryAndAudit", e);
         }
         return souvenirs;

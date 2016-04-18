@@ -7,7 +7,7 @@ DECLARE isUpdated VARCHAR(5);
   DECLARE created_datetimeL datetime;
   DECLARE last_update_datetimeL datetime;
 
-  select created_datetime, last_update_datetime into created_datetimeL, last_update_datetimeL
+  SELECT created_datetime, last_update_datetime INTO created_datetimeL, last_update_datetimeL
   FROM SOUVENIRS_AUDIT sa
   where sa.souvenir_id = souvenir_idIN;
 

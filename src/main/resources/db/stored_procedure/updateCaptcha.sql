@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.updateCaptcha;
 DELIMITER $$
 CREATE PROCEDURE updateCaptcha (IN captcha_idIN int(11), IN captcha_valueIN varchar(10), IN captcha_url_fileIN varchar(255))
 BEGIN

@@ -1,3 +1,4 @@
+DROP PROCEDURE IF EXISTS souvenir.getCategoryById;
 DELIMITER $$
 CREATE PROCEDURE `getCategoryById` (IN souvenir_category_idIN INT(11))
 BEGIN
@@ -6,4 +7,3 @@ BEGIN
 END$$
 
 DELIMITER ;
-
