@@ -28,10 +28,10 @@ public class CatalogRestController {
         try {
             List<Souvenir> souvenirs = null;
             souvenirs = souvenirService.getAllSouvenirWithCategoryAndAudit(true);
-            souvenirResponseObject.setResponseCode(ResponseCode.RESPONSE_CODE_OK);
+            souvenirResponseObject.setResponseCode(ResponseCode.RESPONSE_GET_OK_CODE);
             souvenirResponseObject.setObject(souvenirs);
         } catch (Exception e) {
-            souvenirResponseObject.setResponseCode(ResponseCode.RESPONSE_CODE_ERROR);
+            souvenirResponseObject.setResponseCode(ResponseCode.RESPONSE_GET_ERROR_CODE);
             souvenirResponseObject.setObject(e.getMessage());
         }
         return souvenirResponseObject;

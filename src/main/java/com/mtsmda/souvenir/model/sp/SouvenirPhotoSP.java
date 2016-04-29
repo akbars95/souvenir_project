@@ -11,6 +11,8 @@ public class SouvenirPhotoSP {
 	public static final String GET_SOUVENIR_PHOTO_BY_ID_SP_NAME = "getSouvenirPhotoById";
 	public static final String GET_SOUVENIR_PHOTOS_SP_NAME = "getSouvenirPhotos";
 	public static final String GET_SOUVENIR_PHOTOS_BY_SOUVENIR_ID_SP_NAME = "getSouvenirPhotosBySouvenirId";
+	public static final String GET_SOUVENIR_PHOTOS_ALL_SP_NAME = "getSouvenirPhotosAll";
+	public static final String GET_SOUVENIR_PHOTOS_BY_PATH_SP_NAME = "getSouvenirPhotosByPath";
 
 	/* function name */
 

@@ -27,10 +27,10 @@ CREATE TABLE `SOUVENIR_PHOTOS` (
   `souvenir_photo_path` varchar(255) NOT NULL,
   `souvenir_photo_souvenir_id` int(11) NOT NULL,
   PRIMARY KEY (`souvenir_photo_id`),
+  UNIQUE KEY `souvenir_photo_path_UNIQUE` (`souvenir_photo_path`),
   KEY `souvenir_photo_id_souvenir_id_idx` (`souvenir_photo_souvenir_id`),
-  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `SOUVENIRS` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `souvenirs` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `SOUVENIRS_AUDIT` (
   `souvenir_id` int(11) NOT NULL,

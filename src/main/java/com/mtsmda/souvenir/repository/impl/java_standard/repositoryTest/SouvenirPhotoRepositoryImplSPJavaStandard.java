@@ -7,6 +7,7 @@ import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.MapperI;
 import com.mtsmda.souvenir.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirPhotoMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -102,15 +103,55 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
     @Transactional(readOnly = true)
     @Override
     public SouvenirPhoto getSouvenirPhoto(SouvenirPhoto souvenirPhoto) {
-        // TODO Auto-generated method stub
-        return null;
+        SouvenirPhoto souvenirPhotoResult = null;
+        try (Connection connection = this.dataSource.getConnection();) {
+            String spName = null;
+            Map<String, Object> mapParam = new LinkedHashMap<>();
+            if (souvenirPhoto != null) {
+                if (StringUtils.isNotBlank(souvenirPhoto.getSouvenirPhotoPath())) {
+                    spName = GET_SOUVENIR_PHOTOS_BY_PATH_SP_NAME;
+                    mapParam.put(SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoPath());
+                } else {
+                    SouvenirExceptionHandler.handle("getSouvenirPhoto - " + SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME + " is null", null);
+                }
+                if (souvenirPhoto.getSouvenir() != null && souvenirPhoto.getSouvenir().getSouvenirId() != null) {
+                    spName = GET_SOUVENIR_PHOTOS_BY_SOUVENIR_ID_SP_NAME;
+                    mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenir().getSouvenirId());
+                } else {
+                    SouvenirExceptionHandler.handle("getSouvenirPhoto - " + SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME + " is null", null);
+                }
+            }
+
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                    spName, mapParam, false);
+            ResultSet resultSet = callableStatement.executeQuery();
+            MapperI<SouvenirPhoto> souvenirPhotoMapperI = new SouvenirPhotoMapper();
+            while (resultSet.next()) {
+                souvenirPhotoResult = souvenirPhotoMapperI.mapRow(resultSet);
+            }
+        } catch (Exception e) {
+            SouvenirExceptionHandler.handle("getSouvenirPhoto", e);
+        }
+        return souvenirPhotoResult;
     }
 
     @Transactional(readOnly = true)
     @Override
     public List<SouvenirPhoto> getAllSouvenirPhotos() {
-        // TODO Auto-generated method stub
-        return null;
+        List<SouvenirPhoto> souvenirPhotos = new ArrayList<>();
+        try (Connection connection = this.dataSource.getConnection();) {
+
+            CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
+                    GET_SOUVENIR_PHOTOS_ALL_SP_NAME, null, false);
+            ResultSet resultSet = callableStatement.executeQuery();
+            MapperI<SouvenirPhoto> souvenirPhotoMapperI = new SouvenirPhotoMapper();
+            while (resultSet.next()) {
+                souvenirPhotos.add(souvenirPhotoMapperI.mapRow(resultSet));
+            }
+        } catch (Exception e) {
+            SouvenirExceptionHandler.handle("getAllSouvenirPhotos", e);
+        }
+        return souvenirPhotos;
     }
 
     @Transactional(readOnly = true)

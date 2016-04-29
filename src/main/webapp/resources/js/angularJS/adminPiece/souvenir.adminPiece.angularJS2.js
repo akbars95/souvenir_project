@@ -14,6 +14,7 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
     $scope.hostConst = hostConst;
     $scope.classForSouvenirOdd = "col-xs-12 col-sm-12 col-md-6 col-lg-6";
     $scope.classForSouvenirEven = "col-md-6 col-lg-6";
+
     $scope.getAllSouvenirs = function () {
         $scope.souvenirs = [];
 
@@ -69,8 +70,6 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
             });
     };
 
-    $scope.mainPhoto;
-
     $scope.saveSouvenir = function (operation) {
         if(operation == 1){
             var fd = new FormData();
@@ -79,8 +78,6 @@ adminSouvenirAngularJSRoutingApp.controller('souvenirCtrl', function ($scope, $h
                     fd.append("souvenirFiles", $scope.souvenirFiles[i]);
                 }
             }
-            console.log($scope.colorname);
-console.log($scope.example);
 
             fd.append("souvenirName", $scope.souvenirName);
             fd.append("souvenirDescription", $scope.souvenirDescription);
@@ -88,6 +85,7 @@ console.log($scope.example);
             fd.append("souvenirPrice", $scope.souvenirPrice);
             fd.append("souvenirCountOfDaysForOrder", $scope.souvenirCountOfDaysForOrder);
             fd.append("souvenirCategoryId", $scope.currentSouvenirCategoryId);
+            fd.append("souvenirMainPhotoId", $scope.mainPhotoAdd);
             var c = angular.isNumber($scope.currentSouvenirCategoryId);
             var g = angular.isNumber($scope.souvenirPrice);
             $http.post(hostConst + "/insert_souvenir", fd, {
@@ -265,6 +263,9 @@ console.log($scope.example);
 
     $scope.uploadedFileURL = [];
 
+    $scope.changeMainPhoto = function(index){
+        $scope.mainPhotoAdd = index;
+    }
 
 });
 

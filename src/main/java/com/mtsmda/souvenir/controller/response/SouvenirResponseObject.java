@@ -19,15 +19,17 @@ public class SouvenirResponseObject {
         return responseCode;
     }
 
-    public void setResponseCode(ResponseCode responseCode) {
+    public SouvenirResponseObject setResponseCode(ResponseCode responseCode) {
         this.responseCode = responseCode;
+        return this;
     }
 
     public Object getObject() {
         return object;
     }
 
-    public void setObject(Object object) {
+    public SouvenirResponseObject setObject(Object object) {
         this.object = object;
+        return this;
     }
 }

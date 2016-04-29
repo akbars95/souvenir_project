@@ -1,5 +1,7 @@
 package com.mtsmda.souvenir.controller.restController;
 
+import com.mtsmda.souvenir.controller.response.ResponseCode;
+import com.mtsmda.souvenir.controller.response.SouvenirResponseObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -29,14 +31,15 @@ public class SouvenirRestController {
 	private SouvenirService souvenirService;
 
 	@RequestMapping(value = INSERT_SOUVENIR_PIECE_URL, method = RequestMethod.POST)
-	public boolean insertSouvenir(@RequestParam(SOUVENIR_NAME_REQUEST_PARAM) String souvenirName,
-			@RequestParam(SOUVENIR_DESCRIPTION_REQUEST_PARAM) String souvenirDescription,
-			@RequestParam(SOUVENIR_SHOW_REQUEST_PARAM) Boolean souvenirShow,
-			@RequestParam(SOUVENIR_PRICE_REQUEST_PARAM) Double souvenirPrice,
-			@RequestParam(SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_REQUEST_PARAM) Integer souvenirCountOfDaysForOrder,
-			@RequestParam(SOUVENIR_CATEGORY_ID_REQUEST_PARAM) Integer souvenirCategoryId,
-			@RequestParam(value = SOUVENIR_FILES_REQUEST_PARAM, required = false) MultipartFile[] multipartFiles,
-			HttpServletRequest request) {
+	public SouvenirResponseObject insertSouvenir(@RequestParam(SOUVENIR_NAME_REQUEST_PARAM) String souvenirName,
+												 @RequestParam(SOUVENIR_DESCRIPTION_REQUEST_PARAM) String souvenirDescription,
+												 @RequestParam(SOUVENIR_SHOW_REQUEST_PARAM) Boolean souvenirShow,
+												 @RequestParam(SOUVENIR_PRICE_REQUEST_PARAM) Double souvenirPrice,
+												 @RequestParam(SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_REQUEST_PARAM) Integer souvenirCountOfDaysForOrder,
+												 @RequestParam(SOUVENIR_CATEGORY_ID_REQUEST_PARAM) Integer souvenirCategoryId,
+												 @RequestParam(SOUVENIR_MAIN_PHOTO_ID_REQUEST_PARAM) Integer souvenirMainPhotoId,
+												 @RequestParam(value = SOUVENIR_FILES_REQUEST_PARAM, required = false) MultipartFile[] multipartFiles,
+												 HttpServletRequest request) {
 
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 		Souvenir souvenir = new Souvenir();
@@ -44,7 +47,7 @@ public class SouvenirRestController {
 			List<SouvenirPhoto> photos = new ArrayList<>();
 			for (int i = 0; i < multipartFiles.length; i++) {
 				MultipartFile multipartFile = multipartFiles[i];
-				String fileExtention = multipartFile.getOriginalFilename()
+				String fileExtension = multipartFile.getOriginalFilename()
 						.substring(multipartFile.getOriginalFilename().lastIndexOf("."));
 				SouvenirPhoto souvenirPhoto = null;
 				if (multipartFile != null && !multipartFile.isEmpty()) {
@@ -56,7 +59,7 @@ public class SouvenirRestController {
 						}
 
 						souvenirPhoto.setSouvenirPhotoPath(souvenirPhoto.getSouvenirPhotoPath() + "\\photo_" + (i + 1)
-								+ "_" + new SimpleDateFormat("ddMMyyyy_HHmmssS").format(new Date()) + fileExtention);
+								+ "_" + new SimpleDateFormat("ddMMyyyy_HHmmssS").format(new Date()) + fileExtension);
 						file = new File(rootDirectory + souvenirPhoto.getSouvenirPhotoPath());
 						System.out.println(file.getAbsolutePath());
 						if (!file.exists()) {
@@ -64,6 +67,10 @@ public class SouvenirRestController {
 						}
 						multipartFile.transferTo(file);
 						photos.add(souvenirPhoto);
+						if(souvenirMainPhotoId != null && souvenirMainPhotoId.equals(i)){
+							SouvenirPhoto souvenirPhotoMain = new SouvenirPhoto(souvenirPhoto.getSouvenirPhotoPath());
+							souvenir.setSouvenirMainPhotoId(souvenirPhoto);
+						}
 					} catch (Exception e) {
 						throw new SouvenirRuntimeException("Product Image saving failed - " + e.getMessage());
 					}
@@ -81,8 +88,20 @@ public class SouvenirRestController {
 		souvenir.setSouvenirShow(souvenirShow);
 		souvenir.setSouvenirPrice(souvenirPrice);
 		souvenir.setSouvenirCountOfDaysForOrder(souvenirCountOfDaysForOrder);
+		souvenir.setSouvenirMainPhotoId(new SouvenirPhoto(souvenirMainPhotoId));
 
-		return souvenirService.insertSouvenir(souvenir);
+		boolean result = false;
+
+		try {
+			result = souvenirService.insertSouvenir(souvenir);
+		}
+		catch (Exception e){
+
+		}
+		if(result){
+			return new SouvenirResponseObject(ResponseCode.RESPONSE_INSERT_OK_CODE, null);
+		}
+		return new SouvenirResponseObject(ResponseCode.RESPONSE_INSERT_ERROR_CODE, null);
 	}
 
 	@RequestMapping(value = DELETE_SOUVENIR_PIECE_URL, method = RequestMethod.DELETE)

@@ -8,7 +8,7 @@ import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 public class SouvenirExceptionHandler {
 
     public static void handle(String text, Exception e){
-        throw new SouvenirRuntimeException(text + " - " + e.getMessage() + "( " + e.getClass().getCanonicalName() + ")");
+        throw new SouvenirRuntimeException(text + " - " + e != null ? e.getMessage() : "exception null" + "( " + e != null ? e.getClass().getCanonicalName() : "" + ")");
     }
 
 }

@@ -279,20 +279,26 @@
                                 </div>
                                 <div class="form-group" ng-show="souvenirFiles.length > 0">
                                     <div class="row">
-                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#</div>
+                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">#/main photo</div>
                                         <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">File name</div>
                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">File size / File type</div>
                                         <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4"></div>
                                     </div>
                                     <div class="row" ng-repeat="currentFile in souvenirFiles">
-                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"><label><input type="radio" name="mainPhoto" ng-model="mainPhoto" value="{{$index}}">{{$index + 1}}</label></div>
+                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                                            <label>
+                                                <input type="radio" ng-click="changeMainPhoto($index)" name="mainPhotoAdd">
+                                                {{$index + 1}}
+                                            </label>
+                                        </div>
                                         <div class="col-xs-6 col-sm-5 col-md-4 col-lg-4">{{currentFile.name}}</div>
                                         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">{{currentFile.size}} / {{currentFile.type}}</div>
-                                        <div class="col-xs-2 col-sm-3 col-md-4 col-lg-4"></div>
+                                        <div class="col-xs-1 col-sm-2 col-md-3 col-lg-3"></div>
                                     </div>
                                     <img id="output">
                                 </div>
 								</div>
+
 								<div ng-show="currentModalView == 9">
 									<div class="row">
 									    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">

@@ -62,6 +62,7 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
 
             CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                     INSERT_SOUVENIRS_SP_NAME, mapParam, false);
+            //insert souvenir
             int count = callableStatement.executeUpdate();
             if (count > 0) {
                 Souvenir lastAddedSouvenir = getLastAddedSouvenir();
@@ -69,7 +70,11 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                     if (souvenir.getSouvenirPhotos() != null && !souvenir.getSouvenirPhotos().isEmpty()) {
                         for (SouvenirPhoto souvenirPhoto : souvenir.getSouvenirPhotos()) {
                             souvenirPhoto.setSouvenir(lastAddedSouvenir);
-                            souvenirPhotoRepository.insertSouvenirPhoto(souvenirPhoto);
+                            //insert souvenir photos
+                            boolean result = souvenirPhotoRepository.insertSouvenirPhoto(souvenirPhoto);
+                            if(!result){
+                                SouvenirExceptionHandler.handle("insertSouvenir - problem with insert souvenir photos", null);
+                            }
                         }
                     }
                     lastAddedSouvenir = getLastAddedSouvenir();

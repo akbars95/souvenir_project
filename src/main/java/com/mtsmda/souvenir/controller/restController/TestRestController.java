@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,21 @@ import java.util.List;
  */
 @RestController
 public class TestRestController {
+
+    public static int post = 0;
+    public static int pre = 0;
+
+    @PostConstruct
+    public void init(){
+        post++;
+        System.out.println(post);
+    }
+
+    @PreDestroy
+    public void destroy(){
+        pre++;
+        System.out.println(pre);
+    }
 
     public static void main(String[] args) {
         List<Day> days = new ArrayList<>();

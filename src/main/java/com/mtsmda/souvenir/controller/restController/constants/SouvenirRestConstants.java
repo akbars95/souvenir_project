@@ -18,6 +18,7 @@ public class SouvenirRestConstants {
     public static final String SOUVENIR_COUNT_OF_DAYS_FOR_ORDER_REQUEST_PARAM = "souvenirCountOfDaysForOrder";
     public static final String SOUVENIR_CATEGORY_ID_REQUEST_PARAM = "souvenirCategoryId";
     public static final String SOUVENIR_FILES_REQUEST_PARAM = "souvenirFiles";
+    public static final String SOUVENIR_MAIN_PHOTO_ID_REQUEST_PARAM = "souvenirMainPhotoId";
 
     public static final String INSERT_SOUVENIR_PIECE_URL = ROOT + INSERT_SOUVENIR_PIECE;
     public static final String DELETE_SOUVENIR_PIECE_URL = ROOT + DELETE_SOUVENIR_PIECE + ROOT + OPEN_BRACE + SOUVENIR_ID_REQUEST_PARAM + CLOSE_BRACE;

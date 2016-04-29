@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.model.Message;
 

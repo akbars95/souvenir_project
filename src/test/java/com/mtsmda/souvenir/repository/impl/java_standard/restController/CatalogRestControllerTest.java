@@ -20,6 +20,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.validation.constraints.Null;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -55,6 +57,16 @@ public class CatalogRestControllerTest extends ParentTest {
                 .andExpect(jsonPath("[0]['souvenirId']").value(1))
                 .andExpect(jsonPath("[0]['souvenirMainPhotoId'].souvenirPhotoId").value(0))
                 .andExpect(jsonPath("$.length()").value(20));
+    }
+
+    @PostConstruct
+    public void init(){
+        System.out.println("init");
+    }
+
+    @PreDestroy
+    public void destroy(){
+        System.out.println("destroy");
     }
 
 }
