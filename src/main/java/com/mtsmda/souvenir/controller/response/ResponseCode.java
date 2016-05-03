@@ -16,7 +16,7 @@ public class ResponseCode {
     private static final Integer DELETE_OK_CODE = 106;
     private static final Integer DELETE_ERROR_CODE = 107;
     private static final Integer GET_OK_CODE = 108;
-    private static final Integer GET_ERROR_CODE = 108;
+    private static final Integer GET_ERROR_CODE = 109;
 
     public static final ResponseCode RESPONSE_OK_CODE = new ResponseCode(OK_CODE, "OK");
     public static final ResponseCode RESPONSE_ERROR_CODE = new ResponseCode(ERROR_CODE, "ERROR");

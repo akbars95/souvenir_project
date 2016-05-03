@@ -18,7 +18,7 @@
 		<div class="catalogPageBody" ng-controller="catalogCtrl">
 
 			<div class="row">
-				<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 					<span><spring:message code="page.catalog.sort.label" />:</span>
 					<button ng-click="changeSortType('souvenirName')"
 						class="btn btn-default">
@@ -62,17 +62,26 @@
 						ng-show="currentFieldName == 'souvenirAudit.lastUpdateDatetime'"></span>
 
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-					<spring:message code="page.catalog.view.label" />
-					<select ng-model="currentCountValue"
-						ng-change="changeCountPerPage()"
-						ng-options="currentPP.name for currentPP in countPerPage">
-					</select>
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							<spring:message code="page.catalog.countPerRow.view.label" />
+							<select ng-model="currentCountInRowSouvenir.count"
+									ng-options="countInRowSouvenir.count as countInRowSouvenir.label for countInRowSouvenir in countInRowSouvenirs"></select>
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+							<spring:message code="page.catalog.view.label" />
+							<select ng-model="currentCountValue"
+									ng-change="changeCountPerPage()"
+									ng-options="currentPP.name for currentPP in countPerPage">
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 text-center"
+				<div class="col-lg-{{currentCountInRowSouvenir.count}} col-md-{{currentCountInRowSouvenir.count}} col-sm-{{currentCountInRowSouvenir.count}} col-xs-{{currentCountInRowSouvenir.count}} text-center catalog-souvenir"
 					ng-repeat="souvenir in souvenirs | orderBy:currentFieldName: currentSortType">
 					<h1>
 						<spring:url value="get_souvenir_by_id/souvenir/" var="homeUrl"
