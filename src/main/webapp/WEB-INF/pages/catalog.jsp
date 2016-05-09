@@ -17,8 +17,8 @@
 	<tiles:putAttribute name="content">
 		<div class="catalogPageBody" ng-controller="catalogCtrl">
 
-			<div class="row">
-				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
+			<div class="row text-center">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<span><spring:message code="page.catalog.sort.label" />:</span>
 					<button ng-click="changeSortType('souvenirName')"
 						class="btn btn-default">
@@ -62,37 +62,60 @@
 						ng-show="currentFieldName == 'souvenirAudit.lastUpdateDatetime'"></span>
 
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-							<spring:message code="page.catalog.countPerRow.view.label" />
-							<select ng-model="currentCountInRowSouvenir.count"
-									ng-options="countInRowSouvenir.count as countInRowSouvenir.label for countInRowSouvenir in countInRowSouvenirs"></select>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-							<spring:message code="page.catalog.view.label" />
-							<select ng-model="currentCountValue"
-									ng-change="changeCountPerPage()"
-									ng-options="currentPP.name for currentPP in countPerPage">
-							</select>
-						</div>
-					</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<spring:message code="page.catalog.countPerRow.view.label"/>
+					<select ng-model="currentCountInRowSouvenir.count"
+							ng-options="countInRowSouvenir.count as countInRowSouvenir.label for countInRowSouvenir in countInRowSouvenirs"></select>
+				</div>
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+					<spring:message code="page.catalog.view.label"/>
+					<select ng-model="currentCountValue"
+							ng-change="changeCountPerPage()"
+							ng-options="currentPP.name for currentPP in countPerPage">
+					</select>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="col-lg-{{currentCountInRowSouvenir.count}} col-md-{{currentCountInRowSouvenir.count}} col-sm-{{currentCountInRowSouvenir.count}} col-xs-{{currentCountInRowSouvenir.count}} text-center catalog-souvenir"
 					ng-repeat="souvenir in souvenirs | orderBy:currentFieldName: currentSortType">
-					<h1>
+					<h1 class="souvenir-name">
 						<spring:url value="get_souvenir_by_id/souvenir/" var="homeUrl"
 							htmlEscape="true" />
 						<a href="${homeUrl}{{souvenir.souvenirId}}">{{souvenir.souvenirName}}</a>
 					</h1>
-					<img ng-src="souvenir.souvenirPath">
-					price = {{souvenir.souvenirPrice}} order day :
-					{{souvenir.souvenirCountOfDaysForOrder}}
-					category = {{souvenir.souvenirCategory.souvenirCategory}}
-					created - {{souvenir.souvenirAudit.createdDatetime}}
+					<div class="row">
+						<div class="col-lg-6 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+							created - {{souvenir.souvenirAudit.createdDatetime}}
+						</div>
+						<div class="col-lg-6 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+							updated - {{souvenir.souvenirAudit.lastUpdateDatetime}}
+						</div>
+					</div>
+					<spring:url value="resources/" var="resourcesUrl"
+								htmlEscape="true" />
+					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId.souvenirPhotoPath != null">
+						<img class="souvenir-image" src="${resourcesUrl}{{souvenir.souvenirMainPhotoId.souvenirPhotoPath}}">
+					</div>
+					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId.souvenirPhotoPath == null">
+						<p class="souvenir-no-image">
+							No photo
+						</p>
+					</div>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							category = {{souvenir.souvenirCategory.souvenirCategory}}
+						</div>
+						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+							order day :{{souvenir.souvenirCountOfDaysForOrder}}
+						</div>
+					</div>
+
+					price = {{souvenir.souvenirPrice}}
+
+
 				</div>
 			</div>
 			<div class="text-center">

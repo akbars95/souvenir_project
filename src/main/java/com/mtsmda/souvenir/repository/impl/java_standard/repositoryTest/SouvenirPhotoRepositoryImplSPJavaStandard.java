@@ -111,14 +111,15 @@ public class SouvenirPhotoRepositoryImplSPJavaStandard implements SouvenirPhotoR
                 if (StringUtils.isNotBlank(souvenirPhoto.getSouvenirPhotoPath())) {
                     spName = GET_SOUVENIR_PHOTOS_BY_PATH_SP_NAME;
                     mapParam.put(SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoPath());
-                } else {
-                    SouvenirExceptionHandler.handle("getSouvenirPhoto - " + SOUVENIR_PHOTO_PATH_IN_SP_PARAM_NAME + " is null", null);
                 }
-                if (souvenirPhoto.getSouvenir() != null && souvenirPhoto.getSouvenir().getSouvenirId() != null) {
+                else if (souvenirPhoto.getSouvenir() != null && souvenirPhoto.getSouvenir().getSouvenirId() != null) {
                     spName = GET_SOUVENIR_PHOTOS_BY_SOUVENIR_ID_SP_NAME;
                     mapParam.put(SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenir().getSouvenirId());
+                } else if(souvenirPhoto.getSouvenirPhotoId() != null){
+                    spName = GET_SOUVENIR_PHOTO_BY_ID_SP_NAME;
+                    mapParam.put(SOUVENIR_PHOTO_ID_IN_SP_PARAM_NAME, souvenirPhoto.getSouvenirPhotoId());
                 } else {
-                    SouvenirExceptionHandler.handle("getSouvenirPhoto - " + SOUVENIR_PHOTO_SOUVENIR_ID_IN_SP_PARAM_NAME + " is null", null);
+                    SouvenirExceptionHandler.handle("getSouvenirPhoto - error!", null);
                 }
             }
 

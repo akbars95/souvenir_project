@@ -318,11 +318,14 @@
                 <configuration>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <webApp>
-                        <contextPath>/souvenirs</contextPath>
+                        <contextPath>/souvenirs</contextPath><!--
+                        <idleTimeout>10000</idleTimeout>-->
                     </webApp>
                     <httpConnector>
                         <port>8989</port>
                     </httpConnector>
+                    <stopPort>9898</stopPort>
+                    <stopKey>stop</stopKey>
                 </configuration>
             </plugin>
         </plugins>

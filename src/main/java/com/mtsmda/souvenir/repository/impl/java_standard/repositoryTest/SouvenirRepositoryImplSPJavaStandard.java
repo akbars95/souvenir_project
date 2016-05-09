@@ -207,6 +207,9 @@ public class SouvenirRepositoryImplSPJavaStandard implements SouvenirRepository 
                     if (souvenir.getSouvenirId() != null && withSouvenirPhotos) {
                         souvenir.setSouvenirPhotos(souvenirPhotoRepository.getSouvenirPhotosBySouvenirId(souvenir.getSouvenirId()));
                     }
+                    if(souvenir.getSouvenirId() != null && souvenir.getSouvenirMainPhotoId().getSouvenirPhotoId() != null){
+                        souvenir.setSouvenirMainPhotoId(souvenirPhotoRepository.getSouvenirPhoto(souvenir.getSouvenirMainPhotoId()));
+                    }
                     souvenirs.add(souvenir);
                 }
             }

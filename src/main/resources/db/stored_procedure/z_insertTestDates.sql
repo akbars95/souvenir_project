@@ -49,15 +49,23 @@ souvenir_priceIN, souvenir_count_of_days_for_orderIN
 /*7*/call insertSouvenirs('Цветок - звезда', 'Цветок - звезда', 1, null, 6, 130, 4);
 
 
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Бежевые свадебные бокалы\photo_1_12042016_115632137.jpg', 1);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Браслет - Линия\photo_1_06042016_121008471.JPG', 2);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Заколка\photo_1_06042016_121424815.JPG', 3);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Серьги\photo_1_06042016_122934986.JPG', 4);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - бабочка\photo_1_06042016_121838571.JPG', 5);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - меч\photo_1_12042016_094828387.png', 6);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_1_17042016_131528387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_2_17042016_131529387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_3_17042016_131531387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg', 1);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Браслет - Линия/photo_1_06042016_121008471.JPG', 2);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Заколка/photo_1_06042016_121424815.JPG', 3);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Серьги/photo_1_06042016_122934986.JPG', 4);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - бабочка/photo_1_06042016_121838571.JPG', 5);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - меч/photo_1_12042016_094828387.png', 6);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_1_17042016_131528387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_2_17042016_131529387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_3_17042016_131531387.jpg', 7);
+
+call insertOrUpdateSouvenirMainPhotoId(1, 1);
+call insertOrUpdateSouvenirMainPhotoId(2, 2);
+call insertOrUpdateSouvenirMainPhotoId(3, 3);
+call insertOrUpdateSouvenirMainPhotoId(4, 4);
+call insertOrUpdateSouvenirMainPhotoId(5, 5);
+call insertOrUpdateSouvenirMainPhotoId(6, 6);
+call insertOrUpdateSouvenirMainPhotoId(7, 7);
 
 call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
 call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);

@@ -39,10 +39,10 @@ CREATE TABLE `SOUVENIR_PHOTOS` (
   `souvenir_photo_path` varchar(255) NOT NULL,
   `souvenir_photo_souvenir_id` int(11) NOT NULL,
   PRIMARY KEY (`souvenir_photo_id`),
+  UNIQUE KEY `souvenir_photo_path_UNIQUE` (`souvenir_photo_path`),
   KEY `souvenir_photo_id_souvenir_id_idx` (`souvenir_photo_souvenir_id`),
-  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `SOUVENIRS` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `souvenir_photo_id_souvenir_id` FOREIGN KEY (`souvenir_photo_souvenir_id`) REFERENCES `souvenirs` (`souvenir_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 CREATE TABLE `SOUVENIRS_AUDIT` (
   `souvenir_id` int(11) NOT NULL,
@@ -257,6 +257,25 @@ BEGIN
 END$$
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS souvenir.getSouvenirPhotosAll;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSouvenirPhotosAll`()
+BEGIN
+	select *
+    from souvenir_photos sp;
+END$$
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS souvenir.getSouvenirPhotosByPath;
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getSouvenirPhotosByPath`(IN souvenir_photo_pathIN varchar(255))
+BEGIN
+	select *
+    from souvenir_photos sp
+    where sp.souvenir_photo_path = souvenir_photo_pathIN;
+END$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS souvenir.getSouvenirPhotosBySouvenirId;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getSouvenirPhotosBySouvenirId`(IN souvenir_photo_souvenir_idIN int(11))
@@ -297,6 +316,13 @@ CREATE DEFINER=`souvenir`@`localhost` PROCEDURE `insertMessage`(IN message_nameI
 BEGIN
 	INSERT INTO MESSAGE(message_name, message_email, message_text_m, message_captcha_id) 
     VALUES(message_nameIN, message_emailIN, message_text_mIN, message_captcha_idIN);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrUpdateSouvenirMainPhotoId`(IN souvenir_main_photo_idIN INT(11), IN souvenir_idIN INT(11))
+BEGIN
+	UPDATE souvenirs SET souvenir_main_photo_id = souvenir_main_photo_idIN WHERE souvenir_id = souvenir_idIN;
 END$$
 DELIMITER ;
 
@@ -418,15 +444,23 @@ souvenir_priceIN, souvenir_count_of_days_for_orderIN
 /*7*/call insertSouvenirs('Цветок - звезда', 'Цветок - звезда', 1, null, 6, 130, 4);
 
 
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Бежевые свадебные бокалы\photo_1_12042016_115632137.jpg', 1);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Браслет - Линия\photo_1_06042016_121008471.JPG', 2);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Заколка\photo_1_06042016_121424815.JPG', 3);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Серьги\photo_1_06042016_122934986.JPG', 4);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - бабочка\photo_1_06042016_121838571.JPG', 5);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Сувенир - меч\photo_1_12042016_094828387.png', 6);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_1_17042016_131528387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_2_17042016_131529387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('\images\souvenirs\Цветок - звезда\photo_3_17042016_131531387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg', 1);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Браслет - Линия/photo_1_06042016_121008471.JPG', 2);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Заколка/photo_1_06042016_121424815.JPG', 3);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Серьги/photo_1_06042016_122934986.JPG', 4);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - бабочка/photo_1_06042016_121838571.JPG', 5);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - меч/photo_1_12042016_094828387.png', 6);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_1_17042016_131528387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_2_17042016_131529387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_3_17042016_131531387.jpg', 7);
+
+call insertOrUpdateSouvenirMainPhotoId(1, 1);
+call insertOrUpdateSouvenirMainPhotoId(2, 2);
+call insertOrUpdateSouvenirMainPhotoId(3, 3);
+call insertOrUpdateSouvenirMainPhotoId(4, 4);
+call insertOrUpdateSouvenirMainPhotoId(5, 5);
+call insertOrUpdateSouvenirMainPhotoId(6, 6);
+call insertOrUpdateSouvenirMainPhotoId(7, 7);
 
 call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
 call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
