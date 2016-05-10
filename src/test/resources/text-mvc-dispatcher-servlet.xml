@@ -28,7 +28,7 @@
     </bean>-->
 
 
-    <import resource="/spring/spring-datasource.xml"/>
+    <import resource="classpath:spring/spring-datasource.xml"/>
     <!--
     <import resource="/spring/spring-email.xml"/>-->
 

@@ -57,4 +57,10 @@ public class JavaRegExTest {
         Assert.assertTrue(urlValidator.validate("/participant/sdfksd/unsuspend/"));
     }
 
+    @Test
+    public void test1007SingleAndDoubleQuotes(){
+        urlValidator = new URLValidator(2);
+        Assert.assertTrue(urlValidator.validate("participant\'\""));
+    }
+
 }

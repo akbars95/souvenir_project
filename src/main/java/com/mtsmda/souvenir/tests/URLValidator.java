@@ -13,6 +13,7 @@ public class URLValidator {
 
     private static final String URL_PATTERN_UPLOAD = "/participant/[\\w]*/upload";
     private static final String URL_PATTERN_SUSPEND = "/participant/[\\w]*/[un]{0,2}suspend/[\\w]*";
+    private static final String SINGLE_DOUBLE_QUOTES = "[\\w]*[\'\"]{0,2}";
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -23,6 +24,8 @@ public class URLValidator {
             pattern = Pattern.compile(URL_PATTERN_UPLOAD);
         }else if(type == 1){
             pattern = Pattern.compile(URL_PATTERN_SUSPEND);
+        }else if(type == 2){
+            pattern = Pattern.compile(SINGLE_DOUBLE_QUOTES);
         }
     }
 

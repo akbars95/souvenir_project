@@ -183,6 +183,20 @@ souvenirApp
 
         $scope.currentCountInRowSouvenir = $scope.countInRowSouvenirs[2];
 
+        $scope.allCurrencies = [{
+            name: "$",
+            value: "USD"
+        }, {
+            name: "€",
+            value: "EUR"
+        }, {
+            name: "mdl",
+            value: "mold_lei"
+        }, {
+             name: "₽",
+             value: "RUB"
+         }];
+
     });
 
 /* souvenirById page */

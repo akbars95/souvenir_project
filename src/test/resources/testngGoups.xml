@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+    <test name="final">
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.group.JUnitTests" />
+            <class name="com.mtsmda.souvenir.testNG.test.group.TestNGTests" />
+        </classes>
+    </test>
+
+    <test name="jUnit">
+
+        <groups>
+            <run>
+                <include name="jUnit" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.group.JUnitTests" />
+            <class name="com.mtsmda.souvenir.testNG.test.group.TestNGTests" />
+        </classes>
+
+    </test>
+
+</suite>

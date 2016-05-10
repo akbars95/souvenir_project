@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAllSpringMVC">
+
+    <test name="database">
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.spring.SpringTestNGTest" />
+        </classes>
+    </test>
+
+</suite>

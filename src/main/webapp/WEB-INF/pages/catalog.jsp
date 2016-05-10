@@ -64,18 +64,25 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 					<spring:message code="page.catalog.countPerRow.view.label"/>
 					<select ng-model="currentCountInRowSouvenir.count"
 							ng-options="countInRowSouvenir.count as countInRowSouvenir.label for countInRowSouvenir in countInRowSouvenirs"></select>
 				</div>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
 					<spring:message code="page.catalog.view.label"/>
 					<select ng-model="currentCountValue"
 							ng-change="changeCountPerPage()"
 							ng-options="currentPP.name for currentPP in countPerPage">
 					</select>
 				</div>
+				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                    <spring:message code="page.catalog.currency.label"/>
+                    <select ng-model="currentCountValue"
+                            ng-change="changeCountPerPage()"
+                            ng-options="currentPP.name for currentPP in countPerPage">
+                    </select>
+                </div>
 			</div>
 
 			<div class="row">
@@ -87,11 +94,11 @@
 						<a href="${homeUrl}{{souvenir.souvenirId}}">{{souvenir.souvenirName}}</a>
 					</h1>
 					<div class="row">
-						<div class="col-lg-6 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
-							created - {{souvenir.souvenirAudit.createdDatetime}}
+						<div class="col-lg-6 col-lg-offset-0 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+							<span><spring:message code="page.catalog.souvenir.createdTime.title" /></span> - {{souvenir.souvenirAudit.createdDatetime}}
 						</div>
-						<div class="col-lg-6 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
-							updated - {{souvenir.souvenirAudit.lastUpdateDatetime}}
+						<div class="col-lg-6 col-lg-offset-0 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+							<span><spring:message code="page.catalog.souvenir.updatedTime.title" /></span> - {{souvenir.souvenirAudit.lastUpdateDatetime}}
 						</div>
 					</div>
 					<spring:url value="resources/" var="resourcesUrl"
@@ -101,21 +108,28 @@
 					</div>
 					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId.souvenirPhotoPath == null">
 						<p class="souvenir-no-image">
-							No photo
+							<spring:message code="page.catalog.souvenir.noimage.title" />
 						</p>
 					</div>
 					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							category = {{souvenir.souvenirCategory.souvenirCategory}}
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-							order day :{{souvenir.souvenirCountOfDaysForOrder}}
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<span><spring:message code="page.catalog.souvenir.category.title" /></span> - {{souvenir.souvenirCategory.souvenirCategory}}
 						</div>
 					</div>
+					<div class="row">
+					    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span><spring:message code="page.catalog.souvenir.orderCountOfDay.title" /></span> - {{souvenir.souvenirCountOfDaysForOrder}}
+                        </div>
+					</div>
+					<div class="row">
+					    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <span><spring:message code="page.catalog.souvenir.price.title" /></span> - {{souvenir.souvenirPrice}}
+                        </div>
+					    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                            <span><spring:message code="page.catalog.souvenir.price.title" /></span>
 
-					price = {{souvenir.souvenirPrice}}
-
-
+                        </div>
+					</div>
 				</div>
 			</div>
 			<div class="text-center">

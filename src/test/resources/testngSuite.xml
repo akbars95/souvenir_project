@@ -1,0 +1,54 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestAll">
+
+
+
+    <test name="database">
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.TestConfig" />
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.DatabaseTest" />
+        </classes>
+    </test>
+
+    <test name="order">
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.TestConfig" />
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.TestOrder" />
+        </classes>
+    </test>
+
+    <test name="order2">
+        <packages>
+            <package name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.*" />
+        </packages>
+    </test>
+
+    <test name="order3">
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.TestOrder">
+                <methods>
+                    <include name="testMakeOrder" />
+                    <include name="testUpdateOrder" />
+                    <!--
+                        <exclude name="testMakeOrder" />
+                     -->
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="databaseXML">
+        <groups>
+            <run>
+                <exclude name="broken_tests" />
+                <include name="db" />
+            </run>
+        </groups>
+
+        <classes>
+            <class name="com.mtsmda.souvenir.testNG.test.suiteTests.v2.DatabaseTest" />
+        </classes>
+    </test>
+
+</suite>
