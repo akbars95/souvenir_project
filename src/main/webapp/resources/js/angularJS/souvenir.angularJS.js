@@ -198,32 +198,33 @@ souvenirApp
          }];
 
         $scope.getBNMExchange = function(){
-        }
-        $scope.getBNMExchange();
+            $http({
+                method  : "GET", //'JSONP',
+                url     : "http://bnm.md/ro/official_exchange_rates?get_xml=1&date=10.05.2016",
+                /*timeout : 500,*/
+                /*headers : {
+                    "Access-Control-Allow-Origin" : "http://localhost:8989"*//*,
+                    "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+                    "Access-Control-Allow-Headers" : "*"*//**//*,
+                    "content-type" : "application/json; charset=utf-8"*//*
+                },*/
+    //            params  : {}//,  // Query Parameters (GET)
+                transformResponse : function(data, headersGetter, status) {
+                    // string -> XML document object
+                    console.log(data);
+                    return $.parseXML(data);
+                }
+            }).success(
+                function (data, status, headers, config) {
+                    $scope.bnm = data.documentElement.innerHTML;
+                    $scope.bnm = data;
+                    console.log($scope.bnm.length);
+                }).error(function (data, status, headers, config) {
+                    // log error
+                });
 
-        $http({
-            method  : 'GET',
-            url     : "http://bnm.md/ro/official_exchange_rates?get_xml=1&date=10.05.2016",
-            /*timeout : 500,*/
-            headers : {
-                "Access-Control-Allow-Origin" : "http://bnm.md/",
-                "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
-                "Access-Control-Allow-Headers" : "*"/*,
-                "content-type" : "application/json; charset=utf-8"*/
-            },
-            params  : {},  // Query Parameters (GET)
-            transformResponse : function(data) {
-                // string -> XML document object
-                return $.parseXML(data);
-            }
-        }).success(
-            function (data, status, headers, config) {
-                $scope.bnm = data.documentElement.innerHTML;
-                $scope.bnm = data;
-                console.log($scope.bnm.length);
-            }).error(function (data, status, headers, config) {
-                // log error
-            });
+
+
     });
 
 /* souvenirById page */

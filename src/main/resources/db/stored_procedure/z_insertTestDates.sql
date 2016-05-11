@@ -80,3 +80,10 @@ call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is descripti
 call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);
 call insertSouvenirs('Bronzovyi Souvenir #19', 'This is souvenir #4 is description', 0, null, 2, 500.10, 14);
 call insertSouvenirs('Bezdelushka iz alyuminiya', 'This is souvenir #5 is description', 1, null, 5, 1931, 5);
+
+
+/*insert valutes*/
+CALL `souvenir`.`insertValute`('Euro', 978, 'EUR', 1, '€');
+CALL `souvenir`.`insertValute`('Dollar S.U.A.', 840, 'USD', 1, '$');
+CALL `souvenir`.`insertValute`('Rubl rus', 643, 'RUB', 1, '₽');
+CALL `souvenir`.`insertValute`('Mold lei', 498, 'MDL', 1, '€');

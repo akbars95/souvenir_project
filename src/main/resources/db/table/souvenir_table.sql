@@ -57,4 +57,24 @@ CREATE TABLE `MESSAGE` (
   CONSTRAINT `message_ci_captcha_id` FOREIGN KEY (`message_captcha_id`) REFERENCES `CAPTCHA` (`captcha_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE `VALUTE` (
+  `valute_id` int(11) NOT NULL AUTO_INCREMENT,
+  `valute_name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `valute_code` int(11) DEFAULT NULL,
+  `valute_char_code` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `valute_nominal` int(11) DEFAULT NULL,
+  PRIMARY KEY (`valute_id`),
+  UNIQUE KEY `valute_id_UNIQUE` (`valute_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE `EXCHANGE_RATE` (
+  `exchange_rate_id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `exchange_rate_date` date DEFAULT NULL,
+  `valute_name_id` int(11) DEFAULT NULL,
+  `exchange_rate` decimal(9,4) DEFAULT NULL,
+  PRIMARY KEY (`exchange_rate_id`),
+  UNIQUE KEY `exchange_rate_id_UNIQUE` (`exchange_rate_id`),
+  UNIQUE KEY `exchange_rate_date_UNIQUE` (`exchange_rate_date`),
+  KEY `exchange_rate_valute_valute_id_idx` (`valute_name_id`),
+  CONSTRAINT `exchange_rate_valute_valute_id` FOREIGN KEY (`valute_name_id`) REFERENCES `valute` (`valute_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
