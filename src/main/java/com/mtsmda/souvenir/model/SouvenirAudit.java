@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -22,11 +23,11 @@ public class SouvenirAudit implements Serializable {
 	private Souvenir souvenir;
 
 	@NotNull
-	@Past
+	@Past(groups = {FirstSequence.class})
 	private Date createdDatetime;
 
 	@NotNull
-	@Past
+	@Past(groups = {FirstSequence.class})
 	private Date lastUpdateDatetime;
 
 	public SouvenirAudit() {

@@ -4,11 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 /**
  * Created by MTSMDA on 16.11.2015.
@@ -19,11 +18,11 @@ public class Souvenir implements Serializable {
     private Integer souvenirId;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, groups = {FirstSequence.class})
     private String souvenirName;
 
     @NotNull
-    @Size(min = 3, max = 255)
+    @Size(min = 3, max = 255, groups = {FirstSequence.class})
     private String souvenirDescription;
 
     @NotNull
@@ -32,11 +31,12 @@ public class Souvenir implements Serializable {
     private SouvenirCategory souvenirCategory;
 
     @NotNull
+    @Digits(integer = 5, fraction = 4, groups = {FirstSequence.class})
     private Double souvenirPrice;
 
     @NotNull
-    @Max(value = 50)
-    @Min(value = 1)
+    @Max(value = 50, groups = {FirstSequence.class})
+    @Min(value = 1, groups = {SecondSequence.class})
     private Integer souvenirCountOfDaysForOrder;
 
     private SouvenirAudit souvenirAudit;

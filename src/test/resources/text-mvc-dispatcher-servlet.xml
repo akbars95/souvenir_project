@@ -29,6 +29,7 @@
 
 
     <import resource="classpath:spring/spring-datasource.xml"/>
+    <import resource="classpath:spring/spring-beans.xml"/>
     <!--
     <import resource="/spring/spring-email.xml"/>-->
 

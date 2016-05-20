@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.tests;
 
+import com.mtsmda.souvenir.external.ws.ExchangeRateBNMMD;
 import com.mtsmda.souvenir.model.xml.ValCurs;
 import com.mtsmda.souvenir.model.xml.Valute;
 import org.springframework.web.client.RestTemplate;
@@ -21,12 +22,12 @@ import java.util.List;
 public class BNMMD {
 
     public static void main(String[] args) throws IOException {
-        File file = new File("file.xml");
+        File file = new File("exchangeRate.xml");
         if (!file.exists()) {
             file.createNewFile();
         }
-        RestTemplate restTemplate = new RestTemplate();
-        String forObject = restTemplate.getForObject("http://bnm.md/ro/official_exchange_rates?get_xml=1&date=10.05.2016", String.class);
+//        RestTemplate restTemplate = new RestTemplate();
+        String forObject = new ExchangeRateBNMMD().getActualRateFromBNM();//restTemplate.getForObject("http://bnm.md/ro/official_exchange_rates?get_xml=1&date=10.05.2016", String.class);
         System.out.println(forObject);
 
         Writer writer = new FileWriter(file);
@@ -42,7 +43,7 @@ public class BNMMD {
             e.printStackTrace();
         }
 
-        ValCurs valCurs = new ValCurs();
+        /*ValCurs valCurs = new ValCurs();
         valCurs.setDate("10.05.2016");
         valCurs.setName("Cursul oficial de schimb");
 
@@ -78,7 +79,7 @@ public class BNMMD {
 
         {
             e.printStackTrace();
-        }
+        }*/
 
     }
 

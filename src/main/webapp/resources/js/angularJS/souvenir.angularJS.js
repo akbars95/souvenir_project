@@ -222,10 +222,9 @@ souvenirApp
                 }).error(function (data, status, headers, config) {
                     // log error
                 });
+        }
 
-
-
-    });
+});
 
 /* souvenirById page */
 souvenirApp.controller('souvenirByIdCtrl', function ($scope, $http, $timeout,

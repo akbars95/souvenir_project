@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="valuteBorder"
+		  class="com.mtsmda.souvenir.valute.ValuteBorder">
+		<property name="valuteProperties">
+			<props>
+				<prop key="EUR">978</prop>
+				<prop key="USD">840</prop>
+				<prop key="RUB">643</prop>
+				<prop key="RON">946</prop>
+				<prop key="UAH">980</prop>
+				<prop key="GBP">826</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>

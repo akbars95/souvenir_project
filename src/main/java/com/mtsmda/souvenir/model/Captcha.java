@@ -3,6 +3,9 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.validation.validators.constraints.ImagePathConstraint;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,11 +19,12 @@ public class Captcha implements Serializable {
 	private Integer captchaId;
 
 	@NotNull
-	@Size(min = 5, max = 10)
+	@Size(min = 5, max = 10, groups = {FirstSequence.class})
 	private String captchaValue;
 
 	@NotNull
-	@Size(min = 10, max = 255)
+	@Size(min = 10, max = 255, groups = {FirstSequence.class})
+	@ImagePathConstraint(groups = {SecondSequence.class})
 	private String captchaUrlFile;
 
 	public Captcha() {

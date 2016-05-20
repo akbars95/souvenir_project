@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.modelTest;
 
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirAudit;
+import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -45,17 +46,17 @@ public class SouvenirAuditTest {
         SouvenirAudit souvenirAudit = new SouvenirAudit();
         souvenirAudit.setLastUpdateDatetime(new Date());
         assertNotNull(souvenirAudit);
-        Set<ConstraintViolation<SouvenirAudit>> constraintViolations = validator.validate(souvenirAudit);
+        Set<ConstraintViolation<SouvenirAudit>> constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(NOT_NULL, constraintViolations.iterator().next().getMessage());
 
         souvenirAudit.setCreatedDatetime(new GregorianCalendar(gregorianCalendar.get(GregorianCalendar.YEAR) + 5, 1, 1).getTime());
-        constraintViolations = validator.validate(souvenirAudit);
+        constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(DATE_PAST, constraintViolations.iterator().next().getMessage());
 
         souvenirAudit.setCreatedDatetime(gregorianCalendar.getTime());
-        constraintViolations = validator.validate(souvenirAudit);
+        constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(0, constraintViolations.size());
         assertTrue(constraintViolations.isEmpty());
     }
@@ -67,17 +68,17 @@ public class SouvenirAuditTest {
         souvenirAudit.setLastUpdateDatetime(null);
         souvenirAudit.setCreatedDatetime(gregorianCalendar.getTime());
         assertNotNull(souvenirAudit);
-        Set<ConstraintViolation<SouvenirAudit>> constraintViolations = validator.validate(souvenirAudit);
+        Set<ConstraintViolation<SouvenirAudit>> constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(NOT_NULL, constraintViolations.iterator().next().getMessage());
 
         souvenirAudit.setLastUpdateDatetime(new GregorianCalendar(gregorianCalendar.get(GregorianCalendar.YEAR) + 5, 1, 1).getTime());
-        constraintViolations = validator.validate(souvenirAudit);
+        constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(DATE_PAST, constraintViolations.iterator().next().getMessage());
 
         souvenirAudit.setLastUpdateDatetime(gregorianCalendar.getTime());
-        constraintViolations = validator.validate(souvenirAudit);
+        constraintViolations = validator.validate(souvenirAudit, SouvenirSequence.class);
         assertEquals(0, constraintViolations.size());
         assertTrue(constraintViolations.isEmpty());
     }

@@ -2,6 +2,7 @@ package com.mtsmda.souvenir.model;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
 import com.mtsmda.souvenir.model.modelI.SouvenirCategoryI;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -18,7 +19,7 @@ public class SouvenirCategory implements Serializable, SouvenirCategoryI {
     private Integer souvenirCategoryId;
 
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, groups = {FirstSequence.class})
     private String souvenirCategory;
     private List<Souvenir> souvenirs;
 

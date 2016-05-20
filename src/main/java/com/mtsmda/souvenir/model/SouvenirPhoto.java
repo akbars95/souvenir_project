@@ -3,6 +3,9 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.validation.validators.constraints.ImagePathConstraint;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -13,7 +16,8 @@ public class SouvenirPhoto implements Serializable {
 	private Integer souvenirPhotoId;
 
 	@NotNull
-	@Size(min = 3, max = 255)
+	@Size(min = 7, max = 255, groups = {FirstSequence.class})
+	@ImagePathConstraint(groups = {SecondSequence.class})
 	private String souvenirPhotoPath;
 	private Souvenir souvenir;
 

@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.modelTest;
 
 import com.mtsmda.souvenir.model.SouvenirAudit;
 import com.mtsmda.souvenir.model.SouvenirCategory;
+import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -42,22 +43,22 @@ public class SouvenirCategoryTest {
         SouvenirCategory souvenirCategory = new SouvenirCategory();
         souvenirCategory.setSouvenirCategory(null);
         assertNotNull(souvenirCategory);
-        Set<ConstraintViolation<SouvenirCategory>> constraintViolations = validator.validate(souvenirCategory);
+        Set<ConstraintViolation<SouvenirCategory>> constraintViolations = validator.validate(souvenirCategory, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(NOT_NULL, constraintViolations.iterator().next().getMessage());
 
         souvenirCategory.setSouvenirCategory("12");
-        constraintViolations = validator.validate(souvenirCategory);
+        constraintViolations = validator.validate(souvenirCategory, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(SIZE_MIN_3_AND_MAX_50, constraintViolations.iterator().next().getMessage());
 
         souvenirCategory.setSouvenirCategory("123456789012345678901234567890123456789012345678900");
-        constraintViolations = validator.validate(souvenirCategory);
+        constraintViolations = validator.validate(souvenirCategory, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(SIZE_MIN_3_AND_MAX_50, constraintViolations.iterator().next().getMessage());
 
         souvenirCategory.setSouvenirCategory("12345678901234567890123456789012345678901234567890");
-        constraintViolations = validator.validate(souvenirCategory);
+        constraintViolations = validator.validate(souvenirCategory, SouvenirSequence.class);
         assertEquals(0, constraintViolations.size());
         assertTrue(constraintViolations.isEmpty());
     }

@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.repository.impl;
+package com.mtsmda.souvenir.deprecated;
 
 import static com.mtsmda.souvenir.model.sp.MessageSP.*;
 

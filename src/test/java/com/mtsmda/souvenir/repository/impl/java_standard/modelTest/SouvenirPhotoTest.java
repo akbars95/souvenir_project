@@ -2,6 +2,7 @@ package com.mtsmda.souvenir.repository.impl.java_standard.modelTest;
 
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.model.SouvenirPhoto;
+import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -39,22 +40,37 @@ public class SouvenirPhotoTest {
         SouvenirPhoto souvenirPhoto = new SouvenirPhoto();
         souvenirPhoto.setSouvenirPhotoPath(null);
         assertNotNull(souvenirPhoto);
-        Set<ConstraintViolation<SouvenirPhoto>> constraintViolations = validator.validate(souvenirPhoto);
+        Set<ConstraintViolation<SouvenirPhoto>> constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
         assertEquals(NOT_NULL, constraintViolations.iterator().next().getMessage());
 
-        souvenirPhoto.setSouvenirPhotoPath("12");
-        constraintViolations = validator.validate(souvenirPhoto);
+        souvenirPhoto.setSouvenirPhotoPath("/1.jpg");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
-        assertEquals(SIZE_MIN_3_AND_MAX_255, constraintViolations.iterator().next().getMessage());
+        assertEquals(SIZE_MIN_7_AND_MAX_255, constraintViolations.iterator().next().getMessage());
 
-        souvenirPhoto.setSouvenirPhotoPath("123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890");
-        constraintViolations = validator.validate(souvenirPhoto);
+        souvenirPhoto.setSouvenirPhotoPath("/123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890.jpeg");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
         assertEquals(1, constraintViolations.size());
-        assertEquals(SIZE_MIN_3_AND_MAX_255, constraintViolations.iterator().next().getMessage());
+        assertEquals(SIZE_MIN_7_AND_MAX_255, constraintViolations.iterator().next().getMessage());
 
-        souvenirPhoto.setSouvenirPhotoPath("12345678901234567890123456789012345678901234567890");
-        constraintViolations = validator.validate(souvenirPhoto);
+        souvenirPhoto.setSouvenirPhotoPath("123456789012345678901234567890123456789012345678901234567890.jpeg");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
+        assertEquals(1, constraintViolations.size());
+        assertEquals(IMAGE_PATH_CONSTRAINT, constraintViolations.iterator().next().getMessage());
+
+        souvenirPhoto.setSouvenirPhotoPath("/123456789012345678901234567890123456789012345678901234567890");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
+        assertEquals(1, constraintViolations.size());
+        assertEquals(IMAGE_PATH_CONSTRAINT, constraintViolations.iterator().next().getMessage());
+
+        souvenirPhoto.setSouvenirPhotoPath("/123456789012345678901234567890123456789012345678901234567890.bmfd");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
+        assertEquals(1, constraintViolations.size());
+        assertEquals(IMAGE_PATH_CONSTRAINT, constraintViolations.iterator().next().getMessage());
+
+        souvenirPhoto.setSouvenirPhotoPath("/12345678901234567890123456789012345678901234567890.jpg");
+        constraintViolations = validator.validate(souvenirPhoto, SouvenirSequence.class);
         assertEquals(0, constraintViolations.size());
         assertTrue(constraintViolations.isEmpty());
     }

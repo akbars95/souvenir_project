@@ -3,6 +3,8 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
@@ -14,16 +16,16 @@ public class Message implements Serializable {
 	private Integer messageId;
 
 	@NotNull
-	@Size(min = 3, max = 50)
+	@Size(min = 3, max = 50, groups = {FirstSequence.class})
 	private String messageName;
 
 	@NotNull
-	@Size(min = 6, max = 50)
-	@Email
+	@Size(min = 6, max = 50, groups = {FirstSequence.class})
+	@Email(groups = {SecondSequence.class})
 	private String messageEmail;
 
 	@NotNull
-	@Size(min = 3, max = 1000)
+	@Size(min = 3, max = 1000, groups = {FirstSequence.class})
 	private String messageText;
 
 	@NotNull

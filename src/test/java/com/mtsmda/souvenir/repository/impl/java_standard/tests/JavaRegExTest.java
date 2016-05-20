@@ -63,4 +63,10 @@ public class JavaRegExTest {
         Assert.assertTrue(urlValidator.validate("participant\'\""));
     }
 
+    @Test
+    public void test1008Image(){
+        urlValidator = new URLValidator(3);
+        Assert.assertTrue(urlValidator.validate("/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg"));
+    }
+
 }

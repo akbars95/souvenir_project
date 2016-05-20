@@ -24,14 +24,16 @@ CREATE TABLE `SOUVENIRS` (
   `souvenir_name` varchar(50) NOT NULL,
   `souvenir_description` varchar(255) DEFAULT NULL,
   `souvenir_show` tinyint(1) NOT NULL DEFAULT '1',
-  `souvenir_main_photo_id` int(11) NULL,
+  `souvenir_main_photo_id` int(11) DEFAULT NULL,
   `souvenir_category_id` int(11) DEFAULT NULL,
   `souvenir_price` decimal(8,2) DEFAULT NULL,
   `souvenir_count_of_days_for_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`souvenir_id`),
+  UNIQUE KEY `souvenir_name_UNIQUE` (`souvenir_name`),
   KEY `souvenir_category_id_souvenir_id_idx` (`souvenir_category_id`),
-  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `SOUVENIR_CATEGORIES` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `souvenir_categories` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `SOUVENIR_PHOTOS` (
@@ -54,8 +56,9 @@ CREATE TABLE `CAPTCHA` (
   `captcha_id` int(11) NOT NULL AUTO_INCREMENT,
   `captcha_value` varchar(10) CHARACTER SET utf8 NOT NULL,
   `captcha_url_file` varchar(255) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`captcha_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`captcha_id`),
+  UNIQUE KEY `captcha_value_UNIQUE` (`captcha_value`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `MESSAGE` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -69,7 +72,32 @@ CREATE TABLE `MESSAGE` (
   CONSTRAINT `message_ci_captcha_id` FOREIGN KEY (`message_captcha_id`) REFERENCES `CAPTCHA` (`captcha_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+CREATE TABLE `VALUTE` (
+  `valute_id` int(11) NOT NULL AUTO_INCREMENT,
+  `valute_name` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `valute_code` int(11) DEFAULT NULL,
+  `valute_char_code` varchar(45) COLLATE utf8_bin DEFAULT NULL,
+  `valute_nominal` int(11) DEFAULT NULL,
+  `valute_symbol` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  PRIMARY KEY (`valute_id`),
+  UNIQUE KEY `valute_id_UNIQUE` (`valute_id`),
+  UNIQUE KEY `valute_name_UNIQUE` (`valute_name`),
+  UNIQUE KEY `valute_code_UNIQUE` (`valute_code`),
+  UNIQUE KEY `valute_char_code_UNIQUE` (`valute_char_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
+
+CREATE TABLE `EXCHANGE_RATE` (
+  `exchange_rate_id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  `exchange_rate_date` date DEFAULT NULL,
+  `valute_name_id` int(11) DEFAULT NULL,
+  `exchange_rate` decimal(9,4) DEFAULT NULL,
+  PRIMARY KEY (`exchange_rate_id`),
+  UNIQUE KEY `exchange_rate_id_UNIQUE` (`exchange_rate_id`),
+  UNIQUE KEY `exchange_rate_date_UNIQUE` (`exchange_rate_date`),
+  KEY `exchange_rate_valute_valute_id_idx` (`valute_name_id`),
+  CONSTRAINT `exchange_rate_valute_valute_id` FOREIGN KEY (`valute_name_id`) REFERENCES `valute` (`valute_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 		/*views*/
@@ -335,12 +363,40 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(IN souvenir_photo_pathIN VARCHAR(255), 
+											IN souvenir_nameIN VARCHAR(50))
+BEGIN
+	UPDATE souvenirs SET souvenir_main_photo_id = (
+		select sp.souvenir_photo_id
+        from souvenir_photos sp
+        where sp.souvenir_photo_path = souvenir_photo_pathIN
+    )
+    WHERE souvenir_id = (
+        select souvenir_id from (select s.souvenir_id
+                                from souvenirs s
+                                where s.souvenir_name = souvenir_nameIN
+                                ) as innerSouvenirs
+    );
+END$$
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS souvenir.insertSouvenirPhoto;
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSouvenirPhoto`(IN souvenir_photo_pathIN VARCHAR(255), IN souvenir_photo_souvenir_idIN INT(11))
 BEGIN
 	INSERT INTO souvenir_photos(souvenir_photo_path, souvenir_photo_souvenir_id)
     VALUES (souvenir_photo_pathIN, souvenir_photo_souvenir_idIN);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSouvenirPhotoWithSelectInto`(IN souvenir_photo_pathIN VARCHAR(255), 
+														IN souvenir_nameIN VARCHAR(50))
+BEGIN
+	INSERT INTO souvenir_photos(souvenir_photo_path, souvenir_photo_souvenir_id)
+    SELECT souvenir_photo_pathIN, souvenir_id FROM souvenirs
+	WHERE souvenir_name = souvenir_nameIN;
 END$$
 DELIMITER ;
 
@@ -354,6 +410,29 @@ BEGIN
                         souvenir_category_id, souvenir_price, souvenir_count_of_days_for_order)
   VALUES(souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_main_photo_idIN,
           souvenir_category_idIN, souvenir_priceIN, souvenir_count_of_days_for_orderIN);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertSouvenirsWithSelectInto`(IN souvenir_nameIN VARCHAR(50),
+ 									IN souvenir_descriptionIN VARCHAR(255), IN souvenir_showIN TINYINT(1), IN souvenir_main_photo_idIN int(11),
+									IN souvenir_categoryIN VARCHAR(50), IN souvenir_priceIN DECIMAL(8,2), IN souvenir_count_of_days_for_orderIN INT(11))
+BEGIN
+  INSERT INTO SOUVENIRS(souvenir_name, souvenir_description, souvenir_show, souvenir_main_photo_id,
+                        souvenir_category_id, souvenir_price, souvenir_count_of_days_for_order)
+  VALUES(souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_main_photo_idIN,
+          (select souvenir_category_id
+          from souvenir_categories
+          where souvenir_category = souvenir_categoryIN), souvenir_priceIN, souvenir_count_of_days_for_orderIN);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertValute`(IN valute_nameIN VARCHAR(50), IN valute_codeIN INT(11), IN valute_char_codeIN VARCHAR(10),
+								IN valute_nominalIN INT(11), IN valute_symbolIN VARCHAR(10))
+BEGIN
+	INSERT INTO valute (valute_name, valute_code, valute_char_code, valute_nominal, valute_symbol)
+    VALUES(valute_nameIN, valute_codeIN, valute_char_codeIN, valute_nominalIN, valute_symbolIN);
 END$$
 DELIMITER ;
 
@@ -427,13 +506,21 @@ CALL `souvenir`.`insertCaptcha`('0..692P', '/resources/images/captcha/i19.png');
 
 
 /*insert souvenir category*/
-CALL `souvenir`.`insertCategory`('Бижу из бисера');/*1*/
-CALL `souvenir`.`insertCategory`('Бижу из проволки');/*2*/
-CALL `souvenir`.`insertCategory`('Букуты из конфет');/*3*/
-CALL `souvenir`.`insertCategory`('Канзаши');/*4*/
-CALL `souvenir`.`insertCategory`('Свадебные бокалы');/*5*/
-CALL `souvenir`.`insertCategory`('Без категории');/*6*/
-CALL `souvenir`.`insertCategory`('Серьги');/*7*/
+SET @souvenirCategoryBijuIzBisera = 'Бижу из бисера',
+    @souvenirCategoryBijuIzProvolki = 'Бижу из проволки',
+    @souvenirCategoryBuketyIzKonfet = 'Букуты из конфет',
+    @souvenirCategoryKanzashi = 'Канзаши',
+    @souvenirCategorySvadebnyeBokaly = 'Свадебные бокалы',
+    @souvenirCategoryNoCategory = 'Без категории',
+    @souvenirCategorySerigi = 'Серьги';
+
+CALL `souvenir`.`insertCategory`(@souvenirCategoryBijuIzBisera);/*1*/
+CALL `souvenir`.`insertCategory`(@souvenirCategoryBijuIzProvolki);/*2*/
+CALL `souvenir`.`insertCategory`(@souvenirCategoryBuketyIzKonfet);/*3*/
+CALL `souvenir`.`insertCategory`(@souvenirCategoryKanzashi);/*4*/
+CALL `souvenir`.`insertCategory`(@souvenirCategorySvadebnyeBokaly);/*5*/
+CALL `souvenir`.`insertCategory`(@souvenirCategoryNoCategory);/*6*/
+CALL `souvenir`.`insertCategory`(@souvenirCategorySerigi);/*7*/
 
 CALL `souvenir`.`insertCategory`('Category 6');
 CALL `souvenir`.`updateCategory`('Category 999', 8);
@@ -444,34 +531,48 @@ insert souvenir
 souvenir_nameIN, souvenir_descriptionIN, souvenir_showIN, souvenir_main_photo_idIN, souvenir_category_idIN,
 souvenir_priceIN, souvenir_count_of_days_for_orderIN
 */
-/*1*/call insertSouvenirs('Бежевые свадебные бокалы', 'Бежевые свадебные бокалы', 1, null, 5, 193, 2);
-/*2*/call insertSouvenirs('Бижу - Линия', 'Это Бижу Линия. Белая, желтая. Шарики', 1, null, 1, 120.96, 9);
-/*3*/call insertSouvenirs('Бижу - Заколка', 'Заколка', 0, null, 1, 360.6, 3);
-/*4*/call insertSouvenirs('Серьги', 'Серьги', 1, null, 7, 250, 4);
-/*5*/call insertSouvenirs('Сувенир - бабочка', 'Сувенир - бабочка', 1, null, 1, 300, 7);
-/*6*/call insertSouvenirs('Сувенир - меч', 'Сувенир - меч', 1, null, 2, 130, 4);
-/*7*/call insertSouvenirs('Цветок - звезда', 'Цветок - звезда', 1, null, 6, 130, 4);
+SET @souvenirBejevyeSvadednyeBokaly = 'Бежевые свадебные бокалы',
+    @souvenirBijuLiniya = 'Бижу - Линия',
+    @souvenirBijuZakolka = 'Бижу - Заколка',
+    @souvenirSerigi = 'Серьги',
+    @souvenirBabocka = 'Сувенир - бабочка',
+    @souvenirMec = 'Сувенир - меч',
+    @souvenirCvetokZvezda = 'Цветок - звезда';
+/*1*/call insertSouvenirsWithSelectInto(@souvenirBejevyeSvadednyeBokaly, 'Бежевые свадебные бокалы', 1, null, @souvenirCategorySvadebnyeBokaly, 193, 2);
+/*2*/call insertSouvenirsWithSelectInto(@souvenirBijuLiniya, 'Это Бижу Линия. Белая, желтая. Шарики', 1, null, @souvenirCategoryBijuIzBisera, 120.96, 9);
+/*3*/call insertSouvenirsWithSelectInto(@souvenirBijuZakolka, 'Заколка', 0, null, @souvenirCategoryBijuIzBisera, 360.6, 3);
+/*4*/call insertSouvenirsWithSelectInto(@souvenirSerigi, 'Серьги', 1, null, @souvenirCategorySerigi, 250, 4);
+/*5*/call insertSouvenirsWithSelectInto(@souvenirBabocka, 'Сувенир - бабочка', 1, null, @souvenirCategoryBijuIzBisera, 300, 7);
+/*6*/call insertSouvenirsWithSelectInto(@souvenirMec, 'Сувенир - меч', 1, null, @souvenirCategoryBijuIzProvolki, 130, 4);
+/*7*/call insertSouvenirsWithSelectInto(@souvenirCvetokZvezda, 'Цветок - звезда', 1, null, @souvenirCategoryNoCategory, 130, 4);
 
+SET @souvenirBejevyeSvadednyeBokalyPhoto = '/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg',
+    @souvenirBijuLiniyaPhoto = '/images/souvenirs/Браслет - Линия/photo_1_06042016_121008471.JPG',
+    @souvenirBijuZakolkaPhoto = '/images/souvenirs/Заколка/photo_1_06042016_121424815.JPG',
+    @souvenirSerigiPhoto = '/images/souvenirs/Серьги/photo_1_06042016_122934986.JPG',
+    @souvenirBabockaPhoto = '/images/souvenirs/Сувенир - бабочка/photo_1_06042016_121838571.JPG',
+    @souvenirMecPhoto = '/images/souvenirs/Сувенир - меч/photo_1_12042016_094828387.png',
+    @souvenirCvetokZvezdaPhoto1 = '/images/souvenirs/Цветок - звезда/photo_1_17042016_131528387.jpg',
+    @souvenirCvetokZvezdaPhoto2 = '/images/souvenirs/Цветок - звезда/photo_2_17042016_131529387.jpg',
+    @souvenirCvetokZvezdaPhoto3 = '/images/souvenirs/Цветок - звезда/photo_3_17042016_131531387.jpg';
 
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg', 1);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Браслет - Линия/photo_1_06042016_121008471.JPG', 2);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Заколка/photo_1_06042016_121424815.JPG', 3);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Серьги/photo_1_06042016_122934986.JPG', 4);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - бабочка/photo_1_06042016_121838571.JPG', 5);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - меч/photo_1_12042016_094828387.png', 6);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_1_17042016_131528387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_2_17042016_131529387.jpg', 7);
-CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_3_17042016_131531387.jpg', 7);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirBejevyeSvadednyeBokalyPhoto, @souvenirBejevyeSvadednyeBokaly);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirBijuLiniyaPhoto, @souvenirBijuLiniya);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirBijuZakolkaPhoto, @souvenirBijuZakolka);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirSerigiPhoto, @souvenirSerigi);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirBabockaPhoto, @souvenirBabocka);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirMecPhoto, @souvenirMec);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirCvetokZvezdaPhoto1, @souvenirCvetokZvezda);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirCvetokZvezdaPhoto2, @souvenirCvetokZvezda);
+CALL `souvenir`.`insertSouvenirPhotoWithSelectInto`(@souvenirCvetokZvezdaPhoto3, @souvenirCvetokZvezda);
 
-call insertOrUpdateSouvenirMainPhotoId(1, 1);
-call insertOrUpdateSouvenirMainPhotoId(2, 2);
-call insertOrUpdateSouvenirMainPhotoId(3, 3);
-call insertOrUpdateSouvenirMainPhotoId(4, 4);
-call insertOrUpdateSouvenirMainPhotoId(5, 5);
-call insertOrUpdateSouvenirMainPhotoId(6, 6);
-call insertOrUpdateSouvenirMainPhotoId(7, 7);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirBejevyeSvadednyeBokalyPhoto, @souvenirBejevyeSvadednyeBokaly);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirBijuLiniyaPhoto, @souvenirBijuLiniya);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirBijuZakolkaPhoto, @souvenirBijuZakolka);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirSerigiPhoto, @souvenirSerigi);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirBabockaPhoto, @souvenirBabocka);
+CALL `souvenir`.`insertOrUpdateSouvenirMainPhotoIdWithSelectInto`(@souvenirMecPhoto, @souvenirMec);
 
-call insertSouvenirs('Souvenir #3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 8);
 call insertSouvenirs('Souvenir #4', 'This is souvenir #4 is description', 0, null, 2, 500.10, 9);
 call insertSouvenirs('Souvenir #5', 'This is souvenir #5 is description', 1, null, 5, 1931, 8);
 call insertSouvenirs('Korona #1', 'This is korona is description', 1, null, 1, 20, 2);
@@ -484,6 +585,61 @@ call insertSouvenirs('Serebryannaya Seriga#2', 'This is souvenir #2 is descripti
 call insertSouvenirs('Tolstaya Cepi#3', 'This is souvenir #3 is description', 1, null, 1, 100.5, 12);
 call insertSouvenirs('Bronzovyi Souvenir #19', 'This is souvenir #4 is description', 0, null, 2, 500.10, 14);
 call insertSouvenirs('Bezdelushka iz alyuminiya', 'This is souvenir #5 is description', 1, null, 5, 1931, 5);
+
+
+/*insert valutes*/
+CALL `souvenir`.`insertValute`('Euro', 978, 'EUR', 1, '€');
+CALL `souvenir`.`insertValute`('Dollar S.U.A.', 840, 'USD', 1, '$');
+CALL `souvenir`.`insertValute`('Rubl rus', 643, 'RUB', 1, '₽');
+CALL `souvenir`.`insertValute`('Mold lei', 498, 'MDL', 1, 'MDL');
+
+
+
+
+/*
+old version
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg', 1);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Браслет - Линия/photo_1_06042016_121008471.JPG', 2);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Заколка/photo_1_06042016_121424815.JPG', 3);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Серьги/photo_1_06042016_122934986.JPG', 4);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - бабочка/photo_1_06042016_121838571.JPG', 5);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Сувенир - меч/photo_1_12042016_094828387.png', 6);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_1_17042016_131528387.jpg', 7);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_2_17042016_131529387.jpg', 7);
+    CALL `souvenir`.`insertSouvenirPhoto`('/images/souvenirs/Цветок - звезда/photo_3_17042016_131531387.jpg', 7);
+*/
+
+
+/* old
+call insertOrUpdateSouvenirMainPhotoId(1, 1);
+call insertOrUpdateSouvenirMainPhotoId(2, 2);
+call insertOrUpdateSouvenirMainPhotoId(3, 3);
+call insertOrUpdateSouvenirMainPhotoId(4, 4);
+call insertOrUpdateSouvenirMainPhotoId(5, 5);
+call insertOrUpdateSouvenirMainPhotoId(6, 6);
+call insertOrUpdateSouvenirMainPhotoId(7, 7);
+*/
+
+/*
+CALL `souvenir`.`insertCategory`('Бижу из бисера');/*1*/
+CALL `souvenir`.`insertCategory`('Бижу из проволки');/*2*/
+CALL `souvenir`.`insertCategory`('Букуты из конфет');/*3*/
+CALL `souvenir`.`insertCategory`('Канзаши');/*4*/
+CALL `souvenir`.`insertCategory`('Свадебные бокалы');/*5*/
+CALL `souvenir`.`insertCategory`('Без категории');/*6*/
+CALL `souvenir`.`insertCategory`('Серьги');/*7*/
+*/
+
+/*
+old
+call insertSouvenirs(@souvenirBejevyeSvadednyeBokaly, 'Бежевые свадебные бокалы', 1, null, 5, 193, 2);
+call insertSouvenirs(@souvenirBijuLiniya, 'Это Бижу Линия. Белая, желтая. Шарики', 1, null, 1, 120.96, 9);
+call insertSouvenirs(@souvenirBijuZakolka, 'Заколка', 0, null, 1, 360.6, 3);
+call insertSouvenirs(@souvenirSerigi, 'Серьги', 1, null, 7, 250, 4);
+call insertSouvenirs(@souvenirBabocka, 'Сувенир - бабочка', 1, null, 1, 300, 7);
+call insertSouvenirs(@souvenirMec, 'Сувенир - меч', 1, null, 2, 130, 4);
+call insertSouvenirs(@souvenirCvetokZvezda, 'Цветок - звезда', 1, null, 6, 130, 4);
+*/
 
 
 		/*functions*/

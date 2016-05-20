@@ -12,14 +12,16 @@ CREATE TABLE `SOUVENIRS` (
   `souvenir_name` varchar(50) NOT NULL,
   `souvenir_description` varchar(255) DEFAULT NULL,
   `souvenir_show` tinyint(1) NOT NULL DEFAULT '1',
-  `souvenir_main_photo_id` int(11) NULL,
+  `souvenir_main_photo_id` int(11) DEFAULT NULL,
   `souvenir_category_id` int(11) DEFAULT NULL,
   `souvenir_price` decimal(8,2) DEFAULT NULL,
   `souvenir_count_of_days_for_order` int(11) DEFAULT NULL,
   PRIMARY KEY (`souvenir_id`),
+  UNIQUE KEY `souvenir_name_UNIQUE` (`souvenir_name`),
   KEY `souvenir_category_id_souvenir_id_idx` (`souvenir_category_id`),
-  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `SOUVENIR_CATEGORIES` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `souvenir_category_id_souvenir_id` FOREIGN KEY (`souvenir_category_id`) REFERENCES `souvenir_categories` (`souvenir_category_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 
 
 CREATE TABLE `SOUVENIR_PHOTOS` (
@@ -42,8 +44,9 @@ CREATE TABLE `CAPTCHA` (
   `captcha_id` int(11) NOT NULL AUTO_INCREMENT,
   `captcha_value` varchar(10) CHARACTER SET utf8 NOT NULL,
   `captcha_url_file` varchar(255) CHARACTER SET utf8 NOT NULL,
-  PRIMARY KEY (`captcha_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  PRIMARY KEY (`captcha_id`),
+  UNIQUE KEY `captcha_value_UNIQUE` (`captcha_value`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 CREATE TABLE `MESSAGE` (
   `message_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,9 +66,14 @@ CREATE TABLE `VALUTE` (
   `valute_code` int(11) DEFAULT NULL,
   `valute_char_code` varchar(45) COLLATE utf8_bin DEFAULT NULL,
   `valute_nominal` int(11) DEFAULT NULL,
+  `valute_symbol` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`valute_id`),
-  UNIQUE KEY `valute_id_UNIQUE` (`valute_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+  UNIQUE KEY `valute_id_UNIQUE` (`valute_id`),
+  UNIQUE KEY `valute_name_UNIQUE` (`valute_name`),
+  UNIQUE KEY `valute_code_UNIQUE` (`valute_code`),
+  UNIQUE KEY `valute_char_code_UNIQUE` (`valute_char_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
 
 CREATE TABLE `EXCHANGE_RATE` (
   `exchange_rate_id` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,

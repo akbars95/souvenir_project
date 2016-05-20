@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.repository.impl;
+package com.mtsmda.souvenir.deprecated;
 
 import com.mtsmda.souvenir.repository.SouvenirRepository;
 import com.mtsmda.souvenir.model.Souvenir;
