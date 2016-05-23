@@ -11,8 +11,8 @@ import com.mtsmda.souvenir.service.MessageService;
 @Service("messageService")
 public class MessageServiceImpl implements MessageService {
 
-	@Autowired
-	@Qualifier("messageRepository")
+//	@Autowired
+//	@Qualifier("messageRepository")
 	private MessageRepository messageRepository;
 
 	@Override

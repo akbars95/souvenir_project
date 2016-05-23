@@ -1,8 +1,6 @@
 package com.mtsmda.souvenir.controller;
 
 import com.mtsmda.souvenir.schedule.ScheduledTasks;
-import com.mtsmda.souvenir.toggleFeature.AppConfig;
-import com.mtsmda.souvenir.toggleFeature.MyFeatures;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
