@@ -15,6 +15,7 @@ public class URLValidator {
     private static final String URL_PATTERN_SUSPEND = "/participant/[\\w]*/[un]{0,2}suspend/[\\w]*";
     private static final String SINGLE_DOUBLE_QUOTES = "[\\w]*[\'\"]{0,2}";
     private static final String IMAGE = "^[/]{1}[\\w\\p{Punct}\\p{Blank}А-Яа-я]*(\\.(?i)(jpg|png|gif|bmp|jpeg))$";//^([\|/]{1})[\w]*.$     ([jpg|png|jpeg|gif]{1})
+    private static final String WADL = "^[\\w\\p{Punct}]*?_wadl$";//
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -29,6 +30,8 @@ public class URLValidator {
             pattern = Pattern.compile(SINGLE_DOUBLE_QUOTES);
         }else if(type == 3){
             pattern = Pattern.compile(IMAGE);
+        }else if(type == 4){
+            pattern = Pattern.compile(WADL);
         }
     }
 
@@ -38,8 +41,9 @@ public class URLValidator {
     }
 
     public static void main(String[] args) {
-        System.out.println(new URLValidator(3).validate("/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpeg"));
+//        System.out.println(new URLValidator(3).validate("/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpeg"));
         ///images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg
+        System.out.println(new URLValidator(4).validate("http://localhost:9090/mpp-registration-engine/v1.0/sdfsdf?_wadl"));//
     }
 
 }
