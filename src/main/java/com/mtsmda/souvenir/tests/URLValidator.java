@@ -1,5 +1,8 @@
 package com.mtsmda.souvenir.tests;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +18,7 @@ public class URLValidator {
     private static final String URL_PATTERN_SUSPEND = "/participant/[\\w]*/[un]{0,2}suspend/[\\w]*";
     private static final String SINGLE_DOUBLE_QUOTES = "[\\w]*[\'\"]{0,2}";
     private static final String IMAGE = "^[/]{1}[\\w\\p{Punct}\\p{Blank}А-Яа-я]*(\\.(?i)(jpg|png|gif|bmp|jpeg))$";//^([\|/]{1})[\w]*.$     ([jpg|png|jpeg|gif]{1})
-    private static final String WADL = "^[\\w\\p{Punct}]*?_wadl$";//
+    private static final String WADL = "^[\\w\\p{Punct}]*[?_]?wadl$";//
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -43,7 +46,21 @@ public class URLValidator {
     public static void main(String[] args) {
 //        System.out.println(new URLValidator(3).validate("/images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpeg"));
         ///images/souvenirs/Бежевые свадебные бокалы/photo_1_12042016_115632137.jpg
-        System.out.println(new URLValidator(4).validate("http://localhost:9090/mpp-registration-engine/v1.0/sdfsdf?_wadl"));//
+//        System.out.println(new URLValidator(4).validate(""));
+//        System.out.println(new URLValidator(4).validate("?_wadl"));
+//        System.out.println(new URLValidator(4).validate("?wadl"));
+//        System.out.println(new URLValidator(4).validate("?wadldfdf"));
+//        System.out.println(new URLValidator(4).validate("wadl"));
+        testWADL();
+    }
+
+    private static void testWADL(){
+        List<String> wadls = Arrays.asList("http://localhost:9090/mpp-registration-engine/v1.0/sdfsdf?_wadl", "?_wadl", "?wadl",
+                "_wadl", "_?wadl", "?wadldfdf", "wadl");
+        URLValidator urlValidator = new URLValidator(4);
+        for(String wadl : wadls){
+            System.out.println(wadl + " ----- " + urlValidator.validate(wadl));
+        }
     }
 
 }
