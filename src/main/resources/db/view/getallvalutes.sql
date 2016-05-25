@@ -1,0 +1,1 @@
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getallvalutes` AS select `valute`.`valute_id` AS `valute_id`,`valute`.`valute_name` AS `valute_name`,`valute`.`valute_code` AS `valute_code`,`valute`.`valute_char_code` AS `valute_char_code`,`valute`.`valute_nominal` AS `valute_nominal`,`valute`.`valute_symbol` AS `valute_symbol` from `valute`;
