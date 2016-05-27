@@ -24,6 +24,7 @@
         <mockito.version>1.9.5</mockito.version>
         <togglz.version>2.2.0.Final</togglz.version>
         <testng.version>6.9.9</testng.version>
+        <org.springframework.security.version>4.0.3.RELEASE</org.springframework.security.version>
 
         <plugin.compile.version>3.3</plugin.compile.version>
         <plugin.test.version>2.19.1</plugin.test.version>
@@ -32,6 +33,7 @@
         <org.springframework.group.id>org.springframework</org.springframework.group.id>
         <javax.servlet.group.id>javax.servlet</javax.servlet.group.id>
         <org.apache.tiles.group.id>org.apache.tiles</org.apache.tiles.group.id>
+        <org.springframework.security.group.id>org.springframework.security</org.springframework.security.group.id>
     </properties>
 
     <dependencies>
@@ -85,6 +87,34 @@
             <artifactId>spring-tx</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+        <!--spring security-->
+        <dependency>
+            <groupId>${org.springframework.security.group.id}</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${org.springframework.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${org.springframework.security.group.id}</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.springframework.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${org.springframework.security.group.id}</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${org.springframework.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${org.springframework.security.group.id}</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${org.springframework.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${org.springframework.security.group.id}</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${org.springframework.security.version}</version>
+        </dependency>
+
 
         <!-- java web -->
         <dependency>

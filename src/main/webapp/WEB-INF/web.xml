@@ -16,13 +16,9 @@
             /WEB-INF/spring/spring-datasource.xml
             /WEB-INF/spring/spring-email.xml
             /WEB-INF/spring/spring-beans.xml
+            /WEB-INF/spring/spring-security.xml
         </param-value>
     </context-param>
-
-    <!--<context-param>
-        <param-name>org.togglz.core.manager.TogglzConfig</param-name>
-        <param-value>com.mtsmda.souvenir.toggleFeature.MyTogglzConfiguration</param-value>
-    </context-param>-->
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
@@ -40,27 +36,12 @@
         <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    <!-- 
-    <servlet-mapping>
-        <servlet-name>mvc-dispatcher</servlet-name>
-        <url-pattern>*.html</url-pattern>
-    </servlet-mapping> -->
 
 
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/pages/404.jsp</location>
     </error-page>
-
-    <!-- Togglz configuration for Servlet 2.5 and earlier -->
-    <!--<filter>
-        <filter-name>TogglzFilter</filter-name>
-        <filter-class>org.togglz.servlet.TogglzFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>TogglzFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>-->
 
     <!--<filter>
         <filter-name>FirstFilter</filter-name>
@@ -76,15 +57,6 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>-->
 
-    <!--<servlet>
-        <servlet-name>TogglzConsoleServlet</servlet-name>
-        <servlet-class>org.togglz.console.TogglzConsoleServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>TogglzConsoleServlet</servlet-name>
-        <url-pattern>/togglz/*</url-pattern>
-    </servlet-mapping>-->
-
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -99,6 +71,17 @@
     </filter>
     <filter-mapping>
         <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
