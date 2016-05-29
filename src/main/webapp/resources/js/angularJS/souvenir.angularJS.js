@@ -86,6 +86,11 @@ souvenirApp
             function (data, status, headers, config) {
                 if (status == 200 && data.responseCode.code == GET_OK_CODE) {
                     $scope.souvenirs = data.object;
+
+                    for(i = 0; i < $scope.souvenirs.length; i++){
+                        console.log($scope.souvenirs[i].souvenirName + " - - - - - " + $scope.souvenirs[i].souvenirMainPhotoId.souvenirPhotoPath);
+                    }
+
                     $scope.changeCountPerPage();
                 }
             }).error(function (data, status, headers, config) {

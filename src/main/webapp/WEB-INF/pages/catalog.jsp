@@ -103,10 +103,11 @@
 					</div>
 					<spring:url value="resources/" var="resourcesUrl"
 								htmlEscape="true" />
-					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId.souvenirPhotoPath != null">
+					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId != null && souvenir.souvenirMainPhotoId.souvenirPhotoPath != null">
 						<img class="souvenir-image" src="${resourcesUrl}{{souvenir.souvenirMainPhotoId.souvenirPhotoPath}}">
+						<div>${resourcesUrl}{{souvenir.souvenirMainPhotoId.souvenirPhotoPath}}</div>
 					</div>
-					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId.souvenirPhotoPath == null">
+					<div class="souvenir-image-wrapper" ng-show="souvenir.souvenirMainPhotoId == null && souvenir.souvenirMainPhotoId.souvenirPhotoPath == null">
 						<p class="souvenir-no-image">
 							<spring:message code="page.catalog.souvenir.noimage.title" />
 						</p>
