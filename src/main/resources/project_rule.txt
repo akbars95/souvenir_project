@@ -19,37 +19,37 @@ Stored procedure:
 	stored procedure parameter name: column name (upper came delimiter - underscore) + SP_PARAM_NAME
 	
 Repository Interface:
-	package: com.mtsmda.souvenir.repository
+	package: com.mtsmda.souvenir.spring.stereotype.repository
 	interface name - CamelCase class name + Repository (CaptchaRepository)
 	
 Repository Class:
-	package: com.mtsmda.souvenir.repository.impl.java_standard
+	package: com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard
 	class name - CamelCase class name + RepositoryImplSPJavaStandard (CaptchaRepositoryImplSPJavaStandard)
 	class annotation: @Repository - name should be class name only first letter lower case(captchaRepositoryImplSPJavaStandard)
 	
 Service Interface:
-	package: com.mtsmda.souvenir.service
+	package: com.mtsmda.souvenir.spring.stereotype.service
 	interface name - CamelCase class name + Service (CaptchaService)
 	extends - repository interface
 	
 Service Class:
-	package: com.mtsmda.souvenir.service.impl
+	package: com.mtsmda.souvenir.spring.stereotype.service.impl
 	class name - CamelCase class name + ServiceImpl (CaptchaServiceImpl)
 	class annotation: @Service - name should be implementation interface name only first letter lower case(captchaService)
 	implements: Service Interface(CaptchaService)
 
 Controller Class:
-	package: com.mtsmda.souvenir.controller
+	package: com.mtsmda.souvenir.spring.config.controller
 	class name - CamelCase class name or other + Controller (AdminController)
 	annotation: @Controller
-	url: @RequestMapping value field take from controller constants(package: com.mtsmda.souvenir.controller.constants)
+	url: @RequestMapping value field take from controller constants(package: com.mtsmda.souvenir.spring.config.controller.constants)
 	return value: take from controller constants
 	
 RestController Class:
-	package: com.mtsmda.souvenir.controller.restController
+	package: com.mtsmda.souvenir.spring.config.controller.restController
 	class name - CamelCase class name or other + RestController (CaptchaRestController)
 	annotation: @RestController
-	url: @RequestMapping value field take from controller constants(com.mtsmda.souvenir.controller.restController.constants)
+	url: @RequestMapping value field take from controller constants(com.mtsmda.souvenir.spring.config.controller.restController.constants)
 	return value: take from controller constants
 	
 Controller and RestController Constants:

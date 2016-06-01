@@ -1,6 +1,6 @@
 package com.mtsmda.souvenir.validation.validators;
 
-import com.mtsmda.souvenir.service.SouvenirService;
+import com.mtsmda.souvenir.spring.stereotype.service.SouvenirService;
 import com.mtsmda.souvenir.validation.validators.constraints.ValuteCodeConstraint;
 import com.mtsmda.souvenir.valute.ValuteBorder;
 import org.apache.commons.beanutils.PropertyUtils;

@@ -1,14 +1,10 @@
 package com.mtsmda.souvenir.testNG.test.spring;
 
-import com.mtsmda.souvenir.repository.CaptchaRepository;
-import org.junit.runner.RunWith;
+import com.mtsmda.souvenir.spring.stereotype.repository.CaptchaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
