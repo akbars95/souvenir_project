@@ -19,6 +19,7 @@ public class URLValidator {
     private static final String SINGLE_DOUBLE_QUOTES = "[\\w]*[\'\"]{0,2}";
     private static final String IMAGE = "^[/]{1}[\\w\\p{Punct}\\p{Blank}А-Яа-я]*(\\.(?i)(jpg|png|gif|bmp|jpeg))$";//^([\|/]{1})[\w]*.$     ([jpg|png|jpeg|gif]{1})
     private static final String WADL = "^[\\w\\p{Punct}]*[?_]?wadl$";//
+    private static final String TAXID = "^[\\da-zA-Z]{13}$";
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -35,6 +36,8 @@ public class URLValidator {
             pattern = Pattern.compile(IMAGE);
         }else if(type == 4){
             pattern = Pattern.compile(WADL);
+        }else if(type == 5){
+            pattern = Pattern.compile(TAXID);
         }
     }
 
@@ -51,7 +54,10 @@ public class URLValidator {
 //        System.out.println(new URLValidator(4).validate("?wadl"));
 //        System.out.println(new URLValidator(4).validate("?wadldfdf"));
 //        System.out.println(new URLValidator(4).validate("wadl"));
-        testWADL();
+//        testWADL();
+
+        List<String> taxId = Arrays.asList("0123456789ABc", "0123456789AB_", "0123456789Ac");
+        test(taxId, 5);
     }
 
     private static void testWADL(){
@@ -60,6 +66,14 @@ public class URLValidator {
         URLValidator urlValidator = new URLValidator(4);
         for(String wadl : wadls){
             System.out.println(wadl + " ----- " + urlValidator.validate(wadl));
+        }
+    }
+
+
+    private static void test(List<String> testTypes, int type){
+        URLValidator urlValidator = new URLValidator(type);
+        for(String testType : testTypes){
+            System.out.println(testType + " ----- " + urlValidator.validate(testType));
         }
     }
 
