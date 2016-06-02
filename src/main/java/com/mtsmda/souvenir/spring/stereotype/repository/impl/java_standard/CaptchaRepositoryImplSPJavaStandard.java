@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard;
 
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.ListHelper;
@@ -7,7 +7,7 @@ import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.spring.stereotype.repository.CaptchaRepository;
-import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper.CaptchaMapper;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.CaptchaMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

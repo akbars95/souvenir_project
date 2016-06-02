@@ -1,11 +1,11 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard;
 
 import javax.sql.DataSource;
 
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
-import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper.MapperI;
-import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper.SouvenirPhotoMapper;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.MapperI;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.SouvenirPhotoMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -4,11 +4,16 @@ import com.mtsmda.souvenir.spring.security.SouvenirRoles;
 import com.mtsmda.souvenir.spring.stereotype.controller.constants.AdminPieceConstants;
 import com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.provisioning.JdbcUserDetailsManagerConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+import javax.sql.DataSource;
 
 /**
  * Created by dminzat on 5/30/2016.
@@ -20,9 +25,23 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public static final String HAS_ROLE = "hasRole";
 
     @Autowired
+    @Qualifier(value = "mySqlDataSource")
+    private DataSource dataSource;
+
+    @Autowired
+    @Qualifier(value = "limitLoginAuthenticationProvider")
+    private AuthenticationProvider authenticationProvider;
+
+    @Autowired
     public void configureUsers(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.inMemoryAuthentication().
-                withUser("user9").password("user9")./*authorities(SouvenirRoles.ADMIN.getRoleNameFull())*/roles(SouvenirRoles.ADMIN.getRoleName());
+        /*authenticationManagerBuilder.inMemoryAuthentication().
+                withUser("user9").password("user9").roles(SouvenirRoles.ADMIN.getRoleName());*/
+        /*authorities(SouvenirRoles.ADMIN.getRoleNameFull())*/
+
+        /*JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> authenticationManagerBuilderJdbcUserDetailsManagerConfigurer = authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource);
+        authenticationManagerBuilderJdbcUserDetailsManagerConfigurer.usersByUsernameQuery("select username, passwordC, enabled from users where username=?")
+                .authoritiesByUsernameQuery("select username, role from user_roles where username=?");*/
+        authenticationManagerBuilder.authenticationProvider(authenticationProvider);
     }
 
     @Override
@@ -33,7 +52,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 access(HAS_ROLE + "('" + SouvenirRoles.ADMIN.getRoleNameFull() + "')");
 
         //custom login
-        httpSecurity.formLogin().loginPage("/login").loginProcessingUrl("/login_process").failureUrl("/login?error")
+        httpSecurity.formLogin().loginPage("/login").loginProcessingUrl("/login_process").failureUrl("/login?error=true")
+
                 .usernameParameter("souvenir_username_9").passwordParameter("souvenir_password_9")
                 /*.defaultSuccessUrl(StaticPageConstants.ROOT, false)*/
                 .and().csrf()
@@ -41,9 +61,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/access_denied");
 
         //logout configuration
-        //httpSecurity.logout()/*.*/
-                /*logoutUrl("/logout").*/
-                /*logoutSuccessUrl("/")*//*logoutSuccessUrl("/login?logout")*/
+        httpSecurity.logout().
+                logoutUrl("/logout").
+                logoutSuccessUrl("/")/*logoutSuccessUrl("/login?logout")*/
                 /*.and().logout().    //logout configuration
                 logoutUrl("/logout").
                 logoutSuccessUrl(StaticPageConstants.ROOT)*/;

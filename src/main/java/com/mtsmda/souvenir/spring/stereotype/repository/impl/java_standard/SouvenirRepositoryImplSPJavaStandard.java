@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard;
 
 import com.mtsmda.souvenir.exception.SouvenirRuntimeException;
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
@@ -9,9 +9,12 @@ import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.model.SouvenirPhoto;
 import com.mtsmda.souvenir.spring.stereotype.repository.SouvenirPhotoRepository;
 import com.mtsmda.souvenir.spring.stereotype.repository.SouvenirRepository;
-import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper.*;
 //import SouvenirMapper;
 
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.MapperI;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.SouvenirAuditMapper;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.SouvenirCategoryMapper;
+import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.SouvenirMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;

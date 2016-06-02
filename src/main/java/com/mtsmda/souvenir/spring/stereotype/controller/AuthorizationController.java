@@ -20,7 +20,7 @@ public class AuthorizationController {
         return "access_denied";
     }
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String getLogoutPage() {
         return "logout";
     }
@@ -28,6 +28,6 @@ public class AuthorizationController {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String getLogoutPagePOST() {
         return "logout";
-    }
+    }*/
 
 }

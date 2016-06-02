@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard;
 
 import com.mtsmda.souvenir.model.Valute;
 import com.mtsmda.souvenir.spring.stereotype.repository.ValuteRepository;

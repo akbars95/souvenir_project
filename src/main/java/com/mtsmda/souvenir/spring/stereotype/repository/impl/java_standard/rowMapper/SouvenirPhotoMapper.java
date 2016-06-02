@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper;
 
 import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirPhoto;

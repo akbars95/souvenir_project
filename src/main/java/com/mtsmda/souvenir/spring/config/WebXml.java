@@ -28,7 +28,9 @@ public class WebXml implements WebApplicationInitializer {
         annotationConfigWebApplicationContext.setServletContext(servletContext);
 
         //servlets
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("mvc-dispatcher", new DispatcherServlet(annotationConfigWebApplicationContext));
+        DispatcherServlet dispatcherServlet = new DispatcherServlet(annotationConfigWebApplicationContext);
+        dispatcherServlet.setThrowExceptionIfNoHandlerFound(Boolean.TRUE);
+        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("mvc-dispatcher", dispatcherServlet);
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
 

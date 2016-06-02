@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.repositoryTest.rowMapper;
+package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper;
 
 
 import java.sql.ResultSet;
