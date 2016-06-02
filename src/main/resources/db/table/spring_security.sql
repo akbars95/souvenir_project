@@ -1,6 +1,7 @@
 drop table if exists `user_roles`;
 drop table if exists `users`;
 drop table if exists `user_attempts`;
+drop table if exists `persistent_logins`;
 
 CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
@@ -31,14 +32,13 @@ CREATE TABLE `user_attempts` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `user_attempts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `persistent_logins` (
   `username` varchar(50) NOT NULL,
-  `attempts` int(11) NOT NULL,
-  `lastModified` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `series` varchar(64) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `last_used` datetime NOT NULL,
+  PRIMARY KEY (`series`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 
 
 insert into users (username, passwordC, enabled) values('ivanAdmin1', 'ivan1', true);
