@@ -19,7 +19,7 @@ public class URLValidator {
     private static final String SINGLE_DOUBLE_QUOTES = "[\\w]*[\'\"]{0,2}";
     private static final String IMAGE = "^[/]{1}[\\w\\p{Punct}\\p{Blank}А-Яа-я]*(\\.(?i)(jpg|png|gif|bmp|jpeg))$";//^([\|/]{1})[\w]*.$     ([jpg|png|jpeg|gif]{1})
     private static final String WADL = "^[\\w\\p{Punct}]*[?_]?wadl$";//
-    private static final String TAXID = "^[\\da-zA-Z]{13}$";
+    private static final String TAXID = "^[\\d]{13}$";
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -56,7 +56,7 @@ public class URLValidator {
 //        System.out.println(new URLValidator(4).validate("wadl"));
 //        testWADL();
 
-        List<String> taxId = Arrays.asList("0123456789ABc", "0123456789AB_", "0123456789Ac");
+        List<String> taxId = Arrays.asList("0123456789123", "0123456789AB_", "0123456789Ac", "3200544005666");
         test(taxId, 5);
     }
 
