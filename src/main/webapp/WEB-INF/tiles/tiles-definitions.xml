@@ -82,4 +82,9 @@
 		</put-list-attribute>
 	</definition>
 
+	<!--access denied-->
+	<definition name="accessDeniedTemplate" extends="defaultTemplate"
+				template="/WEB-INF/template/access_deniedTemplate.jsp">
+	</definition>
+
 </tiles-definitions>
