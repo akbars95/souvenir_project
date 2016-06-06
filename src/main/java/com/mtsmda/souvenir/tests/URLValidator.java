@@ -20,6 +20,7 @@ public class URLValidator {
     private static final String IMAGE = "^[/]{1}[\\w\\p{Punct}\\p{Blank}А-Яа-я]*(\\.(?i)(jpg|png|gif|bmp|jpeg))$";//^([\|/]{1})[\w]*.$     ([jpg|png|jpeg|gif]{1})
     private static final String WADL = "^[\\w\\p{Punct}]*[?_]?wadl$";//
     private static final String TAXID = "^[\\d]{13}$";
+    private static final String EMAIL = "^()?{6,128}$";
 
     public URLValidator(){
         pattern = Pattern.compile(URL_PATTERN_UPLOAD);
@@ -56,8 +57,15 @@ public class URLValidator {
 //        System.out.println(new URLValidator(4).validate("wadl"));
 //        testWADL();
 
-        List<String> taxId = Arrays.asList("0123456789123", "0123456789AB_", "0123456789Ac", "3200544005666");
-        test(taxId, 5);
+        /*List<String> taxId = Arrays.asList("0123456789123", "0123456789AB_", "0123456789Ac", "3200544005666");
+        test(taxId, 5);*/
+//        System.out.println(new String("te").matches(".{0,15}"));
+//        System.out.println(new String("general.mail-10,9%@gmail.com").matches("^(?=.{6,128})([\\w\\.\\-,%])+\\@(([\\w\\.-])+\\.)([\\w\\.-])+$"));//"^(?=.{6,128})(\\w\\.-,%)+@(\\w\\.-)+\\.(\\w-)$"
+        System.out.println(new String("general").matches("^(?=.{6,128})([\\w\\.-])+$"));//"^(?=.{6,128})(\\w\\.-,%)+@(\\w\\.-)+\\.(\\w-)$"
+        //@gmail.com
+//        System.out.println(new String("sdssdssdssds").matches("^[sds]{1,}$"));
+//        System.out.println(new String("sdssdssdssds").matches("^(.){1,}$"));
+
     }
 
     private static void testWADL(){
