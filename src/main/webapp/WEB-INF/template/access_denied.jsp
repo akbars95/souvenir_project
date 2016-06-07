@@ -8,7 +8,7 @@
 		<spring:message code="page.contact_us.title" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="content">
-        <div >
+        <div>
             <c:url value="/logout" var="logoutUrl" />
             <!-- csrt support -->
             <form action="${logoutUrl}" method="post" id="logoutForm">

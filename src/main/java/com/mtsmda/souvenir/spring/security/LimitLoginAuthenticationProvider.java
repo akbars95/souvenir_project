@@ -30,6 +30,13 @@ public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider 
         super.setUserDetailsService(userDetailsService);
     }
 
+    @Autowired
+    @Qualifier(value = "passwordEncoder")
+    @Override
+    public void setPasswordEncoder(Object passwordEncoder) {
+        super.setPasswordEncoder(passwordEncoder);
+    }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         try {
@@ -44,7 +51,7 @@ public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider 
             UserAttempts userAttempts = userAttemptsRepository.getUserAttempts(authentication.getName());
             if (userAttempts != null) {
                 Date lastAttempts = userAttempts.getLastModified();
-                error = "User account is locked!<br>Username : " + authentication.getName() + "<br>Last Attempts : " + lastAttempts;
+                error = "User account is locked!\nUsername : " + authentication.getName() + "\nLast Attempts : " + lastAttempts;
             } else {
                 error = e.getMessage();
             }

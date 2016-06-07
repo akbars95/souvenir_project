@@ -5,7 +5,7 @@ drop table if exists `persistent_logins`;
 
 CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
-  `passwordC` varchar(50) NOT NULL,
+  `passwordC` varchar(60) NOT NULL,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `accountNonExpired` tinyint(1) NOT NULL DEFAULT '1',
   `accountNonLocked` tinyint(1) NOT NULL DEFAULT '1',
@@ -41,9 +41,9 @@ CREATE TABLE `persistent_logins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-insert into users (username, passwordC, enabled) values('ivanAdmin1', 'ivan1', true);
-insert into users (username, passwordC, enabled) values('petr5', 'petr5', true);
-insert into users (username, passwordC, enabled) values('kuzima7', 'kuzima7', true);
+insert into users (username, passwordC, enabled) values('ivanAdmin1', '$2a$10$Eu79Yr7VrMbieqwUECG./.xyCeWbyxKRnk5uNcw36AtJLdFc/ZqBG', true);
+insert into users (username, passwordC, enabled) values('petr5', '$2a$10$8RJBJGsLK8.o6eZhN4dt1eUN1Y1Aln5vRh5ig5EKKyAGqysfnfSfm', true);
+insert into users (username, passwordC, enabled) values('kuzima7', '$2a$10$4Oe.89FQcV6kTu4M1k9Py.55P5V8LpFeHbhoh8VVQN5GCGxBbbd0O', true);
 
 insert into user_roles (username, role) values('ivanAdmin1', 'ROLE_ADMIN');
 insert into user_roles (username, role) values('ivanAdmin1', 'ROLE_USER');
