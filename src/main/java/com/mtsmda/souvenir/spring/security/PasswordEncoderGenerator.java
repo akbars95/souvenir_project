@@ -18,10 +18,13 @@ public class PasswordEncoderGenerator {
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
+        /*BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(15);*/
+
         usernamePassword.forEach((key, value) ->{
             System.out.println(key + " original " + value + "\thash - " + bCryptPasswordEncoder.encode(value));
         });
 
+        System.out.println("Done");
     }
 
 }

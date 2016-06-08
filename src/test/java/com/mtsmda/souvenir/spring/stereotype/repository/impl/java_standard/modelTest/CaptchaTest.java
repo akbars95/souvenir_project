@@ -19,6 +19,7 @@ import static com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standar
 import static com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.constants.TestConstants.SIZE_MIN_5_AND_MAX_10;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * Created by dminzat on 3/22/2016.
