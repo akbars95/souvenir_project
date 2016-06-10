@@ -1,6 +1,6 @@
 package com.mtsmda.souvenir.spring.security;
 
-import com.mtsmda.souvenir.model.UserAttempts;
+import com.mtsmda.souvenir.model.security.UserAttempts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
@@ -12,6 +12,9 @@ import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -78,7 +81,7 @@ public class UserAttemptsRepositoryImpl extends JdbcDaoSupport implements UserAt
                     userAttempt.setId(rs.getInt("id"));
                     userAttempt.setUsername(rs.getString("username"));
                     userAttempt.setAttempts(rs.getInt("attempts"));
-                    userAttempt.setLastModified(rs.getDate("lastModified"));
+                    userAttempt.setLastModified(LocalDateTime.ofInstant(Instant.ofEpochMilli(rs.getDate("lastModified").getTime()), ZoneId.systemDefault()));
                     return userAttempt;
                 }
             });

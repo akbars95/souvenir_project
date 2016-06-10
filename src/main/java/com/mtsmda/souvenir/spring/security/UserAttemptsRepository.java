@@ -1,6 +1,6 @@
 package com.mtsmda.souvenir.spring.security;
 
-import com.mtsmda.souvenir.model.UserAttempts;
+import com.mtsmda.souvenir.model.security.UserAttempts;
 
 /**
  * Created by dminzat on 6/2/2016.

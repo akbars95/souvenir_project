@@ -1,5 +1,7 @@
-package com.mtsmda.souvenir.model;
+package com.mtsmda.souvenir.model.security;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ public class UserAttempts {
     private int id;
     private String username;
     private int attempts;
-    private Date lastModified;
+    private LocalDateTime lastModified;
 
     public UserAttempts() {
 
@@ -40,11 +42,11 @@ public class UserAttempts {
         this.attempts = attempts;
     }
 
-    public Date getLastModified() {
+    public LocalDateTime getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(LocalDateTime lastModified) {
         this.lastModified = lastModified;
     }
 }

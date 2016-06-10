@@ -1,6 +1,6 @@
 package com.mtsmda.souvenir.spring.security;
 
-import com.mtsmda.souvenir.model.UserAttempts;
+import com.mtsmda.souvenir.model.security.UserAttempts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -11,6 +11,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -50,7 +52,7 @@ public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider 
             String error = "";
             UserAttempts userAttempts = userAttemptsRepository.getUserAttempts(authentication.getName());
             if (userAttempts != null) {
-                Date lastAttempts = userAttempts.getLastModified();
+                LocalDateTime lastAttempts = userAttempts.getLastModified();
                 error = "User account is locked!\nUsername : " + authentication.getName() + "\nLast Attempts : " + lastAttempts;
             } else {
                 error = e.getMessage();

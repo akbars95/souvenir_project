@@ -86,3 +86,62 @@ CREATE TABLE `EXCHANGE_RATE` (
   KEY `exchange_rate_valute_valute_id_idx` (`valute_name_id`),
   CONSTRAINT `exchange_rate_valute_valute_id` FOREIGN KEY (`valute_name_id`) REFERENCES `valute` (`valute_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+
+/***/
+CREATE TABLE `country` (
+  `countryId` int(11) NOT NULL AUTO_INCREMENT,
+  `countryName` varchar(50) NOT NULL,
+  PRIMARY KEY (`countryId`),
+  UNIQUE KEY `countryId_UNIQUE` (`countryId`),
+  UNIQUE KEY `countryName_UNIQUE` (`countryName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `city` (
+  `cityId` int(11) NOT NULL AUTO_INCREMENT,
+  `cityName` varchar(50) NOT NULL,
+  `country_id` int(11) NOT NULL,
+  PRIMARY KEY (`cityId`),
+  UNIQUE KEY `cityId_UNIQUE` (`cityId`),
+  UNIQUE KEY `cityName_UNIQUE` (`cityName`),
+  KEY `city_country_id_fk_idx` (`country_id`),
+  CONSTRAINT `city_country_id_fk` FOREIGN KEY (`country_id`) REFERENCES `country` (`countryId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `address` (
+  `addressId` int(11) NOT NULL AUTO_INCREMENT,
+  `city_id` int(11) NOT NULL,
+  `villageName` varchar(50) DEFAULT NULL,
+  `streetName` varchar(50) DEFAULT NULL,
+  `houseNumber` varchar(50) DEFAULT NULL,
+  `flatNumber` int(11) DEFAULT NULL,
+  PRIMARY KEY (`addressId`),
+  UNIQUE KEY `addressId_UNIQUE` (`addressId`),
+  KEY `address_city_id_fk_idx` (`city_id`),
+  CONSTRAINT `address_city_id_fk` FOREIGN KEY (`city_id`) REFERENCES `city` (`cityId`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `phone_address_type` (
+  `phoneAddressTypeId` int(11) NOT NULL AUTO_INCREMENT,
+  `phoneAddressType` varchar(50) NOT NULL,
+  PRIMARY KEY (`phoneAddressTypeId`),
+  UNIQUE KEY `phoneAddressTypeId_UNIQUE` (`phoneAddressTypeId`),
+  UNIQUE KEY `phoneAddressType_UNIQUE` (`phoneAddressType`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `phone` (
+  `phoneId` int(11) NOT NULL AUTO_INCREMENT,
+  `phoneNumber` varchar(50) NOT NULL,
+  `phoneAddressTypeId` int(11) NOT NULL,
+  `userId` int(11) NOT NULL,
+  PRIMARY KEY (`phoneId`,`userId`),
+  UNIQUE KEY `phoneId_UNIQUE` (`phoneId`),
+  UNIQUE KEY `phoneNumber_UNIQUE` (`phoneNumber`),
+  KEY `phone_phoneAddressTypeId_fk_idx` (`phoneAddressTypeId`),
+  KEY `phone_userId_fk_idx` (`userId`),
+  CONSTRAINT `phone_phoneAddressTypeId_fk` FOREIGN KEY (`phoneAddressTypeId`) REFERENCES `phone_address_type` (`phoneAddressTypeId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `phone_userId_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`username_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
