@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.security;
+package com.mtsmda.souvenir.model.constant;
 
 /**
  * Created by dminzat on 5/30/2016.

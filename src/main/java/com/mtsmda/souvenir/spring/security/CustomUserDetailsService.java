@@ -57,9 +57,13 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
     }*/
 
     @Override
-   /* @Value("select gm.username, ga.authority \n" +
-            "from group_members gm inner join group_authorities ga on gm.group_id = ga.group_id\n" +
-            "where username = ?")*/
+    @Value("select g.id, g.group_name, r.role_name \n" +
+            "from groups g, group_members gm, group_authorities ga, users u, roles r\n" +
+            "where u.username = ? \n" +
+            "and u.username_id = gm.username_id \n" +
+            "and g.id = ga.group_id \n" +
+            "and g.id = gm.group_id \n" +
+            "and r.role_id = ga.authority_role_id;")
     public void setGroupAuthoritiesByUsernameQuery(String queryString) {
         super.setGroupAuthoritiesByUsernameQuery(queryString);
     }

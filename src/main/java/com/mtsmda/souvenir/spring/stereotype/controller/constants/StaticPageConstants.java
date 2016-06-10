@@ -24,4 +24,7 @@ public class StaticPageConstants {
 	public static final String CONTACT_US = "contact_us";
 	public static final String CONTACT_US_URL = ROOT + CONTACT_US;
 
+	public static final String REGISTRATION = "registration";
+	public static final String REGISTRATION_US_URL = ROOT + REGISTRATION;
+
 }

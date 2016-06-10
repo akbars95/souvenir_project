@@ -23,12 +23,17 @@ public class UserAttemptsRepositoryImpl extends JdbcDaoSupport implements UserAt
     private static final String SQL_USERS_UPDATE_LOCKED = "UPDATE USERS SET accountNonLocked = ? WHERE username = ?";
     private static final String SQL_USERS_COUNT = "SELECT count(*) FROM USERS WHERE username = ?";
 
-    private static final String SQL_USER_ATTEMPTS_GET = "SELECT * FROM USER_ATTEMPTS WHERE username = ?";
-    private static final String SQL_USER_ATTEMPTS_INSERT = "INSERT INTO USER_ATTEMPTS (USERNAME, ATTEMPTS, LASTMODIFIED) VALUES(?,?,?)";
-    private static final String SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = attempts + 1, lastmodified = ? WHERE username = ?";
-    private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = 0, lastmodified = null WHERE username = ?";
+    public static final String SQL_GET_USERNAME_ID_BY_USERNAME = "(select username_id from users where username = ?)";
+
+    private static final String SQL_USER_ATTEMPTS_GET = "SELECT ua.id as id, u.username as username, ua.attempts as attempts, ua.lastModified as lastModified\n" +
+            "FROM USER_ATTEMPTS ua, users u\n" +
+            "WHERE u.username = ?";
+    private static final String SQL_USER_ATTEMPTS_INSERT = "INSERT INTO USER_ATTEMPTS (USERNAME_ID, ATTEMPTS, LASTMODIFIED) VALUES(" + SQL_GET_USERNAME_ID_BY_USERNAME + ",?,?)";
+    private static final String SQL_USER_ATTEMPTS_UPDATE_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = attempts + 1, lastmodified = ? WHERE username_id = " + SQL_GET_USERNAME_ID_BY_USERNAME;
+    private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = 0, lastmodified = null WHERE username_id = " + SQL_GET_USERNAME_ID_BY_USERNAME;
 
     private static final int MAX_ATTEMPTS = 3;
+
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")

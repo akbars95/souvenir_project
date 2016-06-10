@@ -51,7 +51,7 @@
 
 	<div class="row">
         <div class="col-md-offset-6 col-md-6 text-right">
-            <a href="">Registration</a>
+            <a href="registration">Registration</a>
             <c:if test="${pageContext.request.userPrincipal.name == null}">
                 <a href="" data-toggle="modal" data-target="#loginModal">Log In</a>
             </c:if>

@@ -57,4 +57,10 @@ public class StaticPageController {
         return CONTACT_US;
     }
 
+    @RequestMapping(value = {REGISTRATION_US_URL}, method = RequestMethod.GET)
+    public String registrationPage() {
+        logger.info("get " + REGISTRATION + " page");
+        return REGISTRATION;
+    }
+
 }
