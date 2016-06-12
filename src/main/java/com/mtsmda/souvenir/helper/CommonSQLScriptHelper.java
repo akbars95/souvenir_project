@@ -23,11 +23,16 @@ public class CommonSQLScriptHelper {
     private static final String STORED_PROCEDURE = "stored_procedure";
     private static final String FUNCTION = "function";
 
-    private StringBuilder stringBuilderSQLText = new StringBuilder();
+    private StringBuilder stringBuilderSQLText = new StringBuilder("use souvenir;\n");
 
     public void createAndUpdateCommonSQLScript() {
         String folder = "src\\main\\resources\\db\\";
         File file = new File(folder /*+ File.separator */ + "common_script.sql");
+
+        /*File fileSpringSecurity = new File(folder + "\\table\\spring_security.sql");
+        readFiles(fileSpringSecurity);
+        this.stringBuilderSQLText.append("*//*-------------------------------------------------------------------*//*");
+*/
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -52,6 +57,9 @@ public class CommonSQLScriptHelper {
             getFilesRecursively(folder + current, strings);
             this.stringBuilderSQLText.append("\n").append("\t\t/*").append(current + "s").append("*/").append("\n");
             for (String currentFileName : strings) {
+                if(current.equals(folders[0]) && currentFileName.contains("spring_security")){
+                    continue;
+                }
                 readFiles(currentFileName);
             }
             strings.clear();
@@ -119,6 +127,13 @@ public class CommonSQLScriptHelper {
             throw new SouvenirRuntimeException("File name is null or empty!");
         }
     }
+
+    /*public void get(){
+        File fileSpringSecurity = new File(folder + "\\table\\spring_security.sql");
+        readFiles(fileSpringSecurity);
+        this.stringBuilderSQLText.append("*//*-------------------------------------------------------------------*//*");
+
+    }*/
 
     public static void main(String[] args) {
         new CommonSQLScriptHelper().createAndUpdateCommonSQLScript();

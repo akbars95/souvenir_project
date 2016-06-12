@@ -1,4 +1,4 @@
-drop table if exists `user_roles`;
+/*drop table if exists `user_roles`;*/
 drop table if exists `user_attempts`;
 drop table if exists `persistent_logins`;
 

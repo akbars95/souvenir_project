@@ -255,6 +255,7 @@ souvenirApp.controller('aboutUsCtrl', function ($scope, $http, $timeout,
 
 });
 
+/*registration*/
 souvenirApp
     .controller(
     'contactUsCtrl',
@@ -410,6 +411,27 @@ souvenirApp
         };
 
     });
+
+souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, hostConst) {
+    $scope.registration = function(){
+        var registrationRO = {
+            firstname: $scope.firstname,
+            lastname: $scope.lastname,
+            patronymic: $scope.patronymic,
+            username: $scope.username,
+            password: $scope.password,
+            passwordRepeat: $scope.passwordRepeat,
+            gender: $scope.gender,
+            dateOfBirth: $scope.dateOfBirth,
+            email: $scope.email,
+            phoneNumber: $scope.phoneNumber
+        };
+        $http.post(hostConst + "/registration", registrationRO)
+        .success(function (response) {
+            $scope.checkCaptchaResult = response;
+        });
+    }
+});
 
 /* custom validators */
 souvenirApp.directive("captcha", function () {

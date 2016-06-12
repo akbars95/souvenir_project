@@ -31,11 +31,11 @@ public class CaptchaRestController {
 			captchaFromClient.setCaptchaId(new Double(Math.random() * captchaService.getMaxIdCaptcha()).intValue());
 		}
 		Captcha randomCaptcha = captchaService.getRandomCaptcha(captchaFromClient);
-		try {
+		/*try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return randomCaptcha;
 	}
 
