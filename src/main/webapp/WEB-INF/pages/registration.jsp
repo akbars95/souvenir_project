@@ -100,14 +100,15 @@
                         <input type="button" class="btn btn-success" ng-click="registration()" value='<spring:message code="page.registration.btn.registration.title" />'>
                     </div>
                 </div>
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.parameterName}" ng-model="csrf_token_name"/>
-
-                <input type="hidden"
-                       name="csrf_token_value"
-                       value="${_csrf.token}" ng-model="csrf_token_value"/>
             </form>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.parameterName}" ng-model="csrf_token_name"/>
+
+            <input type="hidden"
+                   name="csrf_token_value"
+                   ng-init="set('${_csrf.token}')" ng-model="csrf_token_value"/>
+            {{csrf_token_value}}
 		</div>
 	</tiles:putAttribute>
 

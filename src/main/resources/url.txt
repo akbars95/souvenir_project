@@ -1,0 +1,4 @@
+controller
+	[adminPiece]/
+rest controller
+	[adminPiece]/rest

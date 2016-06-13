@@ -7,9 +7,9 @@ var souvenirApp = angular.module('souvenirApp', ['ngRoute', 'ngAnimate']);
 
 /*config*/
 souvenirApp.config(function($routeProvider, $httpProvider) {
-//    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-    $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+//    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+//    $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 });
 
 /* constants */
@@ -420,6 +420,11 @@ souvenirApp
     });
 
 souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, hostConst) {
+    $scope.set = function(token){
+        $scope.csrf_token_value = token;
+        console.log(token);
+    };
+
     $scope.registration = function(){
         var registrationRO = {
             firstname: $scope.firstname,
@@ -433,7 +438,13 @@ souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, ho
             email: $scope.email,
             phoneNumber: $scope.phoneNumber
         };
-        $http.post(hostConst + "/registration", registrationRO)
+
+        var config = {
+            headers: {'_csrf' : $scope.csrf_token_value,
+                'X-Requested-With' : 'XMLHttpRequest'}
+        };
+
+        $http.post(hostConst + "/registration", registrationRO, config)
         .success(function (response) {
             $scope.checkCaptchaResult = response;
         });

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RegistrationRestController {
 
-    @RequestMapping(value = StaticPageConstants.REGISTRATION_US_URL, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = StaticPageConstants.REGISTRATION_US_URL, method = RequestMethod.POST)
     public String registration(@RequestBody RegistrationRO registrationRO){
         System.out.println("registrationRO - " + registrationRO);
         return "";

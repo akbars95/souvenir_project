@@ -71,7 +71,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/access_denied");
 
         //csrf
-        httpSecurity.csrf()/*.disable()*/;
+        httpSecurity.csrf().disable();
 
         //logout configuration
         httpSecurity.logout().
