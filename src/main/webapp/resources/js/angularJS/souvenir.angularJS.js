@@ -5,6 +5,13 @@
 /* app */
 var souvenirApp = angular.module('souvenirApp', ['ngRoute', 'ngAnimate']);
 
+/*config*/
+souvenirApp.config(function($routeProvider, $httpProvider) {
+//    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+});
+
 /* constants */
 souvenirApp.constant("hostConst", "/souvenirs");
 souvenirApp.constant("OK_CODE", "100");//OK_CODE, ERROR_CODE, INSERT_OK_CODE, INSERT_ERROR_CODE, UPDATE_OK_CODE, UPDATE_ERROR_CODE, DELETE_OK_CODE, DELETE_ERROR_CODE, GET_OK_CODE, GET_ERROR_CODE

@@ -16,7 +16,7 @@ public class RegistrationRestController {
 
     @RequestMapping(value = StaticPageConstants.REGISTRATION_US_URL, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public String registration(@RequestBody RegistrationRO registrationRO){
-        System.out.println(registrationRO);
+        System.out.println("registrationRO - " + registrationRO);
         return "";
     }
 

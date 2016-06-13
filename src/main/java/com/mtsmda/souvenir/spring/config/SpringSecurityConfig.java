@@ -54,19 +54,24 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
+//        httpSecurity.httpBasic();
         //authorize requests
-        httpSecurity.authorizeRequests().
+        httpSecurity.authorizeRequests()
+        .antMatchers("/registration").permitAll().
                 antMatchers(AdminPieceConstants.ADMIN_PIECE_PIECE_URL + StaticPageConstants.ROOT + StaticPageConstants.ROOT_SUB_CATALOG).
-                access(HAS_ROLE + "('" + SouvenirRoles.ADMIN.getRoleNameFull() + "')");
+                access(HAS_ROLE + "('" + SouvenirRoles.ADMIN.getRoleNameFull() + "')")
+                .antMatchers(StaticPageConstants.ROOT + StaticPageConstants.ROOT_SUB_CATALOG).permitAll();
 
         //custom login
         httpSecurity.formLogin().loginPage("/login").loginProcessingUrl("/login_process").failureUrl("/login?error=true")
 
                 .usernameParameter("souvenir_username_9").passwordParameter("souvenir_password_9")
                 /*.defaultSuccessUrl(StaticPageConstants.ROOT, false)*/
-                .and().csrf()
                 .and()
                 .exceptionHandling().accessDeniedPage("/access_denied");
+
+        //csrf
+        httpSecurity.csrf()/*.disable()*/;
 
         //logout configuration
         httpSecurity.logout().
