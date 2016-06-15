@@ -4,7 +4,7 @@ import static com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticP
 import static com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants.OPEN_BRACE;
 import static com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants.CLOSE_BRACE;
 
-public class SouvenirConstants {
+public interface SouvenirConstants {
 
     public static final String SOUVENIR_ID_FIELD_NAME = "souvenirId";
 

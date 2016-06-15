@@ -25,7 +25,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(value = {"com.mtsmda.souvenir.spring.stereotype", "com.mtsmda.souvenir.spring.security"})
+@ComponentScan(value = {"com.mtsmda.souvenir.spring.stereotype", "com.mtsmda.souvenir.spring.security", "com.mtsmda.souvenir.spring.validation"})
 public class SpringMVCConfig extends WebMvcConfigurerAdapter {
 
     @Override

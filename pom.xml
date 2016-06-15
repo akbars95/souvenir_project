@@ -9,7 +9,7 @@
 
     <properties>
         <!--versions-->
-        <spring.version>4.2.1.RELEASE</spring.version>
+        <spring.version>4.2.3.RELEASE</spring.version>
         <!---->
         <junit.version>4.11</junit.version>
         <mysql.version>5.1.35</mysql.version>
@@ -24,7 +24,7 @@
         <mockito.version>1.9.5</mockito.version>
         <togglz.version>2.2.0.Final</togglz.version>
         <testng.version>6.9.9</testng.version>
-        <org.springframework.security.version>4.0.3.RELEASE</org.springframework.security.version>
+        <org.springframework.security.version>4.1.0.RELEASE</org.springframework.security.version>
 
         <plugin.compile.version>3.3</plugin.compile.version>
         <plugin.test.version>2.19.1</plugin.test.version>

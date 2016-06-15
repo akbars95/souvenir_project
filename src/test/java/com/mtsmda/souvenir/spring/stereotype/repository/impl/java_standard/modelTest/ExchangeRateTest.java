@@ -7,7 +7,7 @@ import static com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standar
 import static org.junit.Assert.assertEquals;
 import static org.testng.Assert.*;
 
-import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SouvenirSequence;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 

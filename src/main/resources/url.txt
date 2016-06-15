@@ -1,4 +1,4 @@
 controller
-	[adminPiece]/
+	/[adminPiece]
 rest controller
-	[adminPiece]/rest
+	/rest[adminPiece]

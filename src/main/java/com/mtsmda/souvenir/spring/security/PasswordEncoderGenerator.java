@@ -10,21 +10,23 @@ import java.util.Map;
  */
 public class PasswordEncoderGenerator {
 
-    public static void main(String[] args) {
+    private static String encodePassword(String password){
+        return new BCryptPasswordEncoder().encode(password);
+    }
+
+    /*public static void main(String[] args) {
         Map<String, String> usernamePassword = new LinkedHashMap<>();
         usernamePassword.put("ivanAdmin1", "ivan1");
         usernamePassword.put("petr5", "petr5");
         usernamePassword.put("kuzima7", "kuzima7");
 
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
-        /*BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(15);*/
+        *//*BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(15);*//*
 
         usernamePassword.forEach((key, value) ->{
-            System.out.println(key + " original " + value + "\thash - " + bCryptPasswordEncoder.encode(value));
+            System.out.println(key + " original " + value + "\thash - " + encodePassword(value));
         });
 
         System.out.println("Done");
-    }
+    }*/
 
 }

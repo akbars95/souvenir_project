@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import javax.sql.DataSource;
 
@@ -58,7 +59,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         //authorize requests
         httpSecurity.authorizeRequests()
         .antMatchers("/registration").permitAll().
-                antMatchers(AdminPieceConstants.ADMIN_PIECE_PIECE_URL + StaticPageConstants.ROOT + StaticPageConstants.ROOT_SUB_CATALOG).
+                antMatchers(AdminPieceConstants.ADMIN_PIECE_PAGE_URL + StaticPageConstants.ROOT + StaticPageConstants.ROOT_SUB_CATALOG).
                 access(HAS_ROLE + "('" + SouvenirRoles.ADMIN.getRoleNameFull() + "')")
                 .antMatchers(StaticPageConstants.ROOT + StaticPageConstants.ROOT_SUB_CATALOG).permitAll();
 
@@ -71,7 +72,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/access_denied");
 
         //csrf
-        httpSecurity.csrf().disable();
+        httpSecurity.csrf().csrfTokenRepository(new CookieCsrfTokenRepository())/*.disable()*/;
 
         //logout configuration
         httpSecurity.logout().

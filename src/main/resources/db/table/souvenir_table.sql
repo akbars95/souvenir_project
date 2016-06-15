@@ -9,6 +9,7 @@ drop table if exists `MESSAGE`;
 drop table if exists `CAPTCHA`;
 drop table if exists `EXCHANGE_RATE`;
 drop table if exists `VALUTE`;
+drop table if exists `user_detail`;
 drop table if exists `address`;
 drop table if exists `city`;
 drop table if exists `country`;
@@ -279,4 +280,20 @@ CREATE TABLE `phone` (
   KEY `phone_userId_fk_idx` (`userId`),
   CONSTRAINT `phone_phoneAddressTypeId_fk` FOREIGN KEY (`phoneAddressTypeId`) REFERENCES `phone_address_type` (`phoneAddressTypeId`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `phone_userId_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`username_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `user_detail` (
+  `user_id` int(11) NOT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `patronymic` varchar(75) DEFAULT NULL,
+  `gender` varchar(1) NOT NULL,
+  `dateOfBirth` date NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `phoneNumber` varchar(50) DEFAULT NULL,
+  `addressId` int(11) DEFAULT NULL,
+  KEY `User_detail_user_id_fk_idx` (`user_id`),
+  KEY `user_detail_addressId_fk_idx` (`addressId`),
+  CONSTRAINT `user_detail_addressId_fk` FOREIGN KEY (`addressId`) REFERENCES `address` (`addressId`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_detail_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `users` (`username_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

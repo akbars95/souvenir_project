@@ -1,7 +1,7 @@
-package com.mtsmda.souvenir.validation.validators;
+package com.mtsmda.souvenir.spring.validation.validators;
 
 import com.mtsmda.souvenir.spring.stereotype.service.SouvenirService;
-import com.mtsmda.souvenir.validation.validators.constraints.ValuteCodeConstraint;
+import com.mtsmda.souvenir.spring.validation.validators.constraints.ValuteCodeConstraint;
 import com.mtsmda.souvenir.valute.ValuteBorder;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.factory.annotation.Autowired;

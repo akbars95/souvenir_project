@@ -6,10 +6,10 @@
 var souvenirApp = angular.module('souvenirApp', ['ngRoute', 'ngAnimate']);
 
 /*config*/
-souvenirApp.config(function($routeProvider, $httpProvider) {
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-//    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-//    $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+souvenirApp.config(function($httpProvider) {
+//    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+    $httpProvider.defaults.xsrfCookieName = '_csrf';
+    $httpProvider.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 });
 
 /* constants */
@@ -425,6 +425,10 @@ souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, ho
         console.log(token);
     };
 
+    $scope.toString = function(object){
+        return "'" + object + "'";
+    }
+
     $scope.registration = function(){
         var registrationRO = {
             firstname: $scope.firstname,
@@ -440,16 +444,33 @@ souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, ho
         };
 
         var config = {
-            headers: {'_csrf' : $scope.csrf_token_value,
-                'X-Requested-With' : 'XMLHttpRequest'}
-        };
+            headers : {
+                'X-XSRF-TOKEN': $scope.csrf_token_value
+            }
+        }
 
-        $http.post(hostConst + "/registration", registrationRO, config)
+        $http.post(hostConst + "/rest/registration", registrationRO, config)
         .success(function (response) {
             $scope.checkCaptchaResult = response;
         });
-    }
-});
+
+        /*$http({
+                        method  : "POST", //'JSONP',
+                        url     : hostConst + "/registration",
+                        *//*timeout : 500,*//*
+                        data : registrationRO,
+                        headers : {
+                            'X-XSRF-TOKEN': $scope.csrf_token_value
+                        }
+                    }).success(
+                        function (data, status, headers, config) {
+                            $scope.bnm = data.documentElement.innerHTML;
+                            $scope.bnm = data;
+                            console.log($scope.bnm.length);
+                        }).error(function (data, status, headers, config) {
+                            // log error
+                        });*/
+}});
 
 /* custom validators */
 souvenirApp.directive("captcha", function () {

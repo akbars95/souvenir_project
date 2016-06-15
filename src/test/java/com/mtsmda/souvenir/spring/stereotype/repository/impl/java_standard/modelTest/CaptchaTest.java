@@ -1,7 +1,7 @@
 package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.modelTest;
 
 import com.mtsmda.souvenir.model.Captcha;
-import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SouvenirSequence;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

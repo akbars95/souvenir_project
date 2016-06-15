@@ -9,7 +9,7 @@ import java.io.File;
 import static com.mtsmda.souvenir.spring.stereotype.controller.constants.AdminPieceConstants.*;
 
 @Controller
-@RequestMapping(value = { ADMIN_PIECE_PIECE_URL }, method = RequestMethod.GET)
+@RequestMapping(value = {ADMIN_PIECE_PAGE_URL}, method = RequestMethod.GET)
 public class AdminController {
 
 	/*@Deprecated
@@ -18,7 +18,7 @@ public class AdminController {
 		return SOUVENIR_PIECE_INSERT_INTERNAL_URL;
 	}*/
 
-	@RequestMapping(value = INDEX_PIECE_URL, method = RequestMethod.GET)
+	/*@RequestMapping(value = ADMIN_INDEX_PIECE_URL, method = RequestMethod.GET)
 	public String indexMessage() {
 		return ADMIN_INDEX_INTERNAL_URL;
 	}
@@ -41,9 +41,9 @@ public class AdminController {
 	@RequestMapping(value = ADMIN_MAIN_PAGE_PIECE_URL, method = RequestMethod.GET)
 	public String adminMainPageTemplateMessage() {
 		return ADMIN_MAIN_PAGE_PIECE_INTERNAL_URL;
-	}
+	}*/
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		String s = new AdminController().getClass().getResource("").getFile();
 		System.out.println(s);
 		File file = new File(s + "/file.txt");
@@ -54,7 +54,7 @@ public class AdminController {
 		File file2 = new File(classLoader.getResource("log4j.properties").getFile());
 
 		System.out.println(file2.exists());
-	}
+	}*/
 
 
 }

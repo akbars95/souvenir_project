@@ -1,6 +1,6 @@
-package com.mtsmda.souvenir.validation.validators;
+package com.mtsmda.souvenir.spring.validation.validators;
 
-import com.mtsmda.souvenir.validation.validators.constraints.DateValueConstraint;
+import com.mtsmda.souvenir.spring.validation.validators.constraints.DateValueConstraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -19,12 +19,12 @@ public class SouvenirCategoryController {
 	@Qualifier("souvenirCategoryService")
 	private SouvenirCategoryService souvenirCategoryService;
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	/*@RequestMapping(value = "/test", method = RequestMethod.GET)
     public String insertSouvenirCategory(SouvenirCategory souvenirCategory){
     	SouvenirCategory souvenirCategory2 = new SouvenirCategory();
     	souvenirCategory2.setSouvenirCategory("Cat9");
     	souvenirCategoryService.insertSouvenirCategory(souvenirCategory2);
         return "test";
-    }
+    }*/
 
 }

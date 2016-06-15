@@ -2,7 +2,7 @@ package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.mode
 
 
 import com.mtsmda.souvenir.model.SouvenirCategory;
-import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SouvenirSequence;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;

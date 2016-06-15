@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.validation.validators.sequence;
+package com.mtsmda.souvenir.spring.validation.validators.sequence;
 
 import javax.validation.GroupSequence;
 import javax.validation.groups.Default;

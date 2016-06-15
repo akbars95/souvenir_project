@@ -18,7 +18,7 @@ public class StaticPageController {
 
     @RequestMapping(value = {ROOT, HOME_URL, INDEX_URL}, method = RequestMethod.GET)
     public String indexPage() {
-        logger.info("get " + INDEX + " page");
+        logger.info("get " + INDEX_INTERNAL_FILE + " page");
 /*
 
         if (MyFeatures.FEATURE_ONE.isActive()) {
@@ -36,31 +36,31 @@ public class StaticPageController {
         System.out.println(appConfig.isFeatureOne());
         System.out.println(appConfig.isFeatureTwo());*/
 
-        return INDEX;
+        return INDEX_INTERNAL_FILE;
     }
 
     @RequestMapping(value = {CATALOG_URL}, method = RequestMethod.GET)
     public String catalogPage() {
-        logger.info("get " + CATALOG + " page");
-        return CATALOG;
+        logger.info("get " + CATALOG_INTERNAL_FILE + " page");
+        return CATALOG_INTERNAL_FILE;
     }
 
     @RequestMapping(value = {ABOUT_US_URL}, method = RequestMethod.GET)
     public String aboutUsPage() {
-        logger.info("get " + ABOUT_US + " page");
-        return ABOUT_US;
+        logger.info("get " + ABOUT_US_INTERNAL_FILE + " page");
+        return ABOUT_US_INTERNAL_FILE;
     }
 
     @RequestMapping(value = {CONTACT_US_URL}, method = RequestMethod.GET)
     public String contactUsPage() {
-        logger.info("get " + CONTACT_US + " page");
-        return CONTACT_US;
+        logger.info("get " + CONTACT_US_INTERNAL_FILE + " page");
+        return CONTACT_US_INTERNAL_FILE;
     }
 
-    @RequestMapping(value = {REGISTRATION_US_URL}, method = RequestMethod.GET)
+    @RequestMapping(value = {REGISTRATION_URL}, method = RequestMethod.GET)
     public String registrationPage() {
-        logger.info("get " + REGISTRATION + " page");
-        return REGISTRATION;
+        logger.info("get " + REGISTRATION_INTERNAL_FILE + " page");
+        return REGISTRATION_INTERNAL_FILE;
     }
 
 }

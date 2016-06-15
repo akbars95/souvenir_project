@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.validation.validators.sequence;
+package com.mtsmda.souvenir.spring.validation.validators.sequence;
 
 /**
  * Created by dminzat on 5/12/2016.

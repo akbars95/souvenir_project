@@ -1,7 +1,7 @@
 package com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.modelTest;
 
 import com.mtsmda.souvenir.model.Valute;
-import com.mtsmda.souvenir.validation.validators.sequence.SouvenirSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SouvenirSequence;
 import com.mtsmda.souvenir.valute.ValuteBorder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

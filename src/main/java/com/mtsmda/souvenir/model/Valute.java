@@ -1,9 +1,9 @@
 package com.mtsmda.souvenir.model;
 
-import com.mtsmda.souvenir.validation.validators.constraints.ValuteCodeConstraint;
-import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
-import com.mtsmda.souvenir.validation.validators.sequence.NotNeedTest;
-import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
+import com.mtsmda.souvenir.spring.validation.validators.constraints.ValuteCodeConstraint;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.NotNeedTest;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SecondSequence;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;

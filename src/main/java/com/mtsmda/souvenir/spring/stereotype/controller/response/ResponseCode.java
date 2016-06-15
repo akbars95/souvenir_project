@@ -17,6 +17,8 @@ public class ResponseCode {
     private static final Integer DELETE_ERROR_CODE = 107;
     private static final Integer GET_OK_CODE = 108;
     private static final Integer GET_ERROR_CODE = 109;
+    private static final Integer REGISTRATION_OK_CODE = 110;
+    private static final Integer REGISTRATION_ERROR_CODE = 111;
 
     public static final ResponseCode RESPONSE_OK_CODE = new ResponseCode(OK_CODE, "OK");
     public static final ResponseCode RESPONSE_ERROR_CODE = new ResponseCode(ERROR_CODE, "ERROR");
@@ -28,6 +30,8 @@ public class ResponseCode {
     public static final ResponseCode RESPONSE_DELETE_ERROR_CODE = new ResponseCode(DELETE_ERROR_CODE, "DELETE_ERROR_CODE");
     public static final ResponseCode RESPONSE_GET_OK_CODE = new ResponseCode(GET_OK_CODE, "GET_OK_CODE");
     public static final ResponseCode RESPONSE_GET_ERROR_CODE = new ResponseCode(GET_ERROR_CODE, "GET_ERROR_CODE");
+    public static final ResponseCode RESPONSE_REGISTRATION_OK_CODE = new ResponseCode(REGISTRATION_OK_CODE, "REGISTRATION_OK_CODE");
+    public static final ResponseCode RESPONSE_REGISTRATION_ERROR_CODE = new ResponseCode(REGISTRATION_ERROR_CODE, "REGISTRATION_ERROR_CODE");
 
 
     private ResponseCode(){}

@@ -9,13 +9,19 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="content">
 		<div class="containerRegistration" ng-controller="registrationCtrl">
-            <form>
+            <form novalidate="novalidate" name="registrationForm">
                 <div class="row">
                     <div class="col-lg-offset-3 col-lg-3 col-md-offset-3 col-md-3 col-sm-offset-2 col-sm-4 col-xs-offset-1 col-xs-5">
                         <label for="firstnameP" class="control-label"><spring:message code="page.registration.firstname.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="firstname" name="firstnameP" id="firstnameP">
+                        <input type="test" class="form-control" ng-model="firstname" required ng-minlength="3" ng-maxlength="50"
+                         placeholder="<spring:message code="page.registration.firstname.title"/>"
+                         name="firstnameP" id="firstnameP">
+                        <span ng-show="registrationForm.firstnameP.$valid"><spring:message code="page.contactus.form.count.input.letters" /> {{50 -  firstname.length}}</span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.required"> <spring:message code="page.registration.form.firstname.error.required" /></span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.minlength"> <spring:message code="page.registration.form.firstname.error.minlength" /></span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.maxlength"> <spring:message code="page.registration.form.firstname.error.maxlength" /></span>
                     </div>
                 </div>
                 <div class="row">
@@ -102,13 +108,8 @@
                 </div>
             </form>
             <input type="hidden"
-                   name="${_csrf.parameterName}"
-                   value="${_csrf.parameterName}" ng-model="csrf_token_name"/>
-
-            <input type="hidden"
                    name="csrf_token_value"
                    ng-init="set('${_csrf.token}')" ng-model="csrf_token_value"/>
-            {{csrf_token_value}}
 		</div>
 	</tiles:putAttribute>
 

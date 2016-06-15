@@ -3,8 +3,8 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
-import com.mtsmda.souvenir.validation.validators.sequence.FirstSequence;
-import com.mtsmda.souvenir.validation.validators.sequence.SecondSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.FirstSequence;
+import com.mtsmda.souvenir.spring.validation.validators.sequence.SecondSequence;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
