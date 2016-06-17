@@ -15,13 +15,13 @@
                         <label for="firstnameP" class="control-label"><spring:message code="page.registration.firstname.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="firstname" required ng-minlength="3" ng-maxlength="50"
+                        <input type="text" class="form-control" ng-model="firstname" required ng-minlength="3" ng-maxlength="50"
                          placeholder="<spring:message code="page.registration.firstname.title"/>"
                          name="firstnameP" id="firstnameP">
-                        <span ng-show="registrationForm.firstnameP.$valid"><spring:message code="page.contactus.form.count.input.letters" /> {{50 -  firstname.length}}</span>
-                        <span class="error" ng-show="registrationForm.firstnameP.$error.required"> <spring:message code="page.registration.form.firstname.error.required" /></span>
-                        <span class="error" ng-show="registrationForm.firstnameP.$error.minlength"> <spring:message code="page.registration.form.firstname.error.minlength" /></span>
-                        <span class="error" ng-show="registrationForm.firstnameP.$error.maxlength"> <spring:message code="page.registration.form.firstname.error.maxlength" /></span>
+                        <span ng-show="registrationForm.firstnameP.$valid"><spring:message code="form.common.count.input.letters" /> {{50 -  firstname.length}}</span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.required"> <spring:message code="form.common.error.required" /></span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.minlength"> <spring:message code="form.common.error.minlength" htmlEscape="false" argumentSeparator=";" arguments="3" /></span>
+                        <span class="error" ng-show="registrationForm.firstnameP.$error.maxlength"> <spring:message code="form.common.error.maxlength" htmlEscape="false" argumentSeparator=";" arguments="50" /></span>
                     </div>
                 </div>
                 <div class="row">
@@ -29,7 +29,12 @@
                         <label for="lastnameP" class="control-label"><spring:message code="page.registration.lastname.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="lastname" name="lastnameP" id="lastnameP">
+                        <input type="text" class="form-control" ng-model="lastname" required ng-minlength="3" ng-maxlength="50"
+                         placeholder="<spring:message code="page.registration.lastname.title"/>" name="lastnameP" id="lastnameP">
+                         <span ng-show="registrationForm.lastnameP.$valid"><spring:message code="form.common.count.input.letters" /> {{50 -  lastname.length}}</span>
+                         <span class="error" ng-show="registrationForm.lastnameP.$error.required"> <spring:message code="form.common.error.required" /></span>
+                         <span class="error" ng-show="registrationForm.lastnameP.$error.minlength"> <spring:message code="form.common.error.minlength" htmlEscape="false" argumentSeparator=";" arguments="3" /></span>
+                         <span class="error" ng-show="registrationForm.lastnameP.$error.maxlength"> <spring:message code="form.common.error.maxlength" htmlEscape="false" argumentSeparator=";" arguments="50" /></span>
                     </div>
                 </div>
                 <div class="row">
@@ -37,7 +42,11 @@
                         <label for="patronymicP" class="control-label"><spring:message code="page.registration.patronymic.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="patronymic" name="patronymicP" id="patronymicP">
+                        <input type="text" class="form-control" ng-model="patronymic" ng-minlength="3" ng-maxlength="75"
+                         placeholder="<spring:message code="page.registration.patronymic.title"/>" name="patronymicP" id="patronymicP">
+                        <span ng-show="registrationForm.patronymicP.$valid"><spring:message code="form.common.count.input.letters" /> {{75 -  patronymic.length}}</span>
+                        <span class="error" ng-show="registrationForm.patronymicP.$error.minlength"> <spring:message code="form.common.error.minlength" htmlEscape="false" argumentSeparator=";" arguments="3" /></span>
+                        <span class="error" ng-show="registrationForm.patronymicP.$error.maxlength"> <spring:message code="form.common.error.maxlength" htmlEscape="false" argumentSeparator=";" arguments="75" /></span>
                     </div>
                 </div>
                 <div class="row">
@@ -45,7 +54,13 @@
                         <label for="usernameP" class="control-label"><spring:message code="page.registration.username.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="username" name="usernameP" id="usernameP">
+                        <input type="text" class="form-control" ng-model="username" required ng-minlength="7" ng-maxlength="50" ng-pattern="/^([\w\.]){7,50}$/"
+                        placeholder="<spring:message code="page.registration.username.title"/>" name="usernameP" id="usernameP">
+                         <span ng-show="registrationForm.usernameP.$valid"><spring:message code="form.common.count.input.letters" /> {{50 -  username.length}}</span>
+                         <span class="error" ng-show="registrationForm.usernameP.$error.required"> <spring:message code="form.common.error.required" /></span>
+                         <span class="error" ng-show="registrationForm.usernameP.$error.pattern"> <spring:message code="form.common.error.pattern" /></span>
+                         <span class="error" ng-show="registrationForm.usernameP.$error.minlength"> <spring:message code="form.common.error.minlength" htmlEscape="false" argumentSeparator=";" arguments="7" /></span>
+                         <span class="error" ng-show="registrationForm.usernameP.$error.maxlength"> <spring:message code="form.common.error.maxlength" htmlEscape="false" argumentSeparator=";" arguments="50" /></span>
                     </div>
                 </div>
                 <div class="row">
@@ -87,7 +102,7 @@
                         <label for="emailP" class="control-label"><spring:message code="page.registration.email.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="email" name="emailP" id="emailP">
+                        <input type="text" class="form-control" ng-model="email" name="emailP" id="emailP">
                     </div>
                 </div>
                 <div class="row">
@@ -95,7 +110,7 @@
                         <label for="phoneNumberP" class="control-label"><spring:message code="page.registration.phoneNumber.title" /></label>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="test" class="form-control" ng-model="phoneNumber" name="phoneNumberP" id="phoneNumberP">
+                        <input type="text" class="form-control" ng-model="phoneNumber" name="phoneNumberP" id="phoneNumberP">
                     </div>
                 </div>
                 <div class="row">
@@ -103,7 +118,8 @@
                         <input type="reset" class="btn btn-danger" value='<spring:message code="page.registration.btn.reset.title" />'>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-4 col-xs-5">
-                        <input type="button" class="btn btn-success" ng-click="registration()" value='<spring:message code="page.registration.btn.registration.title" />'>
+                        <input type="button" class="btn btn-success" ng-click="registration()"
+                         ng-disabled="registrationForm.$invalid" value='<spring:message code="page.registration.btn.registration.title" />'>
                     </div>
                 </div>
             </form>

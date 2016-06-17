@@ -20,10 +20,10 @@ public class RegistrationRO {
     private String firstname;
 
     @NotNull
-    @Size(min = 5, max = 50, groups = FirstSequence.class)
+    @Size(min = 3, max = 50, groups = FirstSequence.class)
     private String lastname;
 
-    @IfNotNullConstraint(min = 5, max = 75)
+    @IfNotNullConstraint(min = 3, max = 75)
     private String patronymic;
 
     @NotNull

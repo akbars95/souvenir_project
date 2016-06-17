@@ -73,7 +73,7 @@
 									ng-model="formDataSendEmail.messageName"
 									placeholder="<spring:message code="page.contactus.form.common.label"/> <spring:message code="page.contactus.form.name.label"/>">
 								<span ng-show="sendEmailForm.person_name.$valid"><spring:message
-										code="page.contactus.form.count.input.letters" /> {{50 -
+										code="form.common.count.input.letters" /> {{50 -
 									formDataSendEmail.messageName.length}}</span> <span class="error"
 									ng-show="sendEmailForm.person_name.$error.required"> <spring:message
 										code="page.contactus.form.name.error.required" /></span> <span
@@ -96,7 +96,7 @@
 									ng-model="formDataSendEmail.messageEmail"
 									placeholder="<spring:message code="page.contactus.form.common.label"/> <spring:message code="page.contactus.form.email.label"/>">
 								<span ng-show="sendEmailForm.person_email.$valid"><spring:message
-										code="page.contactus.form.count.input.letters" /> {{50 -
+										code="form.common.count.input.letters" /> {{50 -
 									formDataSendEmail.messageEmail.length}}</span> <span class="error"
 									ng-show="sendEmailForm.person_email.$error.required"> <spring:message
 										code="page.contactus.form.email.error.required" /></span> <span
@@ -122,7 +122,7 @@
 									ng-maxlength="1000" ng-model="formDataSendEmail.messageText"
 									placeholder="<spring:message code="page.contactus.form.common.label"/> <spring:message code="page.contactus.form.message.label"/>"></textarea>
 								<span ng-show="sendEmailForm.person_message.$valid"><spring:message
-										code="page.contactus.form.count.input.letters" /> {{1000 -
+										code="form.common.count.input.letters" /> {{1000 -
 									formDataSendEmail.messageText.length}}</span> <span class="error"
 									ng-show="sendEmailForm.person_message.$error.required">
 									<spring:message
