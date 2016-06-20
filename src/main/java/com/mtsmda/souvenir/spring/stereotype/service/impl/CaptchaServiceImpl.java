@@ -2,6 +2,7 @@ package com.mtsmda.souvenir.spring.stereotype.service.impl;
 
 import java.util.List;
 
+import com.mtsmda.souvenir.spring.stereotype.object.request.CaptchaUpdateRO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,11 @@ public class CaptchaServiceImpl implements CaptchaService {
 	@Override
 	public List<Captcha> getAllCaptcha() {
 		return captchaRepository.getAllCaptcha();
+	}
+
+	@Override
+	public Captcha getRandomCaptcha(CaptchaUpdateRO captchaUpdateRO) {
+		return captchaRepository.getRandomCaptcha(captchaUpdateRO);
 	}
 
 	@Override

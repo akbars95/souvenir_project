@@ -3,6 +3,7 @@ package com.mtsmda.souvenir.model;
 import java.io.Serializable;
 
 import com.mtsmda.souvenir.annotation.ModelClassInfo;
+import com.mtsmda.souvenir.model.modelI.CaptchaIdI;
 import com.mtsmda.souvenir.spring.validation.validators.constraints.ImagePathConstraint;
 import com.mtsmda.souvenir.spring.validation.validators.sequence.FirstSequence;
 import com.mtsmda.souvenir.spring.validation.validators.sequence.SecondSequence;
@@ -14,7 +15,7 @@ import javax.validation.constraints.Size;
  * Created by c-DMITMINZ on 04.02.2016.
  */
 @ModelClassInfo(tableName = "CAPTCHA")
-public class Captcha implements Serializable {
+public class Captcha implements Serializable, CaptchaIdI {
 
 	private Integer captchaId;
 

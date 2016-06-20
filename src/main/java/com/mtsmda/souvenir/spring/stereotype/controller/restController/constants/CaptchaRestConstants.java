@@ -2,7 +2,7 @@ package com.mtsmda.souvenir.spring.stereotype.controller.restController.constant
 
 import static com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants.ROOT;
 
-public class CaptchaRestConstants {
+public interface CaptchaRestConstants {
 
 	public static final String UPDATE_CAPTCHA_PIECE = "update_captcha";
 	public static final String CHECK_CAPTCHA_PIECE = "check_captcha";

@@ -6,6 +6,7 @@ import com.mtsmda.souvenir.helper.MapHelper;
 import com.mtsmda.souvenir.helper.SouvenirExceptionHandler;
 import com.mtsmda.souvenir.helper.SouvenirStandardSPHelper;
 import com.mtsmda.souvenir.model.Captcha;
+import com.mtsmda.souvenir.spring.stereotype.object.request.CaptchaUpdateRO;
 import com.mtsmda.souvenir.spring.stereotype.repository.CaptchaRepository;
 import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.CaptchaMapper;
 
@@ -146,11 +147,11 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
 
     @Transactional(readOnly = true)
     @Override
-    public Captcha getRandomCaptcha(Captcha captchaUser) {
+    public Captcha getRandomCaptcha(CaptchaUpdateRO captchaUpdateRO) {
         Captcha captcha = null;
         CaptchaMapper captchaMapper = new CaptchaMapper();
         Map<String, Object> mapParam = new LinkedHashMap<>();
-        mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captchaUser.getCaptchaId());
+        mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captchaUpdateRO.getCaptchaId());
         try (Connection connection = this.dataSource.getConnection();
              CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
                      GET_RANDOM_CAPTCHA_SP_NAME, mapParam, false);) {
@@ -162,6 +163,12 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
             SouvenirExceptionHandler.handle("getRandomCaptcha", e);
         }
         return captcha;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Captcha getRandomCaptcha(Captcha captchaUser) {
+        return getRandomCaptcha(new CaptchaUpdateRO(captchaUser.getCaptchaId()));
     }
 
     @Transactional(readOnly = true)

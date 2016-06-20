@@ -14,6 +14,7 @@ souvenirApp.config(function($httpProvider) {
 
 /* constants */
 souvenirApp.constant("hostConst", "/souvenirs");
+souvenirApp.constant("restConst", "/rest");
 souvenirApp.constant("OK_CODE", "100");//OK_CODE, ERROR_CODE, INSERT_OK_CODE, INSERT_ERROR_CODE, UPDATE_OK_CODE, UPDATE_ERROR_CODE, DELETE_OK_CODE, DELETE_ERROR_CODE, GET_OK_CODE, GET_ERROR_CODE
 souvenirApp.constant("ERROR_CODE", "101");
 souvenirApp.constant("INSERT_OK_CODE", "102");
@@ -85,7 +86,7 @@ souvenirApp.controller('indexCtrl',
 souvenirApp
     .controller(
     'catalogCtrl',
-    function ($scope, $http, $timeout, hostConst, $location, OK_CODE, ERROR_CODE, INSERT_OK_CODE, INSERT_ERROR_CODE, UPDATE_OK_CODE, UPDATE_ERROR_CODE, DELETE_OK_CODE, DELETE_ERROR_CODE, GET_OK_CODE, GET_ERROR_CODE) {
+    function ($scope, $http, $timeout, hostConst, restConst, $location, OK_CODE, ERROR_CODE, INSERT_OK_CODE, INSERT_ERROR_CODE, UPDATE_OK_CODE, UPDATE_ERROR_CODE, DELETE_OK_CODE, DELETE_ERROR_CODE, GET_OK_CODE, GET_ERROR_CODE) {
         var get_all_souvenirsURL = "/get_all_souvenirs";
 
         $scope.souvenirs = [];
@@ -240,7 +241,7 @@ souvenirApp
 
 /* souvenirById page */
 souvenirApp.controller('souvenirByIdCtrl', function ($scope, $http, $timeout,
-                                                     hostConst) {
+                                                     hostConst, restConst) {
     var get_all_souvenirsURL = "/get_all_souvenirs";
     $http.get(hostConst + get_all_souvenirsURL).success(
         function (data, status, headers, config) {
@@ -252,13 +253,13 @@ souvenirApp.controller('souvenirByIdCtrl', function ($scope, $http, $timeout,
 
 /* advanced_search page */
 souvenirApp.controller('advancedSearchCtrl', function ($scope, $http, $timeout,
-                                                       hostConst) {
+                                                       hostConst, restConst) {
 
 });
 
 /* about_us page */
 souvenirApp.controller('aboutUsCtrl', function ($scope, $http, $timeout,
-                                                hostConst) {
+                                                hostConst, restConst) {
 
 });
 
@@ -266,7 +267,10 @@ souvenirApp.controller('aboutUsCtrl', function ($scope, $http, $timeout,
 souvenirApp
     .controller(
     'contactUsCtrl',
-    function ($scope, $http, $timeout, hostConst) {
+    function ($scope, $http, $timeout, hostConst, restConst) {
+        $scope.set = function(token){
+            $scope.csrf_token_value = token;
+        };
         /* objects */
         $scope.currentCaptcha = "";
         $scope.formDataSendEmail = {
@@ -278,11 +282,11 @@ souvenirApp
         };
 
         /* paths */
-        $scope.updateCaptchaURL = hostConst + "/update_captcha";
+        $scope.updateCaptchaURL = hostConst + restConst + "/update_captcha";
         $scope.sendEmailURLURL = hostConst + "/sendemail";
         $scope.sendemailWithFileURL = hostConst
             + "/sendemailWithFile";
-        $scope.check_captchaURL = hostConst + "/check_captcha";
+        $scope.check_captchaURL = hostConst + restConst + "/check_captcha";
 
         /* variables */
         $scope.responseFormSuccess = false;
@@ -293,14 +297,15 @@ souvenirApp
         /* functions */
         $scope.refreshCaptcha = function () {
             var dataObj = {
-                captchaId: $scope.currentCaptcha.captchaId,
-                captchaValue: "",
-                captchaUrlFile: ""
+                captchaId: $scope.currentCaptcha.captchaId
+            };
+            var config = {
+                headers : {
+                    'X-XSRF-TOKEN': $scope.csrf_token_value
+                }
             };
             $scope.showEC = "refreshCaptcha";
-            $http
-                .post($scope.updateCaptchaURL, dataObj)
-                .success(
+            $http.post($scope.updateCaptchaURL, dataObj, config).success(
                 function (response) {
                     $scope.currentCaptcha = response;
                     $scope.currentCaptcha.captchaUrlFile = hostConst
@@ -312,7 +317,7 @@ souvenirApp
                 });
             ;
         };
-        $scope.refreshCaptcha();
+        setTimeout(function(){ $scope.refreshCaptcha(); }, 500);
 
         $scope.sendFormToServer = function () {
             if ($scope.showFileUpload) {
@@ -419,10 +424,9 @@ souvenirApp
 
     });
 
-souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, hostConst) {
+souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, hostConst, restConst) {
     $scope.set = function(token){
         $scope.csrf_token_value = token;
-        console.log(token);
     };
 
     $scope.toString = function(object){
@@ -447,9 +451,9 @@ souvenirApp.controller('registrationCtrl', function ($scope, $http, $timeout, ho
             headers : {
                 'X-XSRF-TOKEN': $scope.csrf_token_value
             }
-        }
+        };
 
-        $http.post(hostConst + "/rest/registration", registrationRO, config)
+        $http.post(hostConst + restConst + "/registration", registrationRO, config)
         .success(function (response) {
             $scope.checkCaptchaResult = response;
         });

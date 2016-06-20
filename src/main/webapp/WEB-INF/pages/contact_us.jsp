@@ -15,7 +15,7 @@
 		<spring:message code="page.contact_us.title" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="content">
-		<div ng-controller="contactUsCtrl">
+		<div ng-controller="contactUsCtrl" ng-cloak>
 			<!-- ng-init="" -->
 			<div class="row">
 				<div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
@@ -184,6 +184,10 @@
 								<input type="file" name="person_file" id="person_file">
 							</div>
 						</div>
+						<input type="hidden"
+							   name="csrf_token_value"
+							   ng-init="set('${_csrf.token}')" ng-model="csrf_token_value"/>
+							CSRF = ${_csrf.token}
 						<div class="form-group">
 							<div class="col-sm-5 col-xs-5 text-center">
 								<button type="button" ng-click="resetForm()"
