@@ -148,21 +148,26 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
     @Transactional(readOnly = true)
     @Override
     public Captcha getRandomCaptcha(CaptchaUpdateRO captchaUpdateRO) {
-        Captcha captcha = null;
-        CaptchaMapper captchaMapper = new CaptchaMapper();
-        Map<String, Object> mapParam = new LinkedHashMap<>();
-        mapParam.put(CAPTCHA_ID_IN_SP_PARAM_NAME, captchaUpdateRO.getCaptchaId());
+        return getCaptchaById(getRandomCaptchaId(captchaUpdateRO.getCaptchaId()));
+    }
+
+    private Integer getRandomCaptchaId(Integer captchaId){
+        List<Integer> captchaIds = new ArrayList<>();
         try (Connection connection = this.dataSource.getConnection();
              CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
-                     GET_RANDOM_CAPTCHA_SP_NAME, mapParam, false);) {
+                     GET_CAPTCHA_ALL_IDS_SP_NAME, null, false);) {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
-                captcha = captchaMapper.mapRow(rs);
+                captchaIds.add(rs.getInt(1));
             }
         } catch (SQLException e) {
             SouvenirExceptionHandler.handle("getRandomCaptcha", e);
         }
-        return captcha;
+        boolean remove = captchaIds.remove(captchaId);
+        if(remove){
+            return captchaIds.get(new Long(Math.round(Math.random() * captchaIds.size())).intValue());
+        }
+        return null;
     }
 
     @Transactional(readOnly = true)

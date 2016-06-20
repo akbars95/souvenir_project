@@ -187,7 +187,6 @@
 						<input type="hidden"
 							   name="csrf_token_value"
 							   ng-init="set('${_csrf.token}')" ng-model="csrf_token_value"/>
-							CSRF = ${_csrf.token}
 						<div class="form-group">
 							<div class="col-sm-5 col-xs-5 text-center">
 								<button type="button" ng-click="resetForm()"
