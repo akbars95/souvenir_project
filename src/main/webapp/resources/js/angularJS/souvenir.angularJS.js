@@ -296,16 +296,16 @@ souvenirApp
 
         /* functions */
         $scope.refreshCaptcha = function () {
-            var dataObj = {
+            /*var dataObj = {
                 captchaId: $scope.currentCaptcha.captchaId
             };
             var config = {
                 headers : {
                     'X-XSRF-TOKEN': $scope.csrf_token_value
                 }
-            };
+            };*/
             $scope.showEC = "refreshCaptcha";
-            $http.post($scope.updateCaptchaURL, dataObj, config).success(
+            /*$http.post($scope.updateCaptchaURL, dataObj, config).success(
                 function (response) {
                     $scope.currentCaptcha = response;
                     $scope.currentCaptcha.captchaUrlFile = hostConst
@@ -314,10 +314,28 @@ souvenirApp
                 }).error(function (response) {
                     $scope.currentCaptcha.error = response;
                     $scope.showEC = "";
-                });
-            ;
+                });*/
+                if(!$scope.captchaUrlFile){
+
+                var resultStatus = 0;
+                var resultData;
+                    while(resultStatus != 200){
+                        var img = Math.round(Math.random() * 100);
+                        var currentImageURL = hostConst + "/resources/images/captcha/i" + img + ".png";
+                        $http.get(currentImageURL).success(function (data, status, headers, config){
+                            resultStatus = status;
+                            resultData = data;
+                            $scope.showEC = "";
+                        }).error(function (data, status, header, config){
+                            resultStatus = status;
+                            $scope.showEC = "";
+                        });
+                    }
+                    console.log(resultStatus);
+                    console.log(resultData);
+                }
         };
-        setTimeout(function(){ $scope.refreshCaptcha(); }, 500);
+        $scope.refreshCaptcha();
 
         $scope.sendFormToServer = function () {
             if ($scope.showFileUpload) {
