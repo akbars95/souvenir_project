@@ -9,10 +9,10 @@ import java.util.Properties;
 /**
  * Created by dminzat on 5/31/2016.
  */
-@Configuration
+//@Configuration
 public class SpringBeans {
 
-    @Bean(name = "valuteBorder")
+    /*@Bean(name = "valuteBorder")
     public ValuteBorder getValuteBorder() {
         ValuteBorder valuteBorder = new ValuteBorder();
         valuteBorder.setValuteProperties(new Properties());
@@ -25,5 +25,5 @@ public class SpringBeans {
         valuteProperties.put("GBP", "826");
         return valuteBorder;
     }
-
+*/
 }

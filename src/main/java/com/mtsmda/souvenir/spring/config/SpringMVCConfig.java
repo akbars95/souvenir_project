@@ -23,14 +23,14 @@ import java.util.Locale;
 /**
  * Created by dminzat on 5/31/2016.
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan(value = {"com.mtsmda.souvenir.spring.stereotype", "com.mtsmda.souvenir.spring.security", "com.mtsmda.souvenir.spring.validation"})
-public class SpringMVCConfig extends WebMvcConfigurerAdapter {
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan(value = {"com.mtsmda.souvenir.spring.stereotype", "com.mtsmda.souvenir.spring.security", "com.mtsmda.souvenir.spring.validation"})
+public class SpringMVCConfig /*extends WebMvcConfigurerAdapter*/ {
 
-    @Override
+    /*@Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources*//**").addResourceLocations("/resources/");
     }
 
     @Bean
@@ -72,6 +72,6 @@ public class SpringMVCConfig extends WebMvcConfigurerAdapter {
         TilesConfigurer tilesConfigurer = new TilesConfigurer();
         tilesConfigurer.setDefinitions("/WEB-INF/tiles/tiles-definitions.xml");
         return tilesConfigurer;
-    }
+    }*/
 
 }

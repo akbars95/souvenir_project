@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -55,14 +56,18 @@ public class RegExpValidator {
 
     public static void main(String[] args) {
         //false
-        info(0);
+        /*info(0);
         test(Arrays.asList("Iva9", "IvanfI9254IvanfI9254IvanfI9254IvanfI9254IvanfI9254FIvanfI9254IvanfI9254IvanfI9254IvanfI9254IvanfI9254F"), 6);
         //true
         info(1);
         test(Arrays.asList("Ivanov.ivan9", "Ivan.I9"), 6);
         System.out.println("PASSWORD");
         info(0);
-        test(Arrays.asList("ds"), 7);
+        test(Arrays.asList("ds"), 7);*/
+
+        String clones[] = new String[]{"clone1", "clone2"};
+        System.out.println(clones.clone());
+        System.out.println(clones.hashCode() + " _______ " + clones.clone().hashCode());
     }
 
     private static void test(List<String> testTypes, int type){

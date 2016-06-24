@@ -13,23 +13,23 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/spring/spring-datasource.xml
-            /WEB-INF/spring/spring-email.xml
+            <!--/WEB-INF/spring/spring-datasource.xml
+            /WEB-INF/spring/spring-email.xml-->
             /WEB-INF/spring/spring-beans.xml
-        </param-value><!--/WEB-INF/spring/spring-security.xml-->
+            <!--/WEB-INF/spring/spring-security.xml-->
+        </param-value>
     </context-param>
 
     <servlet>
         <servlet-name>mvc-dispatcher</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-        <!--annotation config-->
-        <!--<init-param>
+        <init-param>
             <param-name>contextConfigLocation</param-name>
             <param-value>
                 /WEB-INF/spring/webcontext/DispatcherServlet-context.xml
             </param-value>
-        </init-param>-->
+        </init-param>
     </servlet>
 
     <servlet-mapping>

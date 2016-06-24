@@ -1,4 +1,4 @@
-package com.mtsmda.souvenir.spring.config;
+package com.mtsmda.souvenir.spring.stereotype.schedule;
 
 import com.mtsmda.souvenir.spring.stereotype.schedule.ScheduledTasks;
 import org.springframework.beans.factory.annotation.Autowired;

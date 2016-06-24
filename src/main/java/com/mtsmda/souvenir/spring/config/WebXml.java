@@ -17,8 +17,8 @@ import javax.servlet.ServletRegistration;
 /**
  * Created by dminzat on 5/31/2016.
  */
-public class WebXml implements WebApplicationInitializer {
-    @Override
+public class WebXml /*implements WebApplicationInitializer*/ {
+    /*@Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         //spring context
         AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext();
@@ -38,9 +38,9 @@ public class WebXml implements WebApplicationInitializer {
         FilterRegistration.Dynamic encodingFilter = servletContext.addFilter("encodingFilter", CharacterEncodingFilter.class);
         encodingFilter.setInitParameter("encoding", "UTF-8");
         encodingFilter.setInitParameter("forceEncoding", "true");
-        encodingFilter.addMappingForUrlPatterns(null, false, "/*");
+        encodingFilter.addMappingForUrlPatterns(null, false, "*//*");
 
-        /*FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
-        springSecurityFilterChain.addMappingForUrlPatterns(null, false, "*//*");*/
-    }
+        *//*FilterRegistration.Dynamic springSecurityFilterChain = servletContext.addFilter("springSecurityFilterChain", DelegatingFilterProxy.class);
+        springSecurityFilterChain.addMappingForUrlPatterns(null, false, "*//**//*");*//*
+    }*/
 }

@@ -11,10 +11,10 @@ import java.util.Properties;
 /**
  * Created by dminzat on 5/31/2016.
  */
-@Configuration
+//@Configuration
 public class SpringEmail {
 
-    @Bean(name = "mailSender")
+    /*@Bean(name = "mailSender")
     public JavaMailSenderImpl getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");
@@ -49,6 +49,6 @@ public class SpringEmail {
         velocityProperties.put("resource.loader", "class");
         velocityProperties.put("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         return velocityEngineFactoryBean;
-    }
+    }*/
 
 }

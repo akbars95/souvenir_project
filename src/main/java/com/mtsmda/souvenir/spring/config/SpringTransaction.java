@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * Created by dminzat on 5/31/2016.
  */
-@Configuration
-@EnableTransactionManagement
+/*@Configuration
+@EnableTransactionManagement*/
 public class SpringTransaction {
 }

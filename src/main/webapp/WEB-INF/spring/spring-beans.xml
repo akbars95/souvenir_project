@@ -3,6 +3,22 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<import resource="classpath:spring-datasource.xml" />
+	<import resource="classpath:spring-email.xml"/>
+	<import resource="classpath:spring-security.xml"/>
+
+
+	<!--spring security-->
+	<bean id="cookieCsrfTokenRepository" class="org.springframework.security.web.csrf.CookieCsrfTokenRepository"/>
+	<bean id="customJdbcTokenRepositoryImpl" class="com.mtsmda.souvenir.spring.security.CustomJdbcTokenRepositoryImpl">
+		<property name="dataSource" ref="mySqlDataSource"/>
+	</bean>
+
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+	<!--<bean id="limitLoginAuthenticationProvider" class="com.mtsmda.souvenir.spring.security.LimitLoginAuthenticationProvider">
+		&lt;!&ndash;<property name="dataSource" ref="mySqlDataSource"/>&ndash;&gt;
+	</bean>-->
+
 	<bean id="valuteBorder"
 		  class="com.mtsmda.souvenir.valute.ValuteBorder">
 		<property name="valuteProperties">

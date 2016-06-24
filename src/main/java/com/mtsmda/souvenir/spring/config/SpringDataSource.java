@@ -8,10 +8,10 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 /**
  * Created by dminzat on 5/31/2016.
  */
-@Configuration
+//@Configuration
 public class SpringDataSource {
 
-    @Bean(name = "mySqlDataSource")
+    /*@Bean(name = "mySqlDataSource")
     public BasicDataSource getMySqlDataSource(){
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -24,6 +24,6 @@ public class SpringDataSource {
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager getTransactionManager(){
         return new DataSourceTransactionManager(getMySqlDataSource());
-    }
+    }*/
 
 }

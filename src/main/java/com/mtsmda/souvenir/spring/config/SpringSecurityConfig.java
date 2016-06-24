@@ -26,34 +26,34 @@ import javax.sql.DataSource;
 /**
  * Created by dminzat on 5/30/2016.
  */
-@Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+//@Configuration
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
+public class SpringSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
     public static final String HAS_ROLE = "hasRole";
 
-    @Autowired
+    /*@Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
 
     @Autowired
     @Qualifier(value = "limitLoginAuthenticationProvider")
-    private AuthenticationProvider authenticationProvider;
+    private AuthenticationProvider authenticationProvider;*/
 
-    @Autowired
+    /*@Autowired
     public void configureUsers(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        /*authenticationManagerBuilder.inMemoryAuthentication().
-                withUser("user9").password("user9").roles(SouvenirRoles.ADMIN.getRoleName());*/
-        /*authorities(SouvenirRoles.ADMIN.getRoleNameFull())*/
+        *//*authenticationManagerBuilder.inMemoryAuthentication().
+                withUser("user9").password("user9").roles(SouvenirRoles.ADMIN.getRoleName());*//*
+        *//*authorities(SouvenirRoles.ADMIN.getRoleNameFull())*//*
 
-        /*JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> authenticationManagerBuilderJdbcUserDetailsManagerConfigurer = authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource);
+        *//*JdbcUserDetailsManagerConfigurer<AuthenticationManagerBuilder> authenticationManagerBuilderJdbcUserDetailsManagerConfigurer = authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource);
         authenticationManagerBuilderJdbcUserDetailsManagerConfigurer.usersByUsernameQuery("select username, passwordC, enabled from users where username=?")
-                .authoritiesByUsernameQuery("select username, role from user_roles where username=?");*/
+                .authoritiesByUsernameQuery("select username, role from user_roles where username=?");*//*
         authenticationManagerBuilder.authenticationProvider(authenticationProvider);
-    }
+    }*/
 
-    @Override
+    /*@Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity.httpBasic();
         //authorize requests
@@ -67,44 +67,44 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.formLogin().loginPage("/login").loginProcessingUrl("/login_process").failureUrl("/login?error=true")
 
                 .usernameParameter("souvenir_username_9").passwordParameter("souvenir_password_9")
-                /*.defaultSuccessUrl(StaticPageConstants.ROOT, false)*/
+                *//*.defaultSuccessUrl(StaticPageConstants.ROOT, false)*//*
                 .and()
                 .exceptionHandling().accessDeniedPage("/access_denied");
 
         //csrf
-        httpSecurity.csrf().csrfTokenRepository(new CookieCsrfTokenRepository())/*.disable()*/;
+        httpSecurity.csrf().csrfTokenRepository(new CookieCsrfTokenRepository())*//*.disable()*//*;
 
         //logout configuration
         httpSecurity.logout().
                 logoutUrl("/logout").
-                logoutSuccessUrl("/").deleteCookies("JSESSIONID")/*logoutSuccessUrl("/login?logout")*/
-                /*.and().logout().    //logout configuration
+                logoutSuccessUrl("/").deleteCookies("JSESSIONID")*//*logoutSuccessUrl("/login?logout")*//*
+                *//*.and().logout().    //logout configuration
                 logoutUrl("/logout").
-                logoutSuccessUrl(StaticPageConstants.ROOT)*/;
+                logoutSuccessUrl(StaticPageConstants.ROOT)*//*;
 
         //remember me
         httpSecurity.rememberMe().rememberMeParameter("souvenir-remember-me")
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60*60*24);
-    }
+    }*/
 
-    @Bean
+    /*@Bean
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new CustomJdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         return jdbcTokenRepository;
-    }
+    }*/
 
-    @Bean
+    /*@Bean
     public SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler(){
         SavedRequestAwareAuthenticationSuccessHandler savedRequestAwareAuthenticationSuccessHandler = new SavedRequestAwareAuthenticationSuccessHandler();
         savedRequestAwareAuthenticationSuccessHandler.setTargetUrlParameter("targetUrl");
         return savedRequestAwareAuthenticationSuccessHandler;
-    }
+    }*/
 
-    @Bean(name = "passwordEncoder")
+    /*@Bean(name = "passwordEncoder")
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
-    }
+    }*/
 
 }

@@ -18,6 +18,6 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  <url-pattern>/*</url-pattern><br>
  </filter-mapping><br>
  */
-public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+public class SpringSecurityInitializer /*extends AbstractSecurityWebApplicationInitializer */{
 
 }
