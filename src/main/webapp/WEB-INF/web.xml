@@ -13,10 +13,10 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            <!--/WEB-INF/spring/spring-datasource.xml
-            /WEB-INF/spring/spring-email.xml-->
+            /WEB-INF/spring/spring-datasource.xml
+            /WEB-INF/spring/spring-email.xml
             /WEB-INF/spring/spring-beans.xml
-            <!--/WEB-INF/spring/spring-security.xml-->
+            /WEB-INF/spring/spring-security.xml
         </param-value>
     </context-param>
 

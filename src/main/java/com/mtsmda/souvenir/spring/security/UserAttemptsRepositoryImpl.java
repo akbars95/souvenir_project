@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * Created by dminzat on 6/2/2016.
  */
-@Repository(value = "userAttemptsRepositoryImpl")
+//@Repository(value = "userAttemptsRepositoryImpl")
 public class UserAttemptsRepositoryImpl extends JdbcDaoSupport implements UserAttemptsRepository {
 
     private static final String SQL_USERS_UPDATE_LOCKED = "UPDATE USERS SET accountNonLocked = ? WHERE username = ?";
@@ -36,7 +36,6 @@ public class UserAttemptsRepositoryImpl extends JdbcDaoSupport implements UserAt
     private static final String SQL_USER_ATTEMPTS_RESET_ATTEMPTS = "UPDATE USER_ATTEMPTS SET attempts = 0, lastmodified = null WHERE username_id = " + SQL_GET_USERNAME_ID_BY_USERNAME;
 
     private static final int MAX_ATTEMPTS = 3;
-
 
     @Autowired
     @Qualifier(value = "mySqlDataSource")

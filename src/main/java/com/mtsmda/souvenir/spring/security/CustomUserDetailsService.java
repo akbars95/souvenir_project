@@ -20,9 +20,8 @@ import java.util.List;
 /**
  * Created by dminzat on 6/2/2016.
  */
-@Service("customUserDetailsService")
+//@Service("customUserDetailsService")
 public class CustomUserDetailsService extends JdbcDaoImpl {
-
     @Autowired
     @Qualifier(value = "mySqlDataSource")
     private DataSource dataSource;
@@ -50,11 +49,11 @@ public class CustomUserDetailsService extends JdbcDaoImpl {
         super.setEnableGroups(enableGroups);
     }
 
-    /*@Override
+    @Override
     @Value("select username, role from user_roles where username = ?")
     public void setAuthoritiesByUsernameQuery(String queryString) {
         super.setAuthoritiesByUsernameQuery(queryString);
-    }*/
+    }
 
     @Override
     @Value("select g.id, g.group_name, r.role_name \n" +

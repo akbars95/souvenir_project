@@ -18,7 +18,7 @@ import java.util.Date;
 /**
  * Created by dminzat on 6/2/2016.
  */
-@Component("limitLoginAuthenticationProvider")
+//@Component("limitLoginAuthenticationProvider")
 public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider {
 
     @Autowired
