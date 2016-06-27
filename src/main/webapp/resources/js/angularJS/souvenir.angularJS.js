@@ -283,6 +283,7 @@ souvenirApp
 
         /* paths */
         $scope.updateCaptchaURL = hostConst + restConst + "/update_captcha";
+        $scope.initCaptchaURL = hostConst + restConst + "/init_captcha";
         $scope.sendEmailURLURL = hostConst + "/sendemail";
         $scope.sendemailWithFileURL = hostConst
             + "/sendemailWithFile";
@@ -295,7 +296,19 @@ souvenirApp
         $scope.checkCaptchaResult = true;
 
         /* functions */
-        $scope.refreshCaptcha = function () {
+        $scope.refreshCaptcha = function (code) {
+            $scope.showEC = "refreshCaptcha";
+            if(code == 0){
+                $http.get($scope.initCaptchaURL)
+                    .then(function(response) {
+                        $scope.showEC = "";
+                        console.log("response - " + response);
+                    }, function(response) {
+                        $scope.showEC = "";
+                        console.log();
+                    });
+            }
+
             /*var dataObj = {
                 captchaId: $scope.currentCaptcha.captchaId
             };
@@ -304,7 +317,7 @@ souvenirApp
                     'X-XSRF-TOKEN': $scope.csrf_token_value
                 }
             };*/
-            $scope.showEC = "refreshCaptcha";
+
             /*$http.post($scope.updateCaptchaURL, dataObj, config).success(
                 function (response) {
                     $scope.currentCaptcha = response;
@@ -315,7 +328,7 @@ souvenirApp
                     $scope.currentCaptcha.error = response;
                     $scope.showEC = "";
                 });*/
-                if(!$scope.captchaUrlFile){
+                /*if(!$scope.captchaUrlFile){
 
                 var resultStatus = 0;
                 var resultData;
@@ -333,9 +346,9 @@ souvenirApp
                     }
                     console.log(resultStatus);
                     console.log(resultData);
-                }
+                }*/
         };
-        $scope.refreshCaptcha();
+        $scope.refreshCaptcha(0);
 
         $scope.sendFormToServer = function () {
             if ($scope.showFileUpload) {

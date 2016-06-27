@@ -37,14 +37,14 @@ public class UserAttemptsRepositoryImpl extends JdbcDaoSupport implements UserAt
 
     private static final int MAX_ATTEMPTS = 3;
 
-    @Autowired
-    @Qualifier(value = "mySqlDataSource")
+    /*@Autowired
+    @Qualifier(value = "mySqlDataSource")*/
     private DataSource dataSource;
 
-    @PostConstruct
+    /*@PostConstruct
     private void initialize() {
         setDataSource(dataSource);
-    }
+    }*/
 
     @Override
     public void updateFailAttempts(String username) {

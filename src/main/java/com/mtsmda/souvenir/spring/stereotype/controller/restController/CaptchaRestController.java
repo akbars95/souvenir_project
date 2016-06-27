@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mtsmda.souvenir.model.Captcha;
 import com.mtsmda.souvenir.spring.stereotype.service.CaptchaService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -44,6 +46,22 @@ public class CaptchaRestController implements CaptchaRestConstants{
 			return false;
 		}
 		return captchaService.checkCaptcha(captchaFromClient);
+	}
+
+	@RequestMapping(value = CaptchaRestConstants.INIT_CAPTCHA_PIECE_URL)
+	public String getInitCaptcha(HttpServletRequest request) {
+		String captchaPath = null;
+		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+		System.out.println(rootDirectory);
+		rootDirectory += "//resources//images//captcha//";
+		File folder = new File(rootDirectory);
+		if(folder.exists() && folder.isDirectory()){
+			String[] fileNames = folder.list((dir, name) ->{
+				return name.matches("^i[0-9]{1,2}.png$");
+			});
+			captchaPath = fileNames[new Double(Math.random() * (fileNames.length - 1)).intValue()];
+		}
+		return captchaPath;
 	}
 
 }

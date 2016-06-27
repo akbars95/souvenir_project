@@ -22,47 +22,47 @@ import java.util.List;
  */
 //@Service("customUserDetailsService")
 public class CustomUserDetailsService extends JdbcDaoImpl {
-    @Autowired
-    @Qualifier(value = "mySqlDataSource")
+    /*@Autowired
+    @Qualifier(value = "mySqlDataSource")*/
     private DataSource dataSource;
 
-    @PostConstruct
+    /*@PostConstruct
     private void initialize() {
         setDataSource(dataSource);
-    }
+    }*/
 
-    @Override
-    @Value("select * from users where username = ?")
+    /*@Override
+    @Value("select * from users where username = ?")*/
     public void setUsersByUsernameQuery(String usersByUsernameQueryString) {
         super.setUsersByUsernameQuery(usersByUsernameQueryString);
     }
 
-    @Value("false")
-    @Override
+    /*@Value("false")
+    @Override*/
     public void setEnableAuthorities(boolean enableAuthorities) {
         super.setEnableAuthorities(enableAuthorities);
     }
 
-    @Value("true")
-    @Override
+    /*@Value("true")
+    @Override*/
     public void setEnableGroups(boolean enableGroups) {
         super.setEnableGroups(enableGroups);
     }
 
-    @Override
-    @Value("select username, role from user_roles where username = ?")
+    /*@Override
+    @Value("select username, role from user_roles where username = ?")*/
     public void setAuthoritiesByUsernameQuery(String queryString) {
         super.setAuthoritiesByUsernameQuery(queryString);
     }
 
-    @Override
+    /*@Override
     @Value("select g.id, g.group_name, r.role_name \n" +
             "from groups g, group_members gm, group_authorities ga, users u, roles r\n" +
             "where u.username = ? \n" +
             "and u.username_id = gm.username_id \n" +
             "and g.id = ga.group_id \n" +
             "and g.id = gm.group_id \n" +
-            "and r.role_id = ga.authority_role_id;")
+            "and r.role_id = ga.authority_role_id;")*/
     public void setGroupAuthoritiesByUsernameQuery(String queryString) {
         super.setGroupAuthoritiesByUsernameQuery(queryString);
     }

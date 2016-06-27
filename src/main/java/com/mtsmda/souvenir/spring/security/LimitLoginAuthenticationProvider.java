@@ -21,19 +21,23 @@ import java.util.Date;
 //@Component("limitLoginAuthenticationProvider")
 public class LimitLoginAuthenticationProvider extends DaoAuthenticationProvider {
 
-    @Autowired
-    @Qualifier(value = "userAttemptsRepositoryImpl")
+    /*@Autowired
+    @Qualifier(value = "userAttemptsRepositoryImpl")*/
     private UserAttemptsRepository userAttemptsRepository;
 
-    @Autowired
-    @Qualifier(value = "customUserDetailsService")
+    public void setUserAttemptsRepository(UserAttemptsRepository userAttemptsRepository) {
+        this.userAttemptsRepository = userAttemptsRepository;
+    }
+
+    /*@Autowired
+    @Qualifier(value = "customUserDetailsService")*/
     @Override
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         super.setUserDetailsService(userDetailsService);
     }
 
-    @Autowired
-    @Qualifier(value = "passwordEncoder")
+    /*@Autowired
+    @Qualifier(value = "passwordEncoder")*/
     @Override
     public void setPasswordEncoder(Object passwordEncoder) {
         super.setPasswordEncoder(passwordEncoder);

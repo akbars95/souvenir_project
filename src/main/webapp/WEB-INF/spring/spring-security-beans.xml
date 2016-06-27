@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--spring security-->
+    <bean id="cookieCsrfTokenRepository" class="org.springframework.security.web.csrf.CookieCsrfTokenRepository"/>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <bean id="customJdbcTokenRepositoryImpl" class="com.mtsmda.souvenir.spring.security.CustomJdbcTokenRepositoryImpl">
+        <property name="dataSource" ref="mySqlDataSource"/>
+    </bean>
+    <bean id="customUserDetailsService" class="com.mtsmda.souvenir.spring.security.CustomUserDetailsService">
+        <property name="dataSource" ref="mySqlDataSource"/>
+        <property name="usersByUsernameQuery" value="select * from users where username = ?"/>
+        <property name="enableAuthorities" value="false"/>
+        <property name="enableGroups" value="true"/>
+        <property name="authoritiesByUsernameQuery" value="select username, role from user_roles where username = ?"/>
+        <property name="groupAuthoritiesByUsernameQuery" value="select g.id, g.group_name, r.role_name \n
+        from groups g, group_members gm, group_authorities ga, users u, roles r\n
+        where u.username = ? \n
+        and u.username_id = gm.username_id
+        and g.id = ga.group_id
+        and g.id = gm.group_id
+        and r.role_id = ga.authority_role_id;"/>
+    </bean>
+    <bean id="limitLoginAuthenticationProvider"
+          class="com.mtsmda.souvenir.spring.security.LimitLoginAuthenticationProvider">
+        <property name="userAttemptsRepository" ref="userAttemptsRepositoryImpl"/>
+        <property name="userDetailsService" ref="customUserDetailsService"/>
+        <property name="passwordEncoder" ref="passwordEncoder"/>
+    </bean>
+
+    <bean id="userAttemptsRepositoryImpl" class="com.mtsmda.souvenir.spring.security.UserAttemptsRepositoryImpl">
+        <property name="dataSource" ref="mySqlDataSource"/>
+    </bean>
+
+</beans>
