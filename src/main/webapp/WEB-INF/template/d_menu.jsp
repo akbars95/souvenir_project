@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div class="menu">
+<div class="menu" ng-app="souvenirApp" ng-controller="menuCtrl">
 
     <script type="text/javascript">
         $(document).ready(
@@ -77,17 +77,17 @@
             <div class="collapse navbar-collapse"
                  id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li id="home"><spring:url value="/home" var="homeUrl"
+                    <li id="home" ng-class="{active: selected=='home'}" ng-click="selected='home'"><spring:url value="/home" var="homeUrl"
                                               htmlEscape="true"/> <a href="${homeUrl}"><spring:message
                             code="menu.home.title"/><span class="sr-only">(current)</span></a></li>
-                    <li id="catalog"><spring:url value="/catalog" var="catalogUrl"
+                    <li id="catalog" ng-class="{active: selected=='catalog'}" ng-click="selected='catalog'"><spring:url value="/catalog" var="catalogUrl"
                                                  htmlEscape="true"/> <a href="${catalogUrl}"><spring:message
                             code="menu.catalog.title"/></a></li>
-                    <li id="about_us"><spring:url value="/about_us"
+                    <li id="about_us" ng-class="{active: selected=='about_us'}" ng-click="selected='about_us'"><spring:url value="/about_us"
                                                   var="about_usUrl" htmlEscape="true"/> <a
                             href="${about_usUrl}"><spring:message
                             code="menu.about_us.title"/></a></li>
-                    <li id="contact_us"><spring:url value="/contact_us"
+                    <li id="contact_us" ng-class="{active: selected=='contact_us'}" ng-click="selected='contact_us'"><spring:url value="/contact_us"
                                                     var="contact_usUrl" htmlEscape="true"/> <a
                             href="${contact_usUrl}"><spring:message
                             code="menu.contact_us.title"/></a></li>
@@ -106,7 +106,7 @@
                 </ul>
                 <form class="navbar-form navbar-right" role="search">
                     <div class="form-group">
-                        <input type="text" class="form-control"
+                        <input type="text" class="form-control" id="searchBySate"
                                placeholder="<spring:message code="menu.search.form.text.placeholder" />">
                     </div>
                     <button type="submit" class="btn btn-default">

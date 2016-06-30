@@ -140,7 +140,7 @@ span.error {
     transform: rotate(0deg);
 }
 }
-.refreshCaptcha {
+.refreshCaptchaRun {
     -webkit-animation: refresh-captcha 1s infinite; /* Safari 4+ */
     -moz-animation: refresh-captcha 1s infinite; /* Fx 5+ */
     -o-animation: refresh-captcha 1s infinite; /* Opera 12+ */
@@ -170,18 +170,16 @@ span.error {
     font-size: 17px;
 	padding: 15px;
 	text-align: center;
-	-webkit-transition: color 2s, background-color 2s, border-radius 1s, font-weight 1s, font-size 2s, margin-left 2s, text-shadow 2s; /* Safari */
-    transition: color 2s, background-color 2s, border-radius 1s, font-weight 1s, font-size 2s, margin-left 2s, text-shadow 2s;
+    margin-left: -7px;
+	-webkit-transition: color 2s, background-color 2s, margin-left 2.5s; /**//**//**//* Safari */
+    transition: color 2s, background-color 2s, margin-left 2.5s;
 }
 
 .infoBtn:hover{
 	background-color: blue;
 	color: yellow;
-	border-radius: 75%;
-	font-weight: bold;
-	font-size: 25px;
-	margin-left: 25px;
     text-shadow: 2px 2px 4px red;
+    margin-left: 0px;
 }
 
 .infoOpen{
@@ -282,19 +280,18 @@ span.error {
 }
 
 ul.nav li{
-	
+	-webkit-transition: all 5s linear;
+    -moz-transition: all 5s linear;
+    -o-transition: all 5s linear;
+    transition: all 5s linear;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
 }
 
 ul.nav li:hover{
 	outline: 1px solid green;
-	-webkit-transform: rotateX(360deg); /* Safari */
-    transform: rotateX(360deg); /* Standard syntax */
-	-webkit-transition: all 5s ease-in-out;
-    -moz-transition: all 5s ease-in-out;
-    -o-transition: all 5s ease-in-out;
-    transition: all 5s ease-in-out;
-    -webkit-animation-iteration-count: infinite; 
-	animation-iteration-count: infinite;
+	/*-webkit-transform: rotateX(720deg);*/ /* Safari */
+    /*transform: rotateX(720deg);*/ /* Standard syntax */
     color: white;
     background-color: green;
 }
@@ -400,4 +397,14 @@ img.imgSouvenirPhoto{
     word-wrap: break-word;
     outline: 1px solid brown;
     height: 100%;
+}
+
+input[type="text"]#searchBySate{
+    width: 50px;
+    -webkit-transition: width 2s;
+    transition: width 2s;
+}
+
+input[type="text"]#searchBySate:hover{
+    width: 150px;
 }

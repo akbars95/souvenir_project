@@ -16,6 +16,7 @@ public class CaptchaSP {
 	public static final String GET_ALL_CAPTCHA_SP_NAME = "getAllCaptcha";
 	public static final String GET_RANDOM_CAPTCHA_SP_NAME = "getRandomCaptcha";
 	public static final String CHECK_CAPTCHA_SP_NAME = "checkCaptcha";
+	public static final String CHECK_CAPTCHA_BY_URL_AND_VALUE_SP_NAME = "checkCaptchaByURLAndValue";
 	public static final String GET_CAPTCHA_ALL_IDS_SP_NAME = "getCaptchaAllIds";
 
 	/* function name */

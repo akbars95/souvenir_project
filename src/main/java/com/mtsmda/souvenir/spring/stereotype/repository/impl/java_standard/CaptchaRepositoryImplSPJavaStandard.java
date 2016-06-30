@@ -10,6 +10,7 @@ import com.mtsmda.souvenir.spring.stereotype.object.request.CaptchaUpdateRO;
 import com.mtsmda.souvenir.spring.stereotype.repository.CaptchaRepository;
 import com.mtsmda.souvenir.spring.stereotype.repository.impl.java_standard.rowMapper.CaptchaMapper;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -194,28 +195,39 @@ public class CaptchaRepositoryImplSPJavaStandard implements CaptchaRepository {
 
     @Transactional(readOnly = true)
     @Override
-    public boolean checkCaptcha(Captcha captcha) {
+    public Captcha checkCaptcha(Captcha captcha) {
         if (captcha == null) {
-            throw new SouvenirRuntimeException("getRandomCaptcha - Null pointer Exception!");
+            throw new SouvenirRuntimeException("checkCaptcha - Null pointer Exception!");
         }
         CaptchaMapper captchaMapper = new CaptchaMapper();
         List<String> keysList = new ArrayList<>();
-        ListHelper.getList(keysList, CAPTCHA_ID_IN_SP_PARAM_NAME, CAPTCHA_VALUE_IN_SP_PARAM_NAME);
         HashMap<String, Object> mapParam = new HashMap<>();
-        MapHelper.getMap(mapParam, keysList, captcha.getCaptchaId(), captcha.getCaptchaValue());
+        String spName = null;
+        if(StringUtils.isNotBlank(captcha.getCaptchaUrlFile()) && StringUtils.isNotBlank(captcha.getCaptchaValue())){
+            ListHelper.getList(keysList, CAPTCHA_VALUE_IN_SP_PARAM_NAME, CAPTCHA_URL_FILE_IN_SP_PARAM_NAME);
+            MapHelper.getMap(mapParam, keysList, captcha.getCaptchaValue(), captcha.getCaptchaUrlFile().replace("//", "_"));
+            spName = CHECK_CAPTCHA_BY_URL_AND_VALUE_SP_NAME;
+        }else if(captcha.getCaptchaId() != null && StringUtils.isNotBlank(captcha.getCaptchaValue())){
+            ListHelper.getList(keysList, CAPTCHA_ID_IN_SP_PARAM_NAME, CAPTCHA_VALUE_IN_SP_PARAM_NAME);
+            MapHelper.getMap(mapParam, keysList, captcha.getCaptchaId(), captcha.getCaptchaValue());
+            spName = CHECK_CAPTCHA_SP_NAME;
+        }else{
+            throw new SouvenirRuntimeException("checkCaptcha - captcha url file and value is null or empty OR id and value is null");
+        }
+
         try (Connection connection = this.dataSource.getConnection();
              CallableStatement callableStatement = SouvenirStandardSPHelper.execute(connection,
-                CHECK_CAPTCHA_SP_NAME, mapParam, false);) {
+                     spName, mapParam, false);) {
             ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 Captcha mapRow = captchaMapper.mapRow(rs);
                 if (mapRow != null && mapRow.getCaptchaId() != null) {
-                    return true;
+                    return mapRow;
                 }
             }
         } catch (SQLException e) {
             SouvenirExceptionHandler.handle("checkCaptcha", e);
         }
-        return false;
+        return null;
     }
 }

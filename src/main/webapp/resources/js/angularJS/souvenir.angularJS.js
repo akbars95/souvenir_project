@@ -30,6 +30,12 @@ souvenirApp.constant("GET_ERROR_CODE", "109");
 
 /* Ctrl */
 
+/* menu */
+souvenirApp.controller('menuCtrl',
+    function ($scope, $http, $timeout, hostConst) {
+
+});
+
 /* fixed piece */
 souvenirApp.controller('fixedPieceCtrl', function ($scope, $http) {
     $scope.skypeLinkClass = "skypeClose";
@@ -87,7 +93,7 @@ souvenirApp
     .controller(
     'catalogCtrl',
     function ($scope, $http, $timeout, hostConst, restConst, $location, OK_CODE, ERROR_CODE, INSERT_OK_CODE, INSERT_ERROR_CODE, UPDATE_OK_CODE, UPDATE_ERROR_CODE, DELETE_OK_CODE, DELETE_ERROR_CODE, GET_OK_CODE, GET_ERROR_CODE) {
-        var get_all_souvenirsURL = "/get_all_souvenirs";
+        var get_all_souvenirsURL = restConst + "/get_all_souvenirs";
 
         $scope.souvenirs = [];
         $http.get(hostConst + get_all_souvenirsURL).success(
@@ -264,9 +270,7 @@ souvenirApp.controller('aboutUsCtrl', function ($scope, $http, $timeout,
 });
 
 /*registration*/
-souvenirApp
-    .controller(
-    'contactUsCtrl',
+souvenirApp.controller('contactUsCtrl',
     function ($scope, $http, $timeout, hostConst, restConst) {
         $scope.set = function(token){
             $scope.csrf_token_value = token;
@@ -284,9 +288,8 @@ souvenirApp
         /* paths */
         $scope.updateCaptchaURL = hostConst + restConst + "/update_captcha";
         $scope.initCaptchaURL = hostConst + restConst + "/init_captcha";
-        $scope.sendEmailURLURL = hostConst + "/sendemail";
-        $scope.sendemailWithFileURL = hostConst
-            + "/sendemailWithFile";
+        $scope.sendEmailURL = hostConst + restConst + "/sendemail";
+        $scope.sendemailWithFileURL = hostConst + restConst + "/sendemailWithFile";
         $scope.check_captchaURL = hostConst + restConst + "/check_captcha";
 
         /* variables */
@@ -294,20 +297,47 @@ souvenirApp
         $scope.responseFormError = false;
         $scope.showFileUpload = false;
         $scope.checkCaptchaResult = true;
+        $scope.captchaResponse;
+        $scope.currentCaptcha = {};
 
         /* functions */
         $scope.refreshCaptcha = function (code) {
-            $scope.showEC = "refreshCaptcha";
             if(code == 0){
+            $scope.showEC = true;
                 $http.get($scope.initCaptchaURL)
                     .then(function(response) {
-                        $scope.showEC = "";
-                        console.log("response - " + response);
+                    /*console.log(response.data);
+                    console.log(response.status);
+                    console.log(response.headers);
+                    console.log(response.config);
+                    console.log(response.statusText);*/
+                    $scope.captchaResponse = response.data;
+                    $scope.currentCaptcha.captchaUrlFile = hostConst
+                                            + $scope.captchaResponse.pathWhereCaptchaImage + $scope.captchaResponse.currentCaptchaImageName;
+                    $scope.showEC = false;
                     }, function(response) {
-                        $scope.showEC = "";
                         console.log();
+                        $scope.showEC = false;
                     });
+            }else{
+                $scope.showEC = true;
+                $timeout( function(){  }, 5000);
+                if($scope.captchaResponse){
+                    var nextImageIndex, currentIndex;
+                    do{
+                        nextImageIndex = Math.round(Math.random() * $scope.captchaResponse.captchaImageName.length);
+                        currentIndex = $scope.getIndexFromArray($scope.captchaResponse.captchaImageName, $scope.captchaResponse.currentCaptchaImageName);
+                    }while(nextImageIndex == currentIndex);
+                    $scope.captchaResponse.currentCaptchaImageName = $scope.captchaResponse.captchaImageName[nextImageIndex];
+                    if($scope.captchaResponse.currentCaptchaImageName == undefined){
+                        $scope.refreshCaptcha(1);
+                    }
+                    $scope.currentCaptcha.captchaUrlFile = hostConst
+                                            + $scope.captchaResponse.pathWhereCaptchaImage + $scope.captchaResponse.currentCaptchaImageName;
+                }
+                $scope.showEC = false;
             }
+
 
             /*var dataObj = {
                 captchaId: $scope.currentCaptcha.captchaId
@@ -335,20 +365,26 @@ souvenirApp
                     while(resultStatus != 200){
                         var img = Math.round(Math.random() * 100);
                         var currentImageURL = hostConst + "/resources/images/captcha/i" + img + ".png";
-                        $http.get(currentImageURL).success(function (data, status, headers, config){
-                            resultStatus = status;
-                            resultData = data;
-                            $scope.showEC = "";
-                        }).error(function (data, status, header, config){
-                            resultStatus = status;
-                            $scope.showEC = "";
-                        });
                     }
-                    console.log(resultStatus);
-                    console.log(resultData);
                 }*/
         };
         $scope.refreshCaptcha(0);
+
+        $scope.getIndexFromArray = function(currentArray, currentValue){
+            for(i = 0; i < currentArray.length; i++){
+                if(currentArray[i] == currentValue){
+                    return i;
+                }
+            }
+            /*angular.forEach(currentArray, function(arrayCurrentValue, index){
+                if(arrayCurrentValue == currentValue){
+                    return index;
+                }
+                index++;
+                console.log(index);
+            });*/
+            return -1;
+        };
 
         $scope.sendFormToServer = function () {
             if ($scope.showFileUpload) {
@@ -373,7 +409,8 @@ souvenirApp
                  */
                 var config = {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                        'X-XSRF-TOKEN': $scope.csrf_token_value
                     }
                 };
 
@@ -389,26 +426,20 @@ souvenirApp
             } else {
 
                 var dataToServer = {
-                    "message": {
-                        "messageId": "",
-                        "messageName": $scope.formDataSendEmail.messageName,
-                        "messageEmail": $scope.formDataSendEmail.messageEmail,
-                        "messageText": $scope.formDataSendEmail.messageText,
-                        "messageCaptchaId": $scope.currentCaptcha.captchaId
-                    },
-                    "captcha": {
-                        "captchaId": $scope.currentCaptcha.captchaId,
-                        "captchaValue": $scope.formDataSendEmail.messageCaptcha,
-                        "captchaUrlFile": ""
+                    "messageSendPersonName" : $scope.formDataSendEmail.messageName,
+                    "messageSendPersonEmail" : $scope.formDataSendEmail.messageEmail,
+                    "messageSendPersonMessage" : $scope.formDataSendEmail.messageText,
+                    "captchaPersonWrote" : $scope.formDataSendEmail.messageCaptcha,
+                    "captchaFileName" : $scope.captchaResponse.pathWhereCaptchaImage + $scope.captchaResponse.currentCaptchaImageName
+                };
+
+                var config = {
+                    headers: {
+                        'X-XSRF-TOKEN': $scope.csrf_token_value
                     }
                 };
 
-                /*
-                 * var data = 'messageName=' +
-                 * $scope.formDataSendEmail.messageName
-                 */
-
-                $http.post($scope.sendEmailURLURL, dataToServer)
+                $http.post($scope.sendEmailURL, dataToServer, config)
                     .success(function (response) {
                         console.log(response);
                         $scope.responseFormSuccess = true;
@@ -428,6 +459,7 @@ souvenirApp
             $scope.formDataSendEmail.messageEmail = "";
             $scope.formDataSendEmail.messageText = "";
             $scope.formDataSendEmail.messageCaptcha = "";
+            $scope.refreshCaptcha(1);
         };
 
         $scope.checkCaptcha = function () {

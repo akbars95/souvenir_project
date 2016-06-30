@@ -159,8 +159,8 @@
 										<spring:message
 											code="page.contactus.form.сaptcha.error.required" />
 									</span> <img ng-src="{{currentCaptcha.captchaUrlFile}}" /> <img
-										ng-class="showEC" id="refreshCaptchaBtn"
-										ng-click="refreshCaptcha()"
+										ng-class="{'refreshCaptchaRun':showEC}" id="refreshCaptchaBtn"
+										ng-click="refreshCaptcha(1)"
 										src="<spring:url value="/resources/images/arrow_refresh.png" htmlEscape="true"/>" />
 								</div>
 							</div>

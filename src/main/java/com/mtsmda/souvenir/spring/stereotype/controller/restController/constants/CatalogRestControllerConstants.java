@@ -5,7 +5,7 @@ import static com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticP
 /**
  * Created by dminzat on 3/29/2016.
  */
-public class CatalogRestControllerConstants {
+public interface CatalogRestControllerConstants {
 
     public static final String GET_ALL_SOUVENIRS_PIECE = "get_all_souvenirs";
 

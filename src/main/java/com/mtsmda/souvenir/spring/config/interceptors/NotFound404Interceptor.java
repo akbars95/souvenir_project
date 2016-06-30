@@ -19,8 +19,8 @@ public class NotFound404Interceptor extends HandlerInterceptorAdapter {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        /*super.postHandle(request, response, handler, modelAndView);
+        /*super.postHandle(request, DTOresponse, handler, modelAndView);
         System.out.println(modelAndView.getView() != null);
-        response.sendRedirect(request.getContextPath() + "/404.jsp");*/
+        DTOresponse.sendRedirect(request.getContextPath() + "/404.jsp");*/
     }
 }

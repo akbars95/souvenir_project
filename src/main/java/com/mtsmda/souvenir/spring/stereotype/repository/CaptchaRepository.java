@@ -16,6 +16,6 @@ public interface CaptchaRepository {
 	public Captcha getRandomCaptcha(CaptchaUpdateRO captchaUpdateRO);
 
 	public Integer getMaxIdCaptcha();
-	public boolean checkCaptcha(Captcha captcha);
+	public Captcha checkCaptcha(Captcha captcha);
 	
 }

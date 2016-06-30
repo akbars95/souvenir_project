@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by MTSMDA on 11.06.2016.
  */
 @RestController
-@RequestMapping(value = StaticPageConstants.REST_PATH_URL, method = RequestMethod.GET)
+@RequestMapping(value = StaticPageConstants.REST_PATH_URL)
 public class RegistrationRestController {
 
     @Autowired

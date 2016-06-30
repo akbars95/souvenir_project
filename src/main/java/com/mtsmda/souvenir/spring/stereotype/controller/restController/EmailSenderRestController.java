@@ -1,18 +1,20 @@
 package com.mtsmda.souvenir.spring.stereotype.controller.restController;
 
+import com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants;
+import com.mtsmda.souvenir.spring.stereotype.controller.restController.constants.EmailSenderRestControllerConstants;
+import com.mtsmda.souvenir.spring.stereotype.service.SendEmailService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import com.mtsmda.souvenir.dto.MessageCaptchaDTO;
-import com.mtsmda.souvenir.model.Captcha;
-import com.mtsmda.souvenir.model.Message;
+import com.mtsmda.souvenir.spring.stereotype.object.request.MessageCaptchaRO;
 import com.mtsmda.souvenir.spring.stereotype.service.MessageService;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 @RestController
-public class EmailSenderRestController {
+@RequestMapping(value = StaticPageConstants.REST_PATH_URL)
+public class EmailSenderRestController implements EmailSenderRestControllerConstants{
 
     private Logger logger = Logger.getLogger(getClass());
 
@@ -24,48 +26,31 @@ public class EmailSenderRestController {
     @Qualifier("messageService")
     private MessageService messageService;
 
+    @Autowired
+    @Qualifier("sendEmailService")
+    private SendEmailService sendEmailService;
+
     /*@Autowired
     @Qualifier("velocityEngine")
     private VelocityEngine velocityEngine;*/
 
-    @RequestMapping(value = "/sendemail", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public boolean emailSend(@RequestBody MessageCaptchaDTO messageCaptchaDTO ) {
-        logger.info("new message - " + messageCaptchaDTO.toString());
-        System.out.println(messageCaptchaDTO);
-        boolean insertMessage = messageService.insertMessage(messageCaptchaDTO.getMessage());
-        /*insertMessage = false;
-        if (!insertMessage) {
-            throw new RuntimeException("Error");
-        }*/
-        return insertMessage;
+    @RequestMapping(value = SEND_EMAIL_PIECE_URL, method = RequestMethod.POST)
+    public boolean emailSend(@RequestBody MessageCaptchaRO messageCaptchaRO ) {
+        logger.info("new message - " + messageCaptchaRO.toString());
+        if(messageCaptchaRO != null){
+            sendEmailService.sendEmail(messageCaptchaRO);
+        }
+//        boolean insertMessage = messageService.insertMessage(messageCaptchaDTO.getMessage());
+//        return insertMessage;
+        return true;
     }
     
-    @RequestMapping(value = "/getDTO", method = RequestMethod.GET)
-    public MessageCaptchaDTO getDTO() {
-    	MessageCaptchaDTO messageCaptchaDTO = new MessageCaptchaDTO();
-    	Message message = new Message();
-    	message.setMessageCaptchaId(19);
-    	message.setMessageEmail("ivan.ivanov@gmail.com");
-    	message.setMessageId(1);
-    	message.setMessageName("Ivan");
-    	message.setMessageText("Hello, my name is Ivan, I from Moldova this is very good site Thanks, Ivan");
-    	
-    	Captcha captcha = new Captcha();
-    	captcha.setCaptchaId(message.getMessageCaptchaId());
-    	captcha.setCaptchaValue("5sdf4s5fs");
-    	captcha.setCaptchaUrlFile("/dfd/sfsdf512/52689");
-    	
-    	messageCaptchaDTO.setMessage(message);
-    	messageCaptchaDTO.setCaptcha(captcha);
-    	return messageCaptchaDTO;
-    }
-
-    @RequestMapping(value = "/sendemailWithFile", method = RequestMethod.POST)
-    public String sendEmail(@RequestParam(value = "messageName", required = false) String messageName,
+    @RequestMapping(value = SEND_EMAIL_WITH_FILE_PIECE_URL, method = RequestMethod.POST)
+    public String emailSendWithFile(@RequestParam(value = "messageName", required = false) String messageName,
                             @RequestParam(value = "messageEmail", required = false) String messageEmail,
                             @RequestParam(value = "messageText", required = false) String messageText,
-                            @RequestParam(value = "messageCaptcha", required = false) String messageCaptcha/*,
-                            final @RequestParam CommonsMultipartFile attachFile*/) {
+                            @RequestParam(value = "messageCaptcha", required = false) String messageCaptcha,
+                            final @RequestParam CommonsMultipartFile attachFile) {
 
 
         System.out.println(messageName + " - " + messageCaptcha);

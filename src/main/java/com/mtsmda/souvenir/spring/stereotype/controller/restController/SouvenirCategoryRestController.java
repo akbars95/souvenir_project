@@ -1,6 +1,7 @@
 package com.mtsmda.souvenir.spring.stereotype.controller.restController;
 
-import com.mtsmda.souvenir.dto.SouvenirCategoryDTO;
+import com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants;
+import com.mtsmda.souvenir.spring.stereotype.object.request.SouvenirCategoryDTO;
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.spring.stereotype.controller.restController.constants.SouvenirCategoryRestConstants;
 import com.mtsmda.souvenir.spring.stereotype.service.SouvenirCategoryService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;;
 
 @RestController
+@RequestMapping(value = StaticPageConstants.REST_PATH_URL)
 public class SouvenirCategoryRestController {
 
     @Autowired

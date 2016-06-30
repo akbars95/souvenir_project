@@ -31,7 +31,7 @@
 <body style="display: inherit !important;" ng-app="souvenirApp">
 
 	<div ng-controller="fixedPieceCtrl">
-		<div class="fixedPieceInfoButton"  ng-cloak>
+		<div class="fixedPieceInfoButton" ng-cloak>
 			<div class="infoBtn" ng-click="infoBtnClick()">
 				<spring:message code="fixed.piece.info.btn_title" />
 			</div>

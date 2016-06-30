@@ -1,5 +1,6 @@
 package com.mtsmda.souvenir.spring.stereotype.controller.restController;
 
+import com.mtsmda.souvenir.spring.stereotype.controller.constants.StaticPageConstants;
 import com.mtsmda.souvenir.spring.stereotype.controller.response.ResponseCode;
 import com.mtsmda.souvenir.spring.stereotype.controller.response.SouvenirResponseObject;
 import com.mtsmda.souvenir.spring.stereotype.controller.restController.constants.SouvenirRestConstants;
@@ -23,6 +24,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@RequestMapping(value = StaticPageConstants.REST_PATH_URL)
 public class SouvenirRestController {
 
 	@Autowired

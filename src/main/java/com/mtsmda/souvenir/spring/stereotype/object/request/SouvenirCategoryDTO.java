@@ -1,11 +1,9 @@
-package com.mtsmda.souvenir.dto;
+package com.mtsmda.souvenir.spring.stereotype.object.request;
 
-import com.mtsmda.souvenir.model.Souvenir;
 import com.mtsmda.souvenir.model.SouvenirCategory;
 import com.mtsmda.souvenir.model.modelI.SouvenirCategoryI;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by dminzat on 4/6/2016.

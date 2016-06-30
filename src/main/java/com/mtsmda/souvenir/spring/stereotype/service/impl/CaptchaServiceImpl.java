@@ -59,7 +59,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 	}
 
 	@Override
-	public boolean checkCaptcha(Captcha captcha) {
+	public Captcha checkCaptcha(Captcha captcha) {
 		return captchaRepository.checkCaptcha(captcha);
 	}
 

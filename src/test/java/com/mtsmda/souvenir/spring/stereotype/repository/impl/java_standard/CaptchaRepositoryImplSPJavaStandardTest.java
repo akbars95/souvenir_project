@@ -130,21 +130,19 @@ public class CaptchaRepositoryImplSPJavaStandardTest extends ParentTest {
 
     @Test()
     public void test95CheckCaptcha(){
-        boolean b = captchaRepository.checkCaptcha(captcha);
-        assertTrue(b);
+        assertNotNull(captchaRepository.checkCaptcha(captcha));
     }
 
     @Test(expected = SouvenirRuntimeException.class)
     public void test96CheckCaptchaException(){
         Captcha captcha = null;
-        boolean b = captchaRepository.checkCaptcha(captcha);
+        assertNotNull(captchaRepository.checkCaptcha(captcha));
     }
 
     @Test()
     public void test97CheckCaptchaException(){
         captcha.setCaptchaId(null);
-        boolean b = captchaRepository.checkCaptcha(captcha);
-        assertFalse(b);
+        assertNotNull(captchaRepository.checkCaptcha(captcha));
     }
 
 
