@@ -38,11 +38,11 @@ public class EmailSenderRestController implements EmailSenderRestControllerConst
     public boolean emailSend(@RequestBody MessageCaptchaRO messageCaptchaRO ) {
         logger.info("new message - " + messageCaptchaRO.toString());
         if(messageCaptchaRO != null){
-            sendEmailService.sendEmail(messageCaptchaRO);
+            return sendEmailService.sendEmail(messageCaptchaRO);
         }
 //        boolean insertMessage = messageService.insertMessage(messageCaptchaDTO.getMessage());
 //        return insertMessage;
-        return true;
+        return false;
     }
     
     @RequestMapping(value = SEND_EMAIL_WITH_FILE_PIECE_URL, method = RequestMethod.POST)

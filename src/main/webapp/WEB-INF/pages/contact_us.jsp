@@ -193,6 +193,7 @@
 									class="btn btn-danger" name="reset">
 									<spring:message code="page.contactus.form.reset.btn" />
 								</button>
+								<input type="checkbox" ng-click="defaultData()">Default data</button>
 							</div>
 							<div
 								class="col-sm-offset-2 col-sm-5 col-xm-offset-2 col-xs-5 text-center">

@@ -272,6 +272,12 @@ souvenirApp.controller('aboutUsCtrl', function ($scope, $http, $timeout,
 /*registration*/
 souvenirApp.controller('contactUsCtrl',
     function ($scope, $http, $timeout, hostConst, restConst) {
+        $scope.defaultData = function(){
+            $scope.formDataSendEmail.messageName = "Ivan";
+            $scope.formDataSendEmail.messageEmail = "ivanov.ivan@gmail.com";
+            $scope.formDataSendEmail.messageText = "Very good and informative site!";
+        }
+
         $scope.set = function(token){
             $scope.csrf_token_value = token;
         };

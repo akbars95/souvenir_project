@@ -1,5 +1,15 @@
-Dear ${firstName} ${lastName}
+<div style="margin-left: 25%;color: green;background-color: azure;padding: 5px 20px;border: 1px solid red;text-align: center;">
+    <h1>This email from <span style="font-weight: bold;letter-spacing: 5px;border-bottom: 1px solid blue;">${emailWriter}</span></h1>
 
-Sending Email Using Spring Smtp Email + Velocity Template from ${location} location.
+    <p>Subject - email from site</p>
+    <p>This is email text</p>
+    <div>
+      ${emailWriterText}
+    </div>
+    <p>Server data time - ${serverDateTime}</p>
 
-Thanks
+    <p>Thanks, from <span style="color: brue;font-weight: bold;">${emailWriter}</span></p>
+    <div>P.S. - His email is - ${emailWriterEmailAddress}</div>
+    <p><a href="http://localhost:8989/souvenirs/contact_us"></a></p>
+<div>
+	

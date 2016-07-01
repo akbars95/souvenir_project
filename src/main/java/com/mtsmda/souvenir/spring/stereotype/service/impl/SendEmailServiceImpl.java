@@ -18,6 +18,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -25,6 +26,9 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.StringWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Created by dminzat on 6/27/2016.
@@ -80,10 +84,8 @@ public class SendEmailServiceImpl implements SendEmailService {
             }
         });
 
-        javax.mail.Message messageMail = new MimeMessage(session);
-
-
-
+        /*javax.mail.Message*/
+        MimeMessage messageMail = new MimeMessage(session);
 /*
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setFrom("souvenir.buy.site@gmail.com");
@@ -94,9 +96,10 @@ public class SendEmailServiceImpl implements SendEmailService {
 
 
         VelocityContext velocityContext = new VelocityContext();
-        velocityContext.put("firstName", "Yashwant");
-        velocityContext.put("lastName", "Chavan");
-        velocityContext.put("location", "Pune");
+        velocityContext.put("emailWriter", message.getMessageName());
+        velocityContext.put("emailWriterText", message.getMessageText());
+        velocityContext.put("emailWriterEmailAddress", message.getMessageEmail());
+        velocityContext.put("serverDateTime", LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")));
 
         StringWriter stringWriter = new StringWriter();
         template.merge(velocityContext, stringWriter);
@@ -105,11 +108,14 @@ public class SendEmailServiceImpl implements SendEmailService {
         try {
             messageMail.setFrom(new InternetAddress("souvenir.buy.site@gmail.com"));
             messageMail.setRecipient(javax.mail.Message.RecipientType.TO, new InternetAddress("souvenir.buy.site@gmail.com"));
-            messageMail.setSubject(message.getMessageName());
-            messageMail.setText(stringWriter.toString());
+            messageMail.setSubject("Subject - email from site");
+            messageMail.setText(stringWriter.toString(), "UTF-8", "html");
+
 //            mailSender.send(simpleMailMessage);
+//            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(messageMail);
             Transport.send(messageMail);
         } catch (MailException | MessagingException e) {
+            //https://www.google.com/settings/security/lesssecureapps - fix
             return false;
         }
         return true;
