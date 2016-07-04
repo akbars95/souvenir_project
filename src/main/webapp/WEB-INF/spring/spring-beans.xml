@@ -23,4 +23,15 @@
         </property>
     </bean>
 
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>classpath*:trans.properties</value>
+        </property>
+    </bean>
+
+    <bean id="defaultTransactionTimeOut2" class="com.mtsmda.souvenir.spring.stereotype.DefaultTransactionTimeOut2">
+        <property name="small" value="${def.tran.time.out.small}"/>
+        <property name="medium" value="${def.tran.time.out.medium}"/>
+    </bean>
+
 </beans>
