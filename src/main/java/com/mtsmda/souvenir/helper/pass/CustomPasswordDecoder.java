@@ -1,5 +1,7 @@
 package com.mtsmda.souvenir.helper.pass;
 
+import com.mtsmda.souvenir.helper.ListHelper;
+import com.mtsmda.souvenir.helper.SetHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -14,15 +16,17 @@ public class CustomPasswordDecoder {
     private List<Character> characters = new ArrayList<>();
 
     {
-        initCharters(33, 126);
-        initCharters(130, 140);
-        initCharters(145, 148);
-        initCharters(150, 156);
-        initCharters(161, 191);
-        initCharters(697, 740);
+        Set<Character> temp = new HashSet<>();
+        initCharters(temp, 33, 126);
+        initCharters(temp, 130, 140);
+        initCharters(temp, 145, 148);
+        initCharters(temp, 150, 156);
+        initCharters(temp, 161, 191);
+        initCharters(temp, 697, 740);
+        SetHelper.convertSetToList(temp, characters);
     }
 
-    private void initCharters(final int start, int end) {
+    private void initCharters(Set<Character> characters, final int start, int end) {
         for (int i = start; i <= end; i++) {
             characters.add((char) i);
         }
@@ -87,7 +91,11 @@ public class CustomPasswordDecoder {
             System.out.println("original\t" + original);
             int localShift = 9;
             for(int i = 0; i < original.length(); i++){
-                result.append(characters.get(original.charAt(i) - localShift));
+                char currentChar = original.charAt(i);
+                char currentCharWithShift = (char) (currentChar - localShift);
+                int indexByObject = ListHelper.getIndexByObject(characters, currentCharWithShift);
+                result.append(characters.get(indexByObject));
+//                result.append(characters.get(ListHelper.getIndexByObject(characters, ((char)(original.charAt(i) - 9)))));
             }
         }
         return result.toString();

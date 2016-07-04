@@ -10,6 +10,5 @@
 
     <p>Thanks, from <span style="color: brue;font-weight: bold;">${emailWriter}</span></p>
     <div>P.S. - His email is - ${emailWriterEmailAddress}</div>
-    <p><a href="http://localhost:8989/souvenirs/contact_us"></a></p>
 <div>
 	

@@ -40,8 +40,6 @@ public class EmailSenderRestController implements EmailSenderRestControllerConst
         if(messageCaptchaRO != null){
             return sendEmailService.sendEmail(messageCaptchaRO);
         }
-//        boolean insertMessage = messageService.insertMessage(messageCaptchaDTO.getMessage());
-//        return insertMessage;
         return false;
     }
     
@@ -51,69 +49,7 @@ public class EmailSenderRestController implements EmailSenderRestControllerConst
                             @RequestParam(value = "messageText", required = false) String messageText,
                             @RequestParam(value = "messageCaptcha", required = false) String messageCaptcha,
                             final @RequestParam CommonsMultipartFile attachFile) {
-
-
-        System.out.println(messageName + " - " + messageCaptcha);
-        /*SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom(mail.getMailFrom());
-        message.setTo(mail.getMailTo());
-        message.setSubject(mail.getMailSubject());
-
-        Template template = velocityEngine.getTemplate("./templates/" + mail.getTemplateName());
-
-        VelocityContext velocityContext = new VelocityContext();
-        velocityContext.put("firstName", "Yashwant");
-        velocityContext.put("lastName", "Chavan");
-        velocityContext.put("location", "Pune");
-
-        StringWriter stringWriter = new StringWriter();
-
-        template.merge(velocityContext, stringWriter);
-
-        message.setText(stringWriter.toString());
-
-        mailSender.send(message);*/
-
-
-
-        /*final String emailTo = request.getParameter("mailTo");
-        final String subject = request.getParameter("subject");
-        final String message = request.getParameter("message");
-
-        // for logging
-        System.out.println("emailTo: " + emailTo);
-        System.out.println("subject: " + subject);
-        System.out.println("message: " + message);
-        System.out.println("attachFile: " + attachFile.getOriginalFilename());*/
-
-        /*mailSender.send(new MimeMessagePreparator() {
-            @Override
-            public void prepare(MimeMessage mimeMessage) throws Exception {
-                MimeMessageHelper messageHelper = new MimeMessageHelper(
-                        mimeMessage, true, "UTF-8");
-                messageHelper.setTo(emailTo);
-                messageHelper.setSubject(subject);
-                messageHelper.setText(message);
-
-                // determines if there is an upload file, attach it to the e-mail
-                String attachName = attachFile.getOriginalFilename();
-                if (!attachFile.equals("")) {
-
-                    messageHelper.addAttachment(attachName, new InputStreamSource() {
-
-                        @Override
-                        public InputStream getInputStream() throws IOException {
-                            return attachFile.getInputStream();
-                        }
-                    });
-                }
-
-            }
-
-        });*/
-
-        return "Result";
+        return null;
     }
 
 }

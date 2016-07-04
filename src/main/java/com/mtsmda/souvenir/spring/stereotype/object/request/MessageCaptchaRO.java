@@ -32,6 +32,8 @@ public class MessageCaptchaRO {
 	@Size(min = 10, max = 250, groups = FirstSequence.class)
 	private String captchaFileName;
 
+	private String [] attachedFiles;
+
 	public MessageCaptchaRO() {
 
 	}
@@ -70,6 +72,14 @@ public class MessageCaptchaRO {
 
 	public String getCaptchaFileName() {
 		return captchaFileName;
+	}
+
+	public String[] getAttachedFiles() {
+		return attachedFiles;
+	}
+
+	public void setAttachedFiles(String[] attachedFiles) {
+		this.attachedFiles = attachedFiles;
 	}
 
 	public void setCaptchaFileName(String captchaFileName) {
