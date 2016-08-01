@@ -20,4 +20,9 @@ public class ScheduledTasks {
     public void getExchangeRateFromBNM(){
         String actualRateFromBNM = exchangeRateBNMMD.getActualRateFromBNM();
     }
+
+    @Scheduled(fixedDelay =30000)
+    public void demoServiceMethod () {
+        System.out.println("demoServiceMethod - 3");
+    }
 }

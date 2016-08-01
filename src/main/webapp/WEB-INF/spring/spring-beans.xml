@@ -23,4 +23,8 @@
         </property>
     </bean>
 
+    <bean id="contextStartedEventApplicationListener" class="com.mtsmda.souvenir.spring.stereotype.applistener.ContextStartedEventApplicationListener">
+
+    </bean>
+
 </beans>
